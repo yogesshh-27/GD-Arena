@@ -21,6 +21,8 @@ import {
   Zap,
   ArrowLeft,
   ChevronRight,
+  Globe,
+  AlertCircle,
 } from 'lucide-react';
 
 interface AIGDRoomPageProps {
@@ -58,6 +60,9 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
   // Microphone & Speech State
   const [isMicMuted, setIsMicMuted] = useState(false);
   const [isAudioMuted, setIsAudioMuted] = useState(false);
+  const [speechLanguage, setSpeechLanguage] = useState<'en-IN' | 'hi-IN' | 'en-US'>('en-IN');
+  const [interimSpeech, setInterimSpeech] = useState('');
+  const [micError, setMicError] = useState<string | null>(null);
   const [studentInputText, setStudentInputText] = useState('');
   const [micVolume, setMicVolume] = useState(0);
   const [activeNudge, setActiveNudge] = useState<string | null>(null);
@@ -68,6 +73,45 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
   const volumeMeterRef = useRef<{ stop: () => void } | null>(null);
   const timerRef = useRef<any>(null);
   const transcriptScrollRef = useRef<HTMLDivElement | null>(null);
+
+  // Initialize Speech Recognizer
+  const setupSpeechRecognition = (lang: string) => {
+    if (recognizerRef.current) {
+      recognizerRef.current.stop();
+    }
+    setMicError(null);
+    try {
+      recognizerRef.current = createSpeechRecognizer(
+        (text, isFinal) => {
+          if (isFinal) {
+            setInterimSpeech('');
+            setStudentInputText((prev) => {
+              const trimmed = prev.trim();
+              return trimmed ? `${trimmed} ${text}` : text;
+            });
+          } else {
+            setInterimSpeech(text);
+          }
+        },
+        (err) => {
+          setMicError(err);
+        },
+        lang
+      );
+      if (!isMicMuted) {
+        recognizerRef.current.start();
+      }
+    } catch (e: any) {
+      setMicError(e.message || 'Speech recognition initialization failed');
+    }
+  };
+
+  const handleLanguageChange = (newLang: 'en-IN' | 'hi-IN' | 'en-US') => {
+    setSpeechLanguage(newLang);
+    if (recognizerRef.current) {
+      recognizerRef.current.setLanguage(newLang);
+    }
+  };
 
   // Auto-scroll transcript
   useEffect(() => {
@@ -98,6 +142,15 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
       setParticipants(sessionRes.participants);
       setSecondsRemaining(durationSeconds);
       setPhase('pre_discussion');
+
+      // Start volume meter early in pre_discussion for equipment check
+      try {
+        volumeMeterRef.current = await setupMicrophoneVolumeMeter((vol) => {
+          setMicVolume(vol);
+        });
+      } catch {
+        // Handled in UI
+      }
     } catch (err: any) {
       alert(`Room creation failed: ${err.message}`);
     }
@@ -117,23 +170,16 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
       setActiveSpeakerName(openingTurn.speaker_name);
 
       // 2. Setup Microphone & Speech Recognizer gracefully
-      try {
-        recognizerRef.current = createSpeechRecognizer((text, isFinal) => {
-          if (isFinal && text.trim()) {
-            handleStudentSubmit(text.trim());
-          }
-        });
-        recognizerRef.current.start();
-      } catch (recErr) {
-        console.warn('Speech recognizer non-blocking note:', recErr);
-      }
+      setupSpeechRecognition(speechLanguage);
 
-      try {
-        volumeMeterRef.current = await setupMicrophoneVolumeMeter((vol) => {
-          setMicVolume(vol);
-        });
-      } catch {
-        // Microphone hardware gracefully handled
+      if (!volumeMeterRef.current) {
+        try {
+          volumeMeterRef.current = await setupMicrophoneVolumeMeter((vol) => {
+            setMicVolume(vol);
+          });
+        } catch {
+          // Volume meter hardware gracefully handled
+        }
       }
 
       // 3. Speak Moderator Opening
@@ -219,21 +265,24 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
   };
 
   // 4. Student Submits Turn
-  const handleStudentSubmit = async (textToSend: string) => {
-    if (!sessionId || !textToSend.trim()) return;
+  const handleStudentSubmit = async (customText?: string) => {
+    const raw = customText !== undefined ? customText : `${studentInputText} ${interimSpeech}`.trim();
+    if (!sessionId || !raw.trim()) return;
     try {
+      setInterimSpeech('');
+      setStudentInputText('');
+      setActiveNudge(null);
+
       const wasAiSpeaking = activeSpeakerId !== null && activeSpeakerId !== 'student';
       if (wasAiSpeaking) {
         await handleBargeIn();
       }
 
       const res = await api.submitStudentTurn(sessionId, {
-        text: textToSend,
+        text: raw.trim(),
         is_interruption: wasAiSpeaking,
       });
       setTranscript((prev) => [...prev, res.entry]);
-      setStudentInputText('');
-      setActiveNudge(null);
 
       // Trigger next AI response after candidate speaks
       setTimeout(() => {
@@ -580,6 +629,76 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
             </span>
           </div>
 
+          {/* Discussion Language Preference */}
+          <div style={{ marginBottom: '1.5rem', padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(0, 0, 0, 0.25)', border: '1px solid var(--border-subtle)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
+              <Globe size={16} style={{ color: 'var(--accent-cyan)' }} />
+              <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#fff' }}>Preferred Discussion Language:</span>
+            </div>
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+              GD Arena participants and the AI Moderator understand and support English, Hindi, and Hinglish.
+            </p>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+              {[
+                { id: 'en-IN', label: 'Hinglish / Indian English', badge: 'Recommended' },
+                { id: 'hi-IN', label: 'Hindi / हिन्दी', badge: 'Native' },
+                { id: 'en-US', label: 'English (US)', badge: 'Standard' },
+              ].map((lang) => (
+                <button
+                  key={lang.id}
+                  type="button"
+                  onClick={() => handleLanguageChange(lang.id as any)}
+                  style={{
+                    padding: '0.5rem 0.85rem',
+                    borderRadius: 'var(--radius-sm)',
+                    border: speechLanguage === lang.id ? '1px solid var(--accent-cyan)' : '1px solid var(--border-subtle)',
+                    background: speechLanguage === lang.id ? 'rgba(56, 189, 248, 0.15)' : 'rgba(0,0,0,0.2)',
+                    color: speechLanguage === lang.id ? '#fff' : 'var(--text-secondary)',
+                    fontWeight: speechLanguage === lang.id ? 700 : 500,
+                    fontSize: '0.8rem',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                  }}
+                >
+                  <span>{lang.label}</span>
+                  <span style={{ fontSize: '0.65rem', padding: '0.1rem 0.35rem', borderRadius: '4px', background: speechLanguage === lang.id ? 'rgba(56, 189, 248, 0.3)' : 'rgba(255,255,255,0.08)', color: speechLanguage === lang.id ? 'var(--accent-cyan)' : 'var(--text-muted)' }}>
+                    {lang.badge}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Microphone & Hardware Check */}
+          <div style={{ marginBottom: '1.5rem', padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(0, 0, 0, 0.25)', border: '1px solid var(--border-subtle)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <Mic size={16} style={{ color: micVolume > 0.05 ? 'var(--accent-emerald)' : 'var(--accent-cyan)' }} />
+                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#fff' }}>Microphone Hardware Check:</span>
+              </div>
+              <span style={{ fontSize: '0.75rem', color: micVolume > 0.05 ? 'var(--accent-emerald)' : 'var(--text-muted)', fontWeight: 600 }}>
+                {micVolume > 0.05 ? '🟢 Audio Detected' : 'Listening for audio...'}
+              </span>
+            </div>
+
+            {/* Volume Meter Bar */}
+            <div style={{ width: '100%', height: '8px', borderRadius: '4px', background: 'rgba(255,255,255,0.1)', overflow: 'hidden' }}>
+              <div
+                style={{
+                  height: '100%',
+                  width: `${Math.min(100, Math.max(5, micVolume * 100))}%`,
+                  background: micVolume > 0.05 ? 'linear-gradient(90deg, #10b981, #38bdf8)' : 'rgba(255,255,255,0.2)',
+                  transition: 'width 0.1s ease',
+                }}
+              />
+            </div>
+            <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '0.4rem' }}>
+              Speak into your mic to verify sound input. You can also type text during the discussion if needed.
+            </p>
+          </div>
+
           {/* Participant Room Preview */}
           <div style={{ marginBottom: '1.5rem' }}>
             <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: '0.5rem' }}>
@@ -884,15 +1003,29 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                 >
                   YOU
                 </div>
-                <div>
-                  <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#fff' }}>Candidate (You)</div>
-                  <span style={{ fontSize: '0.7rem', color: isMicMuted ? 'var(--accent-rose)' : 'var(--accent-emerald)', fontWeight: 600 }}>
-                    {isMicMuted ? 'MIC MUTED' : 'MIC ACTIVE'}
+                <div style={{ flex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                  <div>
+                    <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#fff' }}>Candidate (You)</div>
+                    <span style={{ fontSize: '0.7rem', color: isMicMuted ? 'var(--accent-rose)' : 'var(--accent-emerald)', fontWeight: 600 }}>
+                      {isMicMuted ? 'MIC MUTED' : 'MIC ACTIVE'}
+                    </span>
+                  </div>
+                  <span style={{ fontSize: '0.68rem', padding: '0.15rem 0.45rem', borderRadius: '4px', background: 'rgba(56, 189, 248, 0.15)', color: 'var(--accent-cyan)', fontWeight: 600 }}>
+                    {speechLanguage === 'en-IN' ? 'Hinglish' : speechLanguage === 'hi-IN' ? 'Hindi' : 'English'}
                   </span>
                 </div>
               </div>
 
-              {micVolume > 0.05 ? (
+              {/* Real-time Voice & Audio Detection */}
+              {interimSpeech ? (
+                <div style={{ padding: '0.5rem', borderRadius: 'var(--radius-sm)', background: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.35)', marginBottom: '0.5rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', marginBottom: '0.2rem' }}>
+                    <span className="speaking-pulse" style={{ display: 'inline-block', width: '7px', height: '7px', borderRadius: '50%', background: 'var(--accent-cyan)' }} />
+                    <span style={{ fontSize: '0.7rem', color: 'var(--accent-cyan)', fontWeight: 700 }}>Speaking Now:</span>
+                  </div>
+                  <p style={{ fontSize: '0.8rem', color: '#fff', fontStyle: 'italic', margin: 0 }}>"{interimSpeech}"</p>
+                </div>
+              ) : micVolume > 0.05 ? (
                 <div className="waveform-container">
                   <div className="waveform-bar" />
                   <div className="waveform-bar" />
@@ -900,7 +1033,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                   <span style={{ fontSize: '0.75rem', color: 'var(--accent-emerald)', marginLeft: '6px' }}>Voice Detected</span>
                 </div>
               ) : (
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Ready to speak</div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Ready to speak ({speechLanguage === 'en-IN' ? 'Hinglish / English' : speechLanguage})</div>
               )}
             </div>
           </div>
@@ -958,8 +1091,9 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
             })}
           </div>
 
-          {/* Quick Interruption & Text Input Fallback Bar */}
-          <div style={{ padding: '1rem', borderTop: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          {/* Interaction & Voice Input Control Bar */}
+          <div style={{ padding: '1rem', borderTop: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+            {/* Barge-In Interrupt Button */}
             {activeSpeakerId && activeSpeakerId !== 'student' && (
               <button
                 type="button"
@@ -980,18 +1114,144 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                   gap: '0.4rem',
                 }}
               >
-                <Zap size={14} /> Interupt Current Speaker (Barge-In)
+                <Zap size={14} /> Interrupt Current Speaker (Barge-In)
               </button>
             )}
 
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+            {/* Microphone Error Notification */}
+            {micError && (
+              <div
+                style={{
+                  padding: '0.5rem 0.75rem',
+                  borderRadius: 'var(--radius-sm)',
+                  background: 'rgba(244, 63, 94, 0.15)',
+                  border: '1px solid rgba(244, 63, 94, 0.35)',
+                  color: 'var(--accent-rose)',
+                  fontSize: '0.75rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '0.5rem',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <AlertCircle size={14} style={{ flexShrink: 0 }} />
+                  <span>{micError}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setMicError(null)}
+                  style={{ background: 'none', border: 'none', color: 'var(--accent-rose)', cursor: 'pointer', fontSize: '0.85rem' }}
+                >
+                  ×
+                </button>
+              </div>
+            )}
+
+            {/* Live Transcribing Feedback Bubble */}
+            {interimSpeech && (
+              <div
+                style={{
+                  padding: '0.45rem 0.75rem',
+                  borderRadius: 'var(--radius-sm)',
+                  background: 'rgba(56, 189, 248, 0.12)',
+                  border: '1px solid rgba(56, 189, 248, 0.35)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '0.5rem',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: '#fff', overflow: 'hidden' }}>
+                  <span className="speaking-pulse" style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent-cyan)', flexShrink: 0 }} />
+                  <span style={{ color: 'var(--accent-cyan)', fontWeight: 700, flexShrink: 0 }}>Hearing:</span>
+                  <span style={{ fontStyle: 'italic', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>"{interimSpeech}"</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleStudentSubmit()}
+                  style={{
+                    padding: '0.2rem 0.55rem',
+                    borderRadius: '4px',
+                    border: 'none',
+                    background: 'var(--accent-cyan)',
+                    color: '#000',
+                    fontWeight: 700,
+                    fontSize: '0.7rem',
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                  }}
+                >
+                  Send Now
+                </button>
+              </div>
+            )}
+
+            {/* Language Selection & Mic Status Line */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <Globe size={13} style={{ color: 'var(--accent-cyan)' }} />
+                <span>Language:</span>
+                <select
+                  value={speechLanguage}
+                  onChange={(e) => handleLanguageChange(e.target.value as any)}
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.5)',
+                    border: '1px solid var(--border-subtle)',
+                    borderRadius: '4px',
+                    color: '#fff',
+                    fontSize: '0.72rem',
+                    padding: '0.15rem 0.35rem',
+                    cursor: 'pointer',
+                    outline: 'none',
+                  }}
+                >
+                  <option value="en-IN">Hinglish / Indian English (en-IN)</option>
+                  <option value="hi-IN">Hindi / हिन्दी (hi-IN)</option>
+                  <option value="en-US">English (US)</option>
+                </select>
+              </div>
+              <span style={{ fontSize: '0.7rem', color: isMicMuted ? 'var(--accent-rose)' : 'var(--accent-emerald)', fontWeight: 600 }}>
+                {isMicMuted ? '🔇 Mic Muted' : '🎙️ Mic Active'}
+              </span>
+            </div>
+
+            {/* Input Row: Mic Button + Text Box + Send */}
+            <div style={{ display: 'flex', gap: '0.45rem', alignItems: 'center' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  const nextMuted = !isMicMuted;
+                  setIsMicMuted(nextMuted);
+                  if (nextMuted && recognizerRef.current) {
+                    recognizerRef.current.stop();
+                  } else if (!nextMuted) {
+                    setupSpeechRecognition(speechLanguage);
+                  }
+                }}
+                title={isMicMuted ? 'Turn Microphone On' : 'Turn Microphone Off'}
+                style={{
+                  padding: '0.55rem',
+                  borderRadius: 'var(--radius-sm)',
+                  border: isMicMuted ? '1px solid var(--border-subtle)' : '1px solid rgba(56, 189, 248, 0.5)',
+                  background: isMicMuted ? 'rgba(0, 0, 0, 0.3)' : 'rgba(56, 189, 248, 0.2)',
+                  color: isMicMuted ? 'var(--text-muted)' : 'var(--accent-cyan)',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {isMicMuted ? <MicOff size={16} /> : <Mic size={16} />}
+              </button>
+
               <input
                 type="text"
-                placeholder="Type or speak a point..."
+                placeholder={isMicMuted ? 'Type your point (or click mic to speak)...' : 'Listening... Speak in Hindi/English or type'}
                 value={studentInputText}
                 onChange={(e) => setStudentInputText(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleStudentSubmit(studentInputText);
+                  if (e.key === 'Enter') handleStudentSubmit();
                 }}
                 style={{
                   flex: 1,
@@ -1004,18 +1264,22 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                   outline: 'none',
                 }}
               />
+
               <button
                 type="button"
-                onClick={() => handleStudentSubmit(studentInputText)}
-                disabled={!studentInputText.trim()}
+                onClick={() => handleStudentSubmit()}
+                disabled={!studentInputText.trim() && !interimSpeech.trim()}
                 style={{
                   padding: '0.55rem 0.85rem',
                   borderRadius: 'var(--radius-sm)',
                   border: 'none',
-                  background: 'var(--accent-cyan)',
-                  color: '#000',
+                  background: !studentInputText.trim() && !interimSpeech.trim() ? 'rgba(255,255,255,0.1)' : 'var(--accent-cyan)',
+                  color: !studentInputText.trim() && !interimSpeech.trim() ? 'var(--text-muted)' : '#000',
                   fontWeight: 700,
-                  cursor: 'pointer',
+                  cursor: !studentInputText.trim() && !interimSpeech.trim() ? 'not-allowed' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 <Send size={15} />

@@ -40,7 +40,7 @@ class BrainConfig(BaseSettings):
 
     # Speech-to-Text Settings
     stt_provider: str = Field(default="demo", description="STT provider: demo, whisper, deepgram, google")
-    stt_language: str = Field(default="en-US", description="Primary transcription language")
+    stt_language: str = Field(default="en-IN", description="Primary transcription language (en-IN supports Indian English and Hinglish)")
     support_hinglish: bool = Field(default=True, description="Flag indicating Hindi-English code-switching support")
 
     # Text-to-Speech Settings

@@ -28,6 +28,7 @@ CRITICAL EVIDENCE RULES:
    3: Competent / Baseline
    4: Strong
    5: Outstanding
+5. Multilingual Evaluation: The candidate may contribute in English, Hindi, or Hinglish. Fairly assess the depth, logical reasoning, and teamwork of their arguments regardless of whether they speak in English, Hindi, or conversational Hinglish.
 
 Return valid JSON adhering to this schema:
 {

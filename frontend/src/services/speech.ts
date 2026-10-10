@@ -87,30 +87,37 @@ export function cancelSpokenAudio(): void {
 export interface SpeechRecognitionHandler {
   start: () => void;
   stop: () => void;
+  setLanguage: (lang: string) => void;
   isAvailable: boolean;
+  isListening: () => boolean;
 }
 
 export function createSpeechRecognizer(
   onTranscript: (text: string, isFinal: boolean) => void,
-  onError?: (err: string) => void
+  onError?: (err: string) => void,
+  defaultLang: string = 'en-IN'
 ): SpeechRecognitionHandler {
   const SpeechRecognition =
     (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
   if (!SpeechRecognition) {
+    if (onError) onError('Web Speech API is not supported in this browser. Please use Chrome/Edge or text input.');
     return {
-      start: () => {
-        if (onError) onError('Web Speech API is not supported in this browser. Please use text input.');
-      },
+      start: () => {},
       stop: () => {},
+      setLanguage: () => {},
       isAvailable: false,
+      isListening: () => false,
     };
   }
 
   const recognition = new SpeechRecognition();
   recognition.continuous = true;
   recognition.interimResults = true;
-  recognition.lang = 'en-US';
+  recognition.lang = defaultLang;
+
+  let activeListening = false;
+  let restartTimeout: any = null;
 
   recognition.onresult = (event: any) => {
     let interim = '';
@@ -133,27 +140,70 @@ export function createSpeechRecognizer(
   };
 
   recognition.onerror = (event: any) => {
-    if (onError && event.error !== 'no-speech') {
-      onError(`Speech recognition error: ${event.error}`);
+    if (event.error === 'no-speech') {
+      // Normal browser timeout during silence; onend will keep it alive
+      return;
+    }
+    if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+      activeListening = false;
+      if (onError) onError('Microphone access was denied. Please allow microphone permissions in your browser URL bar.');
+      return;
+    }
+    if (event.error === 'audio-capture') {
+      activeListening = false;
+      if (onError) onError('No microphone hardware detected.');
+      return;
+    }
+    if (event.error === 'aborted') {
+      return;
+    }
+    console.warn('Speech recognition warning:', event.error);
+  };
+
+  recognition.onend = () => {
+    // If user has not stopped listening, auto-restart to prevent silent timeouts in Chrome/Edge
+    if (activeListening) {
+      clearTimeout(restartTimeout);
+      restartTimeout = setTimeout(() => {
+        if (activeListening) {
+          try {
+            recognition.start();
+          } catch (e) {
+            // Already started
+          }
+        }
+      }, 300);
     }
   };
 
   return {
     start: () => {
+      activeListening = true;
       try {
         recognition.start();
-      } catch {
-        // Recognition already active
+      } catch (err) {
+        // Already active
       }
     },
     stop: () => {
+      activeListening = false;
+      clearTimeout(restartTimeout);
       try {
         recognition.stop();
-      } catch {
-        // Recognition already stopped
+      } catch (err) {
+        // Already stopped
+      }
+    },
+    setLanguage: (lang: string) => {
+      recognition.lang = lang;
+      if (activeListening) {
+        try {
+          recognition.stop();
+        } catch {}
       }
     },
     isAvailable: true,
+    isListening: () => activeListening,
   };
 }
 
