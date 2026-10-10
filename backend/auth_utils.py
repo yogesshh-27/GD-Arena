@@ -8,7 +8,10 @@ from typing import Optional
 import bcrypt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-import jwt
+try:
+    import jwt
+except ImportError:
+    from jose import jwt  # type: ignore
 from sqlalchemy.orm import Session
 
 from backend.database import get_db
