@@ -66,6 +66,17 @@ class TurnManager:
         - Recency and personality weight scoring
         - Moderator intervention criteria
         """
+        # Rule 0: If candidate is currently speaking / interrupted, candidate holds the floor
+        if self.active_speaker_id == "student":
+            return SpeakerDecision(
+                speaker_id="student",
+                speaker_name="Candidate",
+                speaker_type=SpeakerType.STUDENT,
+                reason="Candidate currently holds the floor during active contribution.",
+                confidence=1.0,
+                recommended_turn_type=TurnType.STATEMENT,
+            )
+
         # Rule 1: If closing phase triggered or time expired, Moderator directs closing
         time_remaining = total_duration_seconds - elapsed_seconds
         if time_remaining <= config.closing_threshold_seconds or is_closing_phase:

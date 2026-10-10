@@ -193,15 +193,19 @@ class BrainOrchestrator:
             raise ValueError("Student spoken content is empty.")
 
         # Interruption handling
-        if is_interruption and self.turn_manager.is_floor_busy():
+        if (is_interruption or self.turn_manager.is_floor_busy()) and self.turn_manager.active_speaker_id != "student":
             interrupted_id = self.turn_manager.handle_interruption(session_id, "student")
-            if interrupted_id:
+            if interrupted_id and interrupted_id != "student":
                 await self.tts_service.cancel_playback(session_id, interrupted_id)
                 await self.session_manager.record_interruption(session_id)
                 await self.event_service.publish(
                     session_id=session_id,
                     event_type="speech.interrupted",
-                    payload={"interrupted_speaker_id": interrupted_id, "interrupter": "student"},
+                    payload={
+                        "interrupted_speaker_id": interrupted_id,
+                        "interrupter": "student",
+                        "generation_id": session.active_generation_id,
+                    },
                 )
 
         self.turn_manager.set_active_speaker("student", SpeakerType.STUDENT)
@@ -219,7 +223,8 @@ class BrainOrchestrator:
         context = self.context_manager.get_context(session_id)
         context.register_turn(entry)
 
-        # Clear floor after candidate completes turn
+        # Clear floor and reset cancelled flag after candidate completes turn
+        session.active_ai_speech_cancelled = False
         self.turn_manager.clear_active_speaker()
 
         await self.event_service.publish(
@@ -252,6 +257,14 @@ class BrainOrchestrator:
 
         context = self.context_manager.get_context(session_id)
 
+        # Floor check: If student holds floor or AI was interrupted, do not generate AI turn
+        if self.turn_manager.active_speaker_id == "student" or session.active_ai_speech_cancelled:
+            return {
+                "action": "waiting_for_student",
+                "reason": "Candidate currently holds the floor.",
+                "generation_id": session.active_generation_id,
+            }
+
         # Turn manager chooses next speaker
         decision: SpeakerDecision = self.turn_manager.decide_next_speaker(
             participants=session.participants,
@@ -268,7 +281,7 @@ class BrainOrchestrator:
                 event_type="speaker.changed",
                 payload={"speaker_id": "student", "speaker_name": "Candidate", "action": "candidate_prompt"},
             )
-            return {"decision": decision, "action": "waiting_for_student"}
+            return {"decision": decision, "action": "waiting_for_student", "generation_id": session.active_generation_id}
 
         # If Moderator is selected
         if decision.speaker_type == SpeakerType.MODERATOR:
@@ -303,7 +316,12 @@ class BrainOrchestrator:
                 payload={"entry": entry.model_dump(), "audio": audio_meta},
             )
 
-            return {"decision": decision, "entry": entry, "audio": audio_meta}
+            return {
+                "decision": decision,
+                "entry": entry,
+                "audio": audio_meta,
+                "generation_id": session.active_generation_id,
+            }
 
         # Otherwise, an AI participant was selected
         participant = next((p for p in session.participants if p.id == decision.speaker_id), None)
@@ -311,6 +329,7 @@ class BrainOrchestrator:
             participant = session.participants[0]
 
         self.turn_manager.set_active_speaker(participant.id, SpeakerType.PARTICIPANT)
+        gen_id = session.active_generation_id
 
         response: ParticipantResponse = await self.participant_engine.generate_response(
             participant=participant,
@@ -319,10 +338,14 @@ class BrainOrchestrator:
         )
 
         # Verify not interrupted before committing entry
-        if session.active_ai_speech_cancelled:
+        if session.active_ai_speech_cancelled or session.active_generation_id != gen_id:
             session.active_ai_speech_cancelled = False
             self.turn_manager.clear_active_speaker()
-            return {"decision": decision, "status": "cancelled_due_to_interruption"}
+            return {
+                "decision": decision,
+                "status": "cancelled_due_to_interruption",
+                "generation_id": session.active_generation_id,
+            }
 
         entry = await self.session_manager.add_transcript_entry(
             session_id=session_id,
@@ -352,23 +375,37 @@ class BrainOrchestrator:
             payload={"entry": entry.model_dump(), "audio": audio_meta, "intent": response.intent},
         )
 
-        return {"decision": decision, "entry": entry, "audio": audio_meta}
+        return {"decision": decision, "entry": entry, "audio": audio_meta, "generation_id": gen_id}
 
     async def interrupt_speaker(self, session_id: str) -> Dict[str, Any]:
-        """Interrupts currently speaking AI participant."""
+        """Interrupts currently speaking AI participant and locks the floor for the candidate."""
         session = self.session_manager.get_session(session_id)
         current = self.turn_manager.active_speaker_id
-        if current:
+        await self.session_manager.record_interruption(session_id)
+
+        if current and current != "student":
             await self.tts_service.cancel_playback(session_id, current)
-            await self.session_manager.record_interruption(session_id)
             self.turn_manager.clear_active_speaker()
             await self.event_service.publish(
                 session_id=session_id,
                 event_type="speech.interrupted",
-                payload={"interrupted_speaker_id": current},
+                payload={
+                    "interrupted_speaker_id": current,
+                    "interrupter": "student",
+                    "generation_id": session.active_generation_id,
+                },
             )
-            return {"status": "interrupted", "interrupted_speaker_id": current}
-        return {"status": "no_active_speaker"}
+            return {
+                "status": "interrupted",
+                "interrupted_speaker_id": current,
+                "generation_id": session.active_generation_id,
+            }
+
+        self.turn_manager.clear_active_speaker()
+        return {
+            "status": "floor_transferred_to_student",
+            "generation_id": session.active_generation_id,
+        }
 
     async def end_session(self, session_id: str) -> FinalReport:
         """Concludes GD session and delivers formal conclusion."""

@@ -75,6 +75,7 @@ class SessionState:
 
         self.interruption_count: int = 0
         self.active_ai_speech_cancelled: bool = False
+        self.active_generation_id: int = 0
 
     def to_dict(self) -> dict:
         return {
@@ -250,4 +251,5 @@ class SessionManager:
         session = self.get_session(session_id)
         session.interruption_count += 1
         session.active_ai_speech_cancelled = True
+        session.active_generation_id += 1
         await self.repository.save_session(session_id, session.to_dict())

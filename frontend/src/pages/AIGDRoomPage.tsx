@@ -6,8 +6,9 @@ import {
   cancelSpokenAudio,
   createSpeechRecognizer,
   setupMicrophoneVolumeMeter,
+  setupMicrophoneVAD,
 } from '../services/speech';
-import type { SpeechRecognitionHandler } from '../services/speech';
+import type { SpeechRecognitionHandler, VADHandler } from '../services/speech';
 import {
   Mic,
   MicOff,
@@ -61,20 +62,95 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
   const [isMicMuted, setIsMicMuted] = useState(false);
   const [isAudioMuted, setIsAudioMuted] = useState(false);
   const [speechLanguage, setSpeechLanguage] = useState<'en-IN' | 'hi-IN' | 'en-US'>('en-IN');
-  const [interimSpeech, setInterimSpeech] = useState('');
+  const [provisionalSpeech, setProvisionalSpeech] = useState('');
+  const [accumulatedTurnText, setAccumulatedTurnText] = useState('');
+  const [isStudentSpeaking, setIsStudentSpeaking] = useState(false);
   const [micError, setMicError] = useState<string | null>(null);
   const [studentInputText, setStudentInputText] = useState('');
   const [micVolume, setMicVolume] = useState(0);
   const [activeNudge, setActiveNudge] = useState<string | null>(null);
   const [isEnding, setIsEnding] = useState(false);
 
-  // Refs
+  // Synchronization & Generation Tracking Refs
+  const activeSpeakerIdRef = useRef<string | null>(null);
+  const activeGenerationIdRef = useRef<number>(0);
+  const scheduleTimeoutRef = useRef<any>(null);
+  const silenceTimerRef = useRef<any>(null);
+  const isSubmittingTurnRef = useRef<boolean>(false);
+  const wasInterruptionRef = useRef<boolean>(false);
+  const accumulatedTurnTextRef = useRef<string>('');
+  const provisionalSpeechRef = useRef<string>('');
+
   const recognizerRef = useRef<SpeechRecognitionHandler | null>(null);
   const volumeMeterRef = useRef<{ stop: () => void } | null>(null);
+  const vadRef = useRef<VADHandler | null>(null);
   const timerRef = useRef<any>(null);
   const transcriptScrollRef = useRef<HTMLDivElement | null>(null);
 
-  // Initialize Speech Recognizer
+  // Keep active speaker ref synchronously synced
+  useEffect(() => {
+    activeSpeakerIdRef.current = activeSpeakerId;
+  }, [activeSpeakerId]);
+
+  // Keep text refs synced with state
+  useEffect(() => {
+    provisionalSpeechRef.current = provisionalSpeech;
+  }, [provisionalSpeech]);
+
+  useEffect(() => {
+    accumulatedTurnTextRef.current = accumulatedTurnText;
+  }, [accumulatedTurnText]);
+
+  // Automatic AI Interruption: Triggered by VAD or early provisional speech
+  const triggerAutomaticInterruption = async () => {
+    if (!sessionId) return;
+    const currentSpeaker = activeSpeakerIdRef.current;
+    if (currentSpeaker && currentSpeaker !== 'student') {
+      // 1. Immediately cut AI speech playback (sub-second acoustic cancellation)
+      cancelSpokenAudio();
+
+      // 2. Invalidate active generation token so pending responses/timeouts are cancelled
+      activeGenerationIdRef.current++;
+      if (scheduleTimeoutRef.current) {
+        clearTimeout(scheduleTimeoutRef.current);
+        scheduleTimeoutRef.current = null;
+      }
+
+      // 3. Mark interruption flag for metrics tracking
+      wasInterruptionRef.current = true;
+
+      // 4. Immediately transfer floor to candidate
+      setActiveSpeakerId('student');
+      setActiveSpeakerName('Candidate (You)');
+      setIsStudentSpeaking(true);
+
+      // 5. Invalidate on backend
+      try {
+        await api.interruptSpeaker(sessionId);
+      } catch (err) {
+        console.error('Automatic interruption call error:', err);
+      }
+    }
+  };
+
+  // Reset or restart end-of-turn silence debounce timer (1800ms)
+  const resetEndOfTurnTimer = () => {
+    if (silenceTimerRef.current) {
+      clearTimeout(silenceTimerRef.current);
+      silenceTimerRef.current = null;
+    }
+
+    silenceTimerRef.current = setTimeout(() => {
+      const fullText = `${accumulatedTurnTextRef.current} ${provisionalSpeechRef.current}`.trim();
+      const words = fullText.split(/\s+/).filter(Boolean);
+      // Auto-commit if candidate has spoken a meaningful thought (>= 2 words)
+      if (words.length >= 2 && !isSubmittingTurnRef.current) {
+        handleStudentSubmit();
+      }
+    }, 1800);
+  };
+
+  // Initialize Streaming Speech Recognizer (Provisional vs Finalized)
   const setupSpeechRecognition = (lang: string) => {
     if (recognizerRef.current) {
       recognizerRef.current.stop();
@@ -82,22 +158,51 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
     setMicError(null);
     try {
       recognizerRef.current = createSpeechRecognizer(
-        (text, isFinal) => {
-          if (isFinal) {
-            setInterimSpeech('');
-            setStudentInputText((prev) => {
-              const trimmed = prev.trim();
-              return trimmed ? `${trimmed} ${text}` : text;
-            });
-          } else {
-            setInterimSpeech(text);
-          }
+        {
+          onProvisional: (text) => {
+            if (!text) {
+              setProvisionalSpeech('');
+              return;
+            }
+            // Trigger automatic interruption if AI is speaking
+            if (activeSpeakerIdRef.current && activeSpeakerIdRef.current !== 'student') {
+              triggerAutomaticInterruption();
+            }
+            setIsStudentSpeaking(true);
+            setActiveSpeakerId('student');
+            setActiveSpeakerName('Candidate (You)');
+            setProvisionalSpeech(text);
+            resetEndOfTurnTimer();
+          },
+          onFinalSegment: (_finalSegment, allAccumulated) => {
+            if (activeSpeakerIdRef.current && activeSpeakerIdRef.current !== 'student') {
+              triggerAutomaticInterruption();
+            }
+            setIsStudentSpeaking(true);
+            setActiveSpeakerId('student');
+            setActiveSpeakerName('Candidate (You)');
+            setProvisionalSpeech('');
+            setAccumulatedTurnText(allAccumulated);
+            resetEndOfTurnTimer();
+          },
+          onSpeechStart: () => {
+            if (activeSpeakerIdRef.current && activeSpeakerIdRef.current !== 'student') {
+              triggerAutomaticInterruption();
+            }
+            setIsStudentSpeaking(true);
+          },
+          onSpeechEnd: () => {
+            // Silence ended - let the silence timer finalize if words exist
+            resetEndOfTurnTimer();
+          },
+          onError: (err) => {
+            setMicError(err);
+          },
         },
-        (err) => {
-          setMicError(err);
-        },
+        undefined,
         lang
       );
+
       if (!isMicMuted) {
         recognizerRef.current.start();
       }
@@ -126,7 +231,10 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
       cancelSpokenAudio();
       if (recognizerRef.current) recognizerRef.current.stop();
       if (volumeMeterRef.current) volumeMeterRef.current.stop();
+      if (vadRef.current) vadRef.current.stop();
       if (timerRef.current) clearInterval(timerRef.current);
+      if (scheduleTimeoutRef.current) clearTimeout(scheduleTimeoutRef.current);
+      if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
     };
   }, []);
 
@@ -169,8 +277,29 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
       setActiveSpeakerId(openingTurn.speaker_id);
       setActiveSpeakerName(openingTurn.speaker_name);
 
-      // 2. Setup Microphone & Speech Recognizer gracefully
+      // 2. Setup Microphone & Streaming Speech Recognizer gracefully
       setupSpeechRecognition(speechLanguage);
+
+      if (!vadRef.current) {
+        try {
+          vadRef.current = await setupMicrophoneVAD({
+            onVolumeChange: (vol) => {
+              setMicVolume(vol);
+            },
+            onSpeechStart: () => {
+              if (activeSpeakerIdRef.current && activeSpeakerIdRef.current !== 'student') {
+                triggerAutomaticInterruption();
+              }
+              setIsStudentSpeaking(true);
+            },
+            onSpeechEnd: (_silenceMs) => {
+              resetEndOfTurnTimer();
+            },
+          });
+        } catch {
+          // Handled gracefully if Web Audio not supported
+        }
+      }
 
       if (!volumeMeterRef.current) {
         try {
@@ -218,8 +347,19 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
 
   // 3. AI Turn Generation & Scheduling
   const scheduleNextTurn = async (sId: string) => {
+    const currentGen = activeGenerationIdRef.current;
     try {
+      // If student is actively speaking or holding floor, do not schedule AI speech
+      if (activeSpeakerIdRef.current === 'student' || isStudentSpeaking) {
+        return;
+      }
+
       const nextRes = await api.requestNextTurn(sId);
+      // Invalidation check: if user interrupted and generation incremented, discard
+      if (currentGen !== activeGenerationIdRef.current) {
+        return;
+      }
+
       if (nextRes.action === 'waiting_for_student') {
         setActiveNudge('The floor is open for your input! Share your perspective now.');
         return;
@@ -239,69 +379,103 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
             entry.text,
             nextRes.audio?.voice_name,
             profileType,
-            () => setActiveSpeakerId(entry.speaker_id),
             () => {
-              setActiveSpeakerId(null);
-              // Brisk, conversational pause (800ms)
-              setTimeout(() => {
-                scheduleNextTurn(sId);
-              }, 800);
+              if (currentGen === activeGenerationIdRef.current) {
+                setActiveSpeakerId(entry.speaker_id);
+              }
+            },
+            () => {
+              if (currentGen === activeGenerationIdRef.current) {
+                setActiveSpeakerId(null);
+                // Brisk, conversational pause (800ms)
+                if (scheduleTimeoutRef.current) clearTimeout(scheduleTimeoutRef.current);
+                scheduleTimeoutRef.current = setTimeout(() => {
+                  if (currentGen === activeGenerationIdRef.current) {
+                    scheduleNextTurn(sId);
+                  }
+                }, 800);
+              }
             }
           );
         } else {
-          setTimeout(() => {
-            setActiveSpeakerId(null);
-            scheduleNextTurn(sId);
+          if (scheduleTimeoutRef.current) clearTimeout(scheduleTimeoutRef.current);
+          scheduleTimeoutRef.current = setTimeout(() => {
+            if (currentGen === activeGenerationIdRef.current) {
+              setActiveSpeakerId(null);
+              scheduleNextTurn(sId);
+            }
           }, 2000);
         }
       }
     } catch (err) {
       console.error('Next turn generation error, recovering gracefully:', err);
-      // Network / provider glitch resilience: auto-retry after brief pause
-      setTimeout(() => {
-        scheduleNextTurn(sId);
-      }, 2500);
+      if (currentGen === activeGenerationIdRef.current) {
+        if (scheduleTimeoutRef.current) clearTimeout(scheduleTimeoutRef.current);
+        scheduleTimeoutRef.current = setTimeout(() => {
+          if (currentGen === activeGenerationIdRef.current) {
+            scheduleNextTurn(sId);
+          }
+        }, 2500);
+      }
     }
   };
 
   // 4. Student Submits Turn
   const handleStudentSubmit = async (customText?: string) => {
-    const raw = customText !== undefined ? customText : `${studentInputText} ${interimSpeech}`.trim();
-    if (!sessionId || !raw.trim()) return;
+    if (isSubmittingTurnRef.current) return;
+    if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
+
+    const raw = customText !== undefined
+      ? customText
+      : `${accumulatedTurnText} ${provisionalSpeech} ${studentInputText}`.trim();
+
+    if (!sessionId || !raw.trim()) {
+      setIsStudentSpeaking(false);
+      setProvisionalSpeech('');
+      setAccumulatedTurnText('');
+      if (activeSpeakerIdRef.current === 'student') {
+        setActiveSpeakerId(null);
+      }
+      return;
+    }
+
+    isSubmittingTurnRef.current = true;
     try {
-      setInterimSpeech('');
+      setProvisionalSpeech('');
+      setAccumulatedTurnText('');
       setStudentInputText('');
       setActiveNudge(null);
+      setIsStudentSpeaking(false);
 
-      const wasAiSpeaking = activeSpeakerId !== null && activeSpeakerId !== 'student';
-      if (wasAiSpeaking) {
-        await handleBargeIn();
-      }
+      const wasInterruption = wasInterruptionRef.current;
+      wasInterruptionRef.current = false;
 
       const res = await api.submitStudentTurn(sessionId, {
         text: raw.trim(),
-        is_interruption: wasAiSpeaking,
+        is_interruption: wasInterruption,
       });
-      setTranscript((prev) => [...prev, res.entry]);
 
-      // Trigger next AI response after candidate speaks
-      setTimeout(() => {
-        if (sessionId) scheduleNextTurn(sessionId);
-      }, 1500);
+      setTranscript((prev) => {
+        if (prev.some((e) => e.entry_id === res.entry.entry_id)) return prev;
+        return [...prev, res.entry];
+      });
+
+      setActiveSpeakerId(null);
+
+      // Invalidate current generation & trigger next AI response after candidate speaks
+      activeGenerationIdRef.current += 1;
+      const nextGen = activeGenerationIdRef.current;
+
+      if (scheduleTimeoutRef.current) clearTimeout(scheduleTimeoutRef.current);
+      scheduleTimeoutRef.current = setTimeout(() => {
+        if (sessionId && nextGen === activeGenerationIdRef.current) {
+          scheduleNextTurn(sessionId);
+        }
+      }, 1000);
     } catch (err: any) {
       console.error('Error submitting student turn:', err);
-    }
-  };
-
-  // 5. Barge-In Interruption (Sub-second audio cancel)
-  const handleBargeIn = async () => {
-    if (!sessionId) return;
-    cancelSpokenAudio(); // Stop audio immediately
-    setActiveSpeakerId(null);
-    try {
-      await api.interruptSpeaker(sessionId);
-    } catch (e) {
-      console.error('Interruption call error:', e);
+    } finally {
+      isSubmittingTurnRef.current = false;
     }
   };
 
@@ -311,8 +485,11 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
     setIsEnding(true);
     cancelSpokenAudio();
     if (timerRef.current) clearInterval(timerRef.current);
+    if (scheduleTimeoutRef.current) clearTimeout(scheduleTimeoutRef.current);
+    if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
     if (recognizerRef.current) recognizerRef.current.stop();
     if (volumeMeterRef.current) volumeMeterRef.current.stop();
+    if (vadRef.current) vadRef.current.stop();
 
     try {
       const report = await api.endSession(sessionId);
@@ -1022,14 +1199,16 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                 </div>
               </div>
 
-              {/* Real-time Voice & Audio Detection */}
-              {interimSpeech ? (
+              {/* Real-time Voice & Streaming Speech */}
+              {(accumulatedTurnText || provisionalSpeech) ? (
                 <div style={{ padding: '0.5rem', borderRadius: 'var(--radius-sm)', background: 'rgba(225, 29, 72, 0.15)', border: '1px solid rgba(244, 63, 94, 0.35)', marginBottom: '0.5rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', marginBottom: '0.2rem' }}>
                     <span className="speaking-pulse" style={{ display: 'inline-block', width: '7px', height: '7px', borderRadius: '50%', background: 'var(--accent-rose)' }} />
                     <span style={{ fontSize: '0.7rem', color: 'var(--accent-gold)', fontWeight: 700 }}>Speaking Now:</span>
                   </div>
-                  <p style={{ fontSize: '0.8rem', color: '#fff1f2', fontStyle: 'italic', margin: 0 }}>"{interimSpeech}"</p>
+                  <p style={{ fontSize: '0.8rem', color: '#fff1f2', fontStyle: 'italic', margin: 0 }}>
+                    "{`${accumulatedTurnText} ${provisionalSpeech}`.trim()}"
+                  </p>
                 </div>
               ) : micVolume > 0.05 ? (
                 <div className="waveform-container">
@@ -1095,33 +1274,54 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                 </div>
               );
             })}
+
+            {/* In-Place Progressive Provisional Speech Bubble */}
+            {(accumulatedTurnText || provisionalSpeech || isStudentSpeaking) && (
+              <div
+                style={{
+                  padding: '0.75rem 0.9rem',
+                  borderRadius: 'var(--radius-sm)',
+                  background: 'rgba(225, 29, 72, 0.1)',
+                  border: '1px dashed var(--accent-rose)',
+                  boxShadow: '0 0 12px rgba(225, 29, 72, 0.15)',
+                  transition: 'all 0.15s ease-out',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem', fontSize: '0.75rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <span className="speaking-pulse" style={{ display: 'inline-block', width: '7px', height: '7px', borderRadius: '50%', background: 'var(--accent-rose)' }} />
+                    <span style={{ fontWeight: 700, color: 'var(--accent-rose)' }}>Candidate (You)</span>
+                  </div>
+                  <span style={{ color: 'var(--accent-gold)', fontSize: '0.7rem', fontWeight: 600 }}>Speaking in real-time...</span>
+                </div>
+                <p style={{ fontSize: '0.85rem', color: '#fff1f2', fontStyle: 'italic', lineHeight: 1.5, margin: 0 }}>
+                  {(`${accumulatedTurnText} ${provisionalSpeech}`).trim() || 'Listening to your voice...'}
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Interaction & Voice Input Control Bar */}
           <div style={{ padding: '1rem', borderTop: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-            {/* Barge-In Interrupt Button */}
+            {/* Automatic Barge-In Status Indicator (Natural speech interruption active) */}
             {activeSpeakerId && activeSpeakerId !== 'student' && (
-              <button
-                type="button"
-                onClick={handleBargeIn}
+              <div
                 style={{
-                  width: '100%',
-                  padding: '0.5rem',
-                  borderRadius: 'var(--radius-sm)',
-                  border: '1px solid rgba(244, 63, 94, 0.4)',
-                  background: 'rgba(244, 63, 94, 0.18)',
-                  color: 'var(--accent-rose)',
-                  fontWeight: 700,
-                  fontSize: '0.8rem',
-                  cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.4rem',
+                  gap: '0.45rem',
+                  padding: '0.4rem 0.65rem',
+                  borderRadius: 'var(--radius-sm)',
+                  background: 'rgba(251, 191, 36, 0.1)',
+                  border: '1px solid rgba(251, 191, 36, 0.25)',
+                  color: 'var(--accent-gold)',
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
                 }}
               >
-                <Zap size={14} /> Interrupt Current Speaker (Barge-In)
-              </button>
+                <Zap size={13} style={{ flexShrink: 0 }} />
+                <span>AI speaking — Speak naturally at any moment to interrupt automatically.</span>
+              </div>
             )}
 
             {/* Microphone Error Notification */}
@@ -1154,8 +1354,8 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               </div>
             )}
 
-            {/* Live Transcribing Feedback Bubble */}
-            {interimSpeech && (
+            {/* Live Streaming Transcribing Feedback Bar */}
+            {(accumulatedTurnText || provisionalSpeech) && (
               <div
                 style={{
                   padding: '0.45rem 0.75rem',
@@ -1171,7 +1371,9 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: '#fff1f2', overflow: 'hidden' }}>
                   <span className="speaking-pulse" style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent-rose)', flexShrink: 0 }} />
                   <span style={{ color: 'var(--accent-gold)', fontWeight: 700, flexShrink: 0 }}>Hearing:</span>
-                  <span style={{ fontStyle: 'italic', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>"{interimSpeech}"</span>
+                  <span style={{ fontStyle: 'italic', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    "{`${accumulatedTurnText} ${provisionalSpeech}`.trim()}"
+                  </span>
                 </div>
                 <button
                   type="button"
@@ -1188,7 +1390,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                     flexShrink: 0,
                   }}
                 >
-                  Send Now
+                  Send Turn
                 </button>
               </div>
             )}
@@ -1274,15 +1476,15 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               <button
                 type="button"
                 onClick={() => handleStudentSubmit()}
-                disabled={!studentInputText.trim() && !interimSpeech.trim()}
+                disabled={!studentInputText.trim() && !accumulatedTurnText.trim() && !provisionalSpeech.trim()}
                 style={{
                   padding: '0.55rem 0.85rem',
                   borderRadius: 'var(--radius-sm)',
                   border: 'none',
-                  background: !studentInputText.trim() && !interimSpeech.trim() ? 'rgba(255,255,255,0.08)' : 'linear-gradient(135deg, #e11d48, #be123c)',
+                  background: !studentInputText.trim() && !accumulatedTurnText.trim() && !provisionalSpeech.trim() ? 'rgba(255,255,255,0.08)' : 'linear-gradient(135deg, #e11d48, #be123c)',
                   color: '#fff',
                   fontWeight: 700,
-                  cursor: !studentInputText.trim() && !interimSpeech.trim() ? 'not-allowed' : 'pointer',
+                  cursor: !studentInputText.trim() && !accumulatedTurnText.trim() && !provisionalSpeech.trim() ? 'not-allowed' : 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
