@@ -95,7 +95,7 @@ export const App: React.FC = () => {
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-primary)' }}>
-        <Sparkles size={36} color="var(--accent-cyan)" style={{ animation: 'spin 2s linear infinite' }} />
+        <Sparkles size={36} color="var(--accent-gold)" style={{ animation: 'spin 2s linear infinite' }} />
       </div>
     );
   }
@@ -163,17 +163,17 @@ export const App: React.FC = () => {
 
       {/* Main Content Area */}
       <main style={{ flex: 1, minWidth: 0, overflowY: 'auto' }}>
-        {/* Persistent Demo Mode Banner */}
+        {/* Persistent Engine Mode Banner */}
         <div
           style={{
             padding: '0.45rem 1.5rem',
-            background: 'rgba(56, 189, 248, 0.08)',
-            borderBottom: '1px solid var(--border-highlight)',
+            background: 'rgba(225, 29, 72, 0.08)',
+            borderBottom: '1px solid var(--border-subtle)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             fontSize: '0.75rem',
-            color: 'var(--accent-cyan)',
+            color: 'var(--text-secondary)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -183,14 +183,15 @@ export const App: React.FC = () => {
                 height: '6px',
                 borderRadius: '50%',
                 background: 'var(--accent-emerald)',
+                boxShadow: '0 0 8px var(--accent-emerald)',
                 display: 'inline-block',
               }}
             />
             <span>
-              <strong>GD ARENA DEMO MODE ACTIVE:</strong> Offline AI simulation & barge-in voice engine operational.
+              <strong style={{ color: 'var(--accent-gold)' }}>GD ARENA INTELLIGENCE ENGINE:</strong> Real-time voice turn-taking & barge-in active.
             </span>
           </div>
-          <span style={{ color: 'var(--text-muted)' }}>
+          <span style={{ color: 'var(--text-secondary)', fontSize: '0.72rem' }}>
             Signed in as {user?.email} ({user?.role})
           </span>
         </div>
@@ -245,10 +246,11 @@ export const App: React.FC = () => {
                 padding: '0.75rem 1.75rem',
                 borderRadius: 'var(--radius-sm)',
                 border: 'none',
-                background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+                background: 'linear-gradient(135deg, #e11d48, #be123c)',
                 color: '#fff',
                 fontWeight: 700,
                 cursor: 'pointer',
+                boxShadow: '0 0 25px rgba(225, 29, 72, 0.35)',
               }}
             >
               Start an AI Discussion to Generate Report
@@ -273,7 +275,7 @@ export const App: React.FC = () => {
                 </div>
                 <div style={{ padding: '0.75rem', background: 'rgba(0, 0, 0, 0.25)', borderRadius: 'var(--radius-sm)' }}>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Role</span>
-                  <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--accent-cyan)', textTransform: 'capitalize' }}>
+                  <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--accent-gold)', textTransform: 'capitalize' }}>
                     {user?.role}
                   </div>
                 </div>
@@ -292,7 +294,7 @@ export const App: React.FC = () => {
                 Longitudinal scoring trajectory across campus placement interview rounds.
               </p>
               <div style={{ padding: '2rem', textAlign: 'center', background: 'rgba(0,0,0,0.2)', borderRadius: 'var(--radius-sm)' }}>
-                <Sparkles size={28} color="var(--accent-cyan)" style={{ margin: '0 auto 0.5rem' }} />
+                <Sparkles size={28} color="var(--accent-gold)" style={{ margin: '0 auto 0.5rem' }} />
                 <p style={{ color: '#fff', fontWeight: 600 }}>Analytics calibrated with daily streak engine.</p>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.25rem' }}>
                   Practice consistently across categories (Tech, Business, Social, Abstract) to unlock detailed trend charts.

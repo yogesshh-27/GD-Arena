@@ -110,23 +110,24 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
                 width: '28px',
                 height: '28px',
                 borderRadius: '50%',
-                background: step >= 1 ? 'var(--accent-cyan)' : 'var(--border-subtle)',
-                color: '#000',
+                background: step >= 1 ? 'linear-gradient(135deg, #e11d48, #be123c)' : 'var(--border-subtle)',
+                color: '#fff',
                 fontWeight: 700,
                 fontSize: '0.8rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                boxShadow: step >= 1 ? '0 0 10px rgba(225, 29, 72, 0.4)' : 'none',
               }}
             >
               1
             </div>
-            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: step === 1 ? '#fff' : 'var(--text-muted)' }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: step === 1 ? '#fff1f2' : 'var(--text-muted)' }}>
               Academics
             </span>
           </div>
 
-          <div style={{ flex: 1, height: '2px', background: step === 2 ? 'var(--accent-cyan)' : 'var(--border-subtle)', margin: '0 1rem' }} />
+          <div style={{ flex: 1, height: '2px', background: step === 2 ? 'var(--accent-rose)' : 'var(--border-subtle)', margin: '0 1rem' }} />
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <div
@@ -134,18 +135,19 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
                 width: '28px',
                 height: '28px',
                 borderRadius: '50%',
-                background: step === 2 ? 'var(--accent-cyan)' : 'rgba(255, 255, 255, 0.1)',
-                color: step === 2 ? '#000' : 'var(--text-muted)',
+                background: step === 2 ? 'linear-gradient(135deg, #e11d48, #be123c)' : 'rgba(255, 255, 255, 0.1)',
+                color: step === 2 ? '#fff' : 'var(--text-muted)',
                 fontWeight: 700,
                 fontSize: '0.8rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                boxShadow: step === 2 ? '0 0 10px rgba(225, 29, 72, 0.4)' : 'none',
               }}
             >
               2
             </div>
-            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: step === 2 ? '#fff' : 'var(--text-muted)' }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: step === 2 ? '#fff1f2' : 'var(--text-muted)' }}>
               Communication
             </span>
           </div>
@@ -156,8 +158,8 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
             style={{
               padding: '0.75rem 1rem',
               borderRadius: 'var(--radius-sm)',
-              background: 'rgba(244, 63, 94, 0.1)',
-              border: '1px solid rgba(244, 63, 94, 0.3)',
+              background: 'rgba(244, 63, 94, 0.15)',
+              border: '1px solid rgba(244, 63, 94, 0.35)',
               color: 'var(--accent-rose)',
               fontSize: '0.85rem',
               marginBottom: '1.5rem',
@@ -170,9 +172,9 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
         {step === 1 ? (
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <GraduationCap size={28} color="var(--accent-cyan)" />
+              <GraduationCap size={28} color="var(--accent-gold)" />
               <div>
-                <h2 style={{ fontSize: '1.35rem', fontWeight: 700, color: '#fff' }}>Academic Details</h2>
+                <h2 style={{ fontSize: '1.35rem', fontWeight: 700, color: '#fff1f2' }}>Academic Details</h2>
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                   Help us calibrate placement discussion difficulty for your curriculum.
                 </p>
@@ -216,7 +218,7 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
                       padding: '0.65rem 0.85rem',
                       borderRadius: 'var(--radius-sm)',
                       border: '1px solid var(--border-subtle)',
-                      background: '#0f172a',
+                      background: '#1a050e',
                       color: '#fff',
                       fontSize: '0.9rem',
                       outline: 'none',
@@ -244,7 +246,7 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
                       padding: '0.65rem 0.85rem',
                       borderRadius: 'var(--radius-sm)',
                       border: '1px solid var(--border-subtle)',
-                      background: '#0f172a',
+                      background: '#1a050e',
                       color: '#fff',
                       fontSize: '0.9rem',
                       outline: 'none',
@@ -290,7 +292,8 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
                   padding: '0.75rem',
                   borderRadius: 'var(--radius-sm)',
                   border: 'none',
-                  background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+                  background: 'linear-gradient(135deg, #e11d48, #be123c)',
+                  boxShadow: '0 4px 15px rgba(225, 29, 72, 0.35)',
                   color: '#fff',
                   fontWeight: 700,
                   fontSize: '0.95rem',
@@ -308,9 +311,9 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
         ) : (
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <Award size={28} color="var(--accent-cyan)" />
+              <Award size={28} color="var(--accent-gold)" />
               <div>
-                <h2 style={{ fontSize: '1.35rem', fontWeight: 700, color: '#fff' }}>Communication Background</h2>
+                <h2 style={{ fontSize: '1.35rem', fontWeight: 700, color: '#fff1f2' }}>Communication Background</h2>
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                   Tailor feedback sensitivity and pacing thresholds to your comfort level.
                 </p>
@@ -333,9 +336,9 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
                         style={{
                           padding: '0.5rem 0.75rem',
                           borderRadius: 'var(--radius-sm)',
-                          border: isSelected ? '1px solid var(--accent-cyan)' : '1px solid var(--border-subtle)',
-                          background: isSelected ? 'rgba(56, 189, 248, 0.15)' : 'rgba(0, 0, 0, 0.2)',
-                          color: isSelected ? 'var(--accent-cyan)' : 'var(--text-secondary)',
+                          border: isSelected ? '1px solid var(--accent-rose)' : '1px solid var(--border-subtle)',
+                          background: isSelected ? 'rgba(225, 29, 72, 0.22)' : 'rgba(26, 5, 14, 0.5)',
+                          color: isSelected ? '#fff1f2' : 'var(--text-secondary)',
                           fontSize: '0.8rem',
                           fontWeight: 500,
                           cursor: 'pointer',
@@ -343,9 +346,10 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
                           display: 'flex',
                           alignItems: 'center',
                           gap: '0.4rem',
+                          transition: 'all 0.15s ease',
                         }}
                       >
-                        {isSelected && <CheckCircle2 size={13} color="var(--accent-cyan)" />}
+                        {isSelected && <CheckCircle2 size={13} color="var(--accent-rose)" />}
                         <span style={{ textTransform: 'capitalize' }}>{opt}</span>
                       </button>
                     );
@@ -368,13 +372,14 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
                         style={{
                           padding: '0.55rem',
                           borderRadius: 'var(--radius-sm)',
-                          border: isSelected ? '1px solid var(--accent-cyan)' : '1px solid var(--border-subtle)',
-                          background: isSelected ? 'rgba(56, 189, 248, 0.15)' : 'rgba(0, 0, 0, 0.2)',
-                          color: isSelected ? 'var(--accent-cyan)' : 'var(--text-secondary)',
+                          border: isSelected ? '1px solid var(--accent-rose)' : '1px solid var(--border-subtle)',
+                          background: isSelected ? 'rgba(225, 29, 72, 0.22)' : 'rgba(26, 5, 14, 0.5)',
+                          color: isSelected ? '#fff1f2' : 'var(--text-secondary)',
                           fontSize: '0.8rem',
                           fontWeight: 600,
                           cursor: 'pointer',
                           textAlign: 'center',
+                          transition: 'all 0.15s ease',
                         }}
                       >
                         {lvl}
@@ -408,7 +413,8 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
                     padding: '0.75rem',
                     borderRadius: 'var(--radius-sm)',
                     border: 'none',
-                    background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+                    background: 'linear-gradient(135deg, #e11d48, #be123c)',
+                    boxShadow: '0 4px 15px rgba(225, 29, 72, 0.35)',
                     color: '#fff',
                     fontWeight: 700,
                     fontSize: '0.95rem',

@@ -55,10 +55,10 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
       <div className="glass-panel" style={{ padding: '2.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '1.5rem' }}>
           <div>
-            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--accent-cyan)', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--accent-gold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               CAMPUS PLACEMENT EVALUATION
             </span>
-            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff', marginTop: '0.25rem' }}>"{topic}"</h1>
+            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff1f2', marginTop: '0.25rem' }}>"{topic}"</h1>
             <div style={{ display: 'flex', gap: '1rem', fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><Clock size={14} /> {Math.round(duration_seconds / 60)} minutes</span>
               <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}><MessageSquare size={14} /> {metrics.student_turn_count} Spoken Turns</span>
@@ -70,12 +70,13 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
               textAlign: 'center',
               padding: '1.25rem 2rem',
               borderRadius: 'var(--radius-md)',
-              background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(56, 189, 248, 0.15))',
-              border: '1px solid var(--border-highlight)',
+              background: 'linear-gradient(135deg, rgba(225, 29, 72, 0.25), rgba(251, 191, 36, 0.15))',
+              border: '1px solid rgba(244, 63, 94, 0.35)',
+              boxShadow: '0 8px 30px rgba(225, 29, 72, 0.2)',
             }}
           >
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)' }}>OVERALL SCORE</span>
-            <div style={{ fontSize: '2.75rem', fontWeight: 800, color: 'var(--accent-cyan)', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ fontSize: '2.75rem', fontWeight: 800, color: 'var(--accent-gold)', fontFamily: 'var(--font-mono)' }}>
               {overall_score.toFixed(1)}
               <span style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>/5.0</span>
             </div>
@@ -83,27 +84,27 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
           </div>
         </div>
 
-        <p style={{ fontSize: '0.95rem', color: 'var(--text-primary)', lineHeight: 1.7, background: 'rgba(0, 0, 0, 0.2)', padding: '1rem 1.25rem', borderRadius: 'var(--radius-sm)' }}>
+        <p style={{ fontSize: '0.95rem', color: 'var(--text-primary)', lineHeight: 1.7, background: 'rgba(26, 5, 14, 0.6)', padding: '1rem 1.25rem', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
           {overall_summary}
         </p>
       </div>
 
       {/* Participation Analytics */}
       <div className="glass-panel" style={{ padding: '2rem' }}>
-        <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fff', marginBottom: '1.25rem' }}>
+        <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fff1f2', marginBottom: '1.25rem' }}>
           Participation & Speaking Balance Analytics
         </h2>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
-          <div style={{ padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(0, 0, 0, 0.25)', border: '1px solid var(--border-subtle)' }}>
+          <div style={{ padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(26, 5, 14, 0.6)', border: '1px solid var(--border-subtle)' }}>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Candidate Word Share</span>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-cyan)' }}>
+            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-gold)' }}>
               {metrics.student_share_words_percent.toFixed(1)}%
             </div>
             <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Target: 15–25% in 4-candidate GD</span>
           </div>
 
-          <div style={{ padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(0, 0, 0, 0.25)', border: '1px solid var(--border-subtle)' }}>
+          <div style={{ padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(26, 5, 14, 0.6)', border: '1px solid var(--border-subtle)' }}>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Average Turn Length</span>
             <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-emerald)' }}>
               {Math.round(metrics.average_turn_length_words)} words
@@ -111,9 +112,9 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
             <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Concise voice formulation</span>
           </div>
 
-          <div style={{ padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(0, 0, 0, 0.25)', border: '1px solid var(--border-subtle)' }}>
+          <div style={{ padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(26, 5, 14, 0.6)', border: '1px solid var(--border-subtle)' }}>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Interruption Poise</span>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-indigo)' }}>
+            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-rose)' }}>
               {metrics.interruptions_count} Events
             </div>
             <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Barge-in exchanges</span>
@@ -133,8 +134,8 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
             </thead>
             <tbody>
               {Object.keys(metrics.turns_by_participant).map((speaker) => (
-                <tr key={speaker} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                  <td style={{ padding: '0.65rem', fontWeight: 600, color: '#fff' }}>{speaker}</td>
+                <tr key={speaker} style={{ borderBottom: '1px solid rgba(244, 63, 94, 0.1)' }}>
+                  <td style={{ padding: '0.65rem', fontWeight: 600, color: '#fff1f2' }}>{speaker}</td>
                   <td style={{ padding: '0.65rem', color: 'var(--text-secondary)' }}>{metrics.turns_by_participant[speaker]}</td>
                   <td style={{ padding: '0.65rem', color: 'var(--text-secondary)' }}>{metrics.word_count_by_participant[speaker]}</td>
                   <td style={{ padding: '0.65rem', color: 'var(--text-secondary)' }}>
@@ -150,9 +151,9 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
       {/* EVIDENCE-BASED FEEDBACK (Non-negotiable core) */}
       <div className="glass-panel" style={{ padding: '2rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
-          <Quote size={22} color="var(--accent-cyan)" />
+          <Quote size={22} color="var(--accent-gold)" />
           <div>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff' }}>Evidence-Grounded Feedback (9 Dimensions)</h2>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff1f2' }}>Evidence-Grounded Feedback (9 Dimensions)</h2>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
               Every evaluation is mapped directly to verbatim quotes spoken by you during the discussion.
             </p>
@@ -166,13 +167,13 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
               style={{
                 padding: '1.25rem',
                 borderRadius: 'var(--radius-sm)',
-                background: 'rgba(0, 0, 0, 0.25)',
+                background: 'rgba(26, 5, 14, 0.6)',
                 border: '1px solid var(--border-subtle)',
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff', textTransform: 'capitalize' }}>
+                  <span style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff1f2', textTransform: 'capitalize' }}>
                     {item.criterion.replace(/_/g, ' ')}
                   </span>
                   <span
@@ -180,8 +181,8 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
                       fontSize: '0.7rem',
                       padding: '0.15rem 0.45rem',
                       borderRadius: '8px',
-                      background: item.status === 'validated' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
-                      color: item.status === 'validated' ? 'var(--accent-emerald)' : 'var(--accent-amber)',
+                      background: item.status === 'validated' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(251, 191, 36, 0.15)',
+                      color: item.status === 'validated' ? 'var(--accent-emerald)' : 'var(--accent-gold)',
                       fontWeight: 600,
                     }}
                   >
@@ -189,7 +190,7 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
                   </span>
                 </div>
 
-                <div style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--accent-cyan)' }}>
+                <div style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--accent-gold)' }}>
                   {item.rating}/5
                 </div>
               </div>
@@ -204,15 +205,15 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
                   style={{
                     padding: '0.65rem 0.85rem',
                     borderRadius: 'var(--radius-sm)',
-                    background: 'rgba(56, 189, 248, 0.05)',
-                    borderLeft: '3px solid var(--accent-cyan)',
+                    background: 'rgba(225, 29, 72, 0.12)',
+                    borderLeft: '3px solid var(--accent-gold)',
                     marginBottom: '0.75rem',
                   }}
                 >
-                  <span style={{ fontSize: '0.7rem', color: 'var(--accent-cyan)', fontWeight: 700, textTransform: 'uppercase' }}>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--accent-gold)', fontWeight: 700, textTransform: 'uppercase' }}>
                     EXACT VERBATIM TRANSCRIPT QUOTE:
                   </span>
-                  <p style={{ fontSize: '0.825rem', fontStyle: 'italic', color: '#fff', marginTop: '0.2rem' }}>
+                  <p style={{ fontSize: '0.825rem', fontStyle: 'italic', color: '#fff1f2', marginTop: '0.2rem' }}>
                     "{item.evidence[0].quote}"
                   </p>
                 </div>
@@ -231,16 +232,16 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
       {/* What You Could Have Said */}
       <div className="glass-panel" style={{ padding: '2rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-          <Lightbulb size={20} color="var(--accent-amber)" />
-          <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fff' }}>"What You Could Have Said" — Missed Opportunities</h2>
+          <Lightbulb size={20} color="var(--accent-gold)" />
+          <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fff1f2' }}>"What You Could Have Said" — Missed Opportunities</h2>
         </div>
         <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>
           Strategic suggestions illustrating higher-impact formulations for placement interviews:
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          <div style={{ padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(0, 0, 0, 0.25)', border: '1px solid var(--border-subtle)' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-amber)' }}>OPPORTUNITY: EXTENDING THE ANALYST'S POINT</span>
+          <div style={{ padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(26, 5, 14, 0.6)', border: '1px solid var(--border-subtle)' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-gold)' }}>OPPORTUNITY: EXTENDING THE ANALYST'S POINT</span>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-primary)', marginTop: '0.25rem', lineHeight: 1.5 }}>
               "Building on what Ananya highlighted regarding cost structures, we can look at the UPI adoption model in India:
               zero MDR spurred massive consumer velocity while monetization shifted to financial cross-selling."
@@ -257,7 +258,8 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
             padding: '0.85rem 2.5rem',
             borderRadius: 'var(--radius-sm)',
             border: 'none',
-            background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+            background: 'linear-gradient(135deg, #e11d48, #be123c)',
+            boxShadow: '0 4px 20px rgba(225, 29, 72, 0.35)',
             color: '#fff',
             fontWeight: 700,
             fontSize: '1rem',

@@ -48,7 +48,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   if (loading) {
     return (
       <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
-        <Sparkles size={32} color="var(--accent-cyan)" style={{ animation: 'spin 2s linear infinite', margin: '0 auto 1rem' }} />
+        <Sparkles size={32} color="var(--accent-gold)" style={{ animation: 'spin 2s linear infinite', margin: '0 auto 1rem' }} />
         <p>Loading your placement dashboard...</p>
       </div>
     );
@@ -91,14 +91,14 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   width: '54px',
                   height: '54px',
                   borderRadius: '16px',
-                  background: 'linear-gradient(135deg, var(--accent-indigo), var(--accent-blue))',
+                  background: 'linear-gradient(135deg, #e11d48, #fbbf24)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: '1.35rem',
                   fontWeight: 800,
                   color: '#fff',
-                  boxShadow: '0 0 20px rgba(99, 102, 241, 0.3)',
+                  boxShadow: '0 0 25px rgba(225, 29, 72, 0.4)',
                 }}
               >
                 {profile.full_name ? profile.full_name[0].toUpperCase() : 'U'}
@@ -117,10 +117,10 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   fontSize: '0.75rem',
                   padding: '0.2rem 0.65rem',
                   borderRadius: '12px',
-                  background: 'rgba(56, 189, 248, 0.1)',
-                  color: 'var(--accent-cyan)',
-                  border: '1px solid rgba(56, 189, 248, 0.25)',
-                  fontWeight: 600,
+                  background: 'rgba(225, 29, 72, 0.15)',
+                  color: 'var(--accent-gold)',
+                  border: '1px solid rgba(251, 191, 36, 0.3)',
+                  fontWeight: 700,
                 }}
               >
                 Confidence: {profile.gd_confidence || 'Intermediate'}
@@ -130,7 +130,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   fontSize: '0.75rem',
                   padding: '0.2rem 0.65rem',
                   borderRadius: '12px',
-                  background: 'rgba(16, 185, 129, 0.1)',
+                  background: 'rgba(16, 185, 129, 0.12)',
                   color: 'var(--accent-emerald)',
                   border: '1px solid rgba(16, 185, 129, 0.25)',
                   fontWeight: 600,
@@ -145,10 +145,10 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 fontSize: '0.825rem',
                 color: 'var(--text-secondary)',
                 lineHeight: 1.5,
-                background: 'rgba(0, 0, 0, 0.2)',
+                background: 'rgba(0, 0, 0, 0.3)',
                 padding: '0.75rem 0.9rem',
                 borderRadius: 'var(--radius-sm)',
-                borderLeft: '3px solid var(--accent-cyan)',
+                borderLeft: '3px solid var(--accent-rose)',
               }}
             >
               <strong>Baseline Assessment:</strong> {profile.baseline_summary}
@@ -161,18 +161,18 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Flame size={22} color="var(--accent-amber)" />
+                <Flame size={22} color="var(--accent-gold)" />
                 <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#fff' }}>Daily Practice Streak</h3>
               </div>
-              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Asia/Kolkata</span>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Asia/Kolkata</span>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginBottom: '0.5rem' }}>
-              <span style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-amber)', fontFamily: 'var(--font-mono)' }}>
+              <span style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-gold)', fontFamily: 'var(--font-mono)' }}>
                 {streak.current_streak}
               </span>
               <span style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>Days Active</span>
-              <span style={{ marginLeft: 'auto', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+              <span style={{ marginLeft: 'auto', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                 Longest: {streak.longest_streak} days
               </span>
             </div>
@@ -194,7 +194,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                         width: '100%',
                         height: `${heightPercent}%`,
                         borderRadius: '4px',
-                        background: hasSession ? 'linear-gradient(180deg, var(--accent-cyan), var(--accent-blue))' : 'rgba(255, 255, 255, 0.08)',
+                        background: hasSession ? 'linear-gradient(180deg, var(--accent-rose), #be123c)' : 'rgba(255, 255, 255, 0.08)',
                         transition: 'all 0.2s ease',
                       }}
                     />
@@ -216,7 +216,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           className="glass-panel-glow"
           style={{
             padding: '1.75rem',
-            background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.7))',
+            background: 'linear-gradient(135deg, rgba(38, 10, 20, 0.88), rgba(52, 14, 28, 0.78))',
+            border: '1px solid rgba(225, 29, 72, 0.35)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -225,7 +226,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         >
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-              <Bot size={22} color="var(--accent-cyan)" />
+              <Bot size={22} color="var(--accent-gold)" />
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>Enter AI GD Room</h3>
             </div>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: '1.25rem', maxWidth: '380px' }}>
@@ -240,11 +241,12 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 padding: '0.65rem 1.5rem',
                 borderRadius: 'var(--radius-sm)',
                 border: 'none',
-                background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+                background: 'linear-gradient(135deg, #e11d48, #be123c)',
                 color: '#fff',
                 fontWeight: 700,
                 fontSize: '0.9rem',
                 cursor: 'pointer',
+                boxShadow: '0 0 25px rgba(225, 29, 72, 0.4)',
               }}
             >
               Start AI Discussion <ArrowRight size={16} />
@@ -256,14 +258,14 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 width: '70px',
                 height: '70px',
                 borderRadius: '20px',
-                background: 'rgba(56, 189, 248, 0.1)',
+                background: 'rgba(225, 29, 72, 0.15)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                border: '1px solid var(--border-highlight)',
+                border: '1px solid rgba(244, 63, 94, 0.4)',
               }}
             >
-              <Sparkles size={32} color="var(--accent-cyan)" />
+              <Sparkles size={32} color="var(--accent-gold)" />
             </div>
           </div>
         </div>
@@ -273,7 +275,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           className="glass-panel"
           style={{
             padding: '1.75rem',
-            background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 27, 75, 0.5))',
+            background: 'linear-gradient(135deg, rgba(30, 8, 16, 0.88), rgba(42, 12, 24, 0.78))',
+            border: '1px solid var(--border-subtle)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -282,7 +285,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         >
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-              <Users size={22} color="var(--accent-indigo)" />
+              <Users size={22} color="var(--accent-gold)" />
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>Enter Human GD Room</h3>
             </div>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: '1.25rem', maxWidth: '380px' }}>
@@ -296,9 +299,9 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 gap: '0.5rem',
                 padding: '0.65rem 1.5rem',
                 borderRadius: 'var(--radius-sm)',
-                border: '1px solid rgba(99, 102, 241, 0.3)',
-                background: 'rgba(99, 102, 241, 0.15)',
-                color: 'var(--accent-indigo)',
+                border: '1px solid rgba(225, 29, 72, 0.4)',
+                background: 'rgba(225, 29, 72, 0.15)',
+                color: 'var(--accent-gold)',
                 fontWeight: 700,
                 fontSize: '0.9rem',
                 cursor: 'pointer',
@@ -314,7 +317,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
       <div className="glass-panel" style={{ padding: '1.75rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <TrendingUp size={20} color="var(--accent-cyan)" />
+            <TrendingUp size={20} color="var(--accent-gold)" />
             <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#fff' }}>Performance Dimensions</h3>
           </div>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
@@ -327,7 +330,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginBottom: '0.25rem' }}>
               Overall Communication Score
             </span>
-            <div style={{ fontSize: '1.65rem', fontWeight: 800, color: performance.avg_communication_score ? 'var(--accent-cyan)' : 'var(--text-muted)' }}>
+            <div style={{ fontSize: '1.65rem', fontWeight: 800, color: performance.avg_communication_score ? 'var(--accent-gold)' : 'var(--text-muted)' }}>
               {performance.avg_communication_score ? `${performance.avg_communication_score} / 5.0` : 'Not enough data'}
             </div>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Based on verified report rubrics</span>
@@ -368,12 +371,12 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         <div className="glass-panel" style={{ padding: '1.75rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <BookOpen size={18} color="var(--accent-cyan)" />
+              <BookOpen size={18} color="var(--accent-gold)" />
               <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#fff' }}>Recommended Placement Topics</h3>
             </div>
             <button
               onClick={onViewTopics}
-              style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer' }}
+              style={{ background: 'none', border: 'none', color: 'var(--accent-gold)', fontSize: '0.8rem', fontWeight: 600, cursor: 'pointer' }}
             >
               View all
             </button>
@@ -405,9 +408,9 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   style={{
                     padding: '0.4rem 0.85rem',
                     borderRadius: 'var(--radius-sm)',
-                    border: '1px solid var(--border-highlight)',
-                    background: 'rgba(56, 189, 248, 0.1)',
-                    color: 'var(--accent-cyan)',
+                    border: '1px solid rgba(225, 29, 72, 0.35)',
+                    background: 'rgba(225, 29, 72, 0.15)',
+                    color: 'var(--accent-gold)',
                     fontSize: '0.75rem',
                     fontWeight: 600,
                     cursor: 'pointer',
@@ -425,7 +428,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         <div className="glass-panel" style={{ padding: '1.75rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Clock size={18} color="var(--accent-cyan)" />
+              <Clock size={18} color="var(--accent-gold)" />
               <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#fff' }}>Recent Discussion Sessions</h3>
             </div>
           </div>

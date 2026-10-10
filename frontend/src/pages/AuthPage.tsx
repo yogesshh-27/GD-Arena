@@ -102,11 +102,11 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccess, onCancel, initial
               width: '46px',
               height: '46px',
               borderRadius: '12px',
-              background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+              background: 'linear-gradient(135deg, #e11d48, #fbbf24)',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 0 20px rgba(56, 189, 248, 0.3)',
+              boxShadow: '0 0 25px rgba(225, 29, 72, 0.4)',
               marginBottom: '0.75rem',
             }}
           >
@@ -225,7 +225,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccess, onCancel, initial
                 <button
                   type="button"
                   onClick={() => setMode('reset')}
-                  style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)', fontSize: '0.75rem', cursor: 'pointer' }}
+                  style={{ background: 'none', border: 'none', color: 'var(--accent-gold)', fontSize: '0.75rem', cursor: 'pointer', fontWeight: 600 }}
                 >
                   Forgot password?
                 </button>
@@ -244,7 +244,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccess, onCancel, initial
                   padding: '0.65rem 0.75rem 0.65rem 2.4rem',
                   borderRadius: 'var(--radius-sm)',
                   border: '1px solid var(--border-subtle)',
-                  background: 'rgba(0, 0, 0, 0.25)',
+                  background: 'rgba(0, 0, 0, 0.35)',
                   color: '#fff',
                   fontSize: '0.9rem',
                   outline: 'none',
@@ -261,12 +261,12 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccess, onCancel, initial
               padding: '0.75rem',
               borderRadius: 'var(--radius-sm)',
               border: 'none',
-              background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+              background: 'linear-gradient(135deg, #e11d48, #be123c)',
               color: '#fff',
               fontWeight: 700,
               fontSize: '0.95rem',
               cursor: loading ? 'not-allowed' : 'pointer',
-              boxShadow: '0 0 20px rgba(56, 189, 248, 0.25)',
+              boxShadow: '0 0 25px rgba(225, 29, 72, 0.35)',
             }}
           >
             {loading ? 'Please wait...' : mode === 'login' ? 'Sign In' : mode === 'signup' ? 'Create Account' : 'Set New Password'}
@@ -275,7 +275,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccess, onCancel, initial
 
         {/* Demo Account Fillers */}
         <div style={{ marginTop: '1.5rem', borderTop: '1px solid var(--border-subtle)', paddingTop: '1.25rem' }}>
-          <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center', marginBottom: '0.65rem' }}>
+          <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textAlign: 'center', marginBottom: '0.65rem', fontWeight: 600, letterSpacing: '0.04em' }}>
             QUICK EVALUATOR ACCESS (Pre-configured Demo Accounts)
           </p>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -286,11 +286,11 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccess, onCancel, initial
                 flex: 1,
                 padding: '0.45rem',
                 borderRadius: 'var(--radius-sm)',
-                border: '1px solid var(--border-highlight)',
-                background: 'rgba(56, 189, 248, 0.08)',
-                color: 'var(--accent-cyan)',
+                border: '1px solid rgba(225, 29, 72, 0.35)',
+                background: 'rgba(225, 29, 72, 0.15)',
+                color: 'var(--accent-gold)',
                 fontSize: '0.75rem',
-                fontWeight: 600,
+                fontWeight: 700,
                 cursor: 'pointer',
               }}
             >
@@ -303,11 +303,11 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccess, onCancel, initial
                 flex: 1,
                 padding: '0.45rem',
                 borderRadius: 'var(--radius-sm)',
-                border: '1px solid rgba(99, 102, 241, 0.3)',
-                background: 'rgba(99, 102, 241, 0.08)',
-                color: 'var(--accent-indigo)',
+                border: '1px solid rgba(251, 191, 36, 0.35)',
+                background: 'rgba(251, 191, 36, 0.12)',
+                color: 'var(--accent-gold)',
                 fontSize: '0.75rem',
-                fontWeight: 600,
+                fontWeight: 700,
                 cursor: 'pointer',
               }}
             >
@@ -324,7 +324,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccess, onCancel, initial
               <button
                 type="button"
                 onClick={() => setMode('signup')}
-                style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)', fontWeight: 600, cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: 'var(--accent-gold)', fontWeight: 700, cursor: 'pointer' }}
               >
                 Sign up free
               </button>
@@ -335,7 +335,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccess, onCancel, initial
               <button
                 type="button"
                 onClick={() => setMode('login')}
-                style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)', fontWeight: 600, cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: 'var(--accent-gold)', fontWeight: 700, cursor: 'pointer' }}
               >
                 Sign in
               </button>

@@ -62,8 +62,8 @@ export const TopicsPage: React.FC<TopicsPageProps> = ({ onSelectTopic }) => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-            <BookOpen size={24} color="var(--accent-cyan)" />
-            <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff' }}>GD Topic Library</h1>
+            <BookOpen size={24} color="var(--accent-gold)" />
+            <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff1f2' }}>GD Topic Library</h1>
           </div>
           <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
             Curated interview prompts spanning engineering, business tradeoffs, social issues, and abstract cases.
@@ -79,7 +79,8 @@ export const TopicsPage: React.FC<TopicsPageProps> = ({ onSelectTopic }) => {
             padding: '0.65rem 1.25rem',
             borderRadius: 'var(--radius-sm)',
             border: 'none',
-            background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+            background: 'linear-gradient(135deg, #e11d48, #be123c)',
+            boxShadow: '0 4px 15px rgba(225, 29, 72, 0.35)',
             color: '#fff',
             fontWeight: 700,
             fontSize: '0.875rem',
@@ -104,7 +105,7 @@ export const TopicsPage: React.FC<TopicsPageProps> = ({ onSelectTopic }) => {
               padding: '0.65rem 0.75rem 0.65rem 2.6rem',
               borderRadius: 'var(--radius-sm)',
               border: '1px solid var(--border-subtle)',
-              background: 'rgba(0, 0, 0, 0.3)',
+              background: 'rgba(26, 5, 14, 0.6)',
               color: '#fff',
               fontSize: '0.9rem',
               outline: 'none',
@@ -121,12 +122,13 @@ export const TopicsPage: React.FC<TopicsPageProps> = ({ onSelectTopic }) => {
               style={{
                 padding: '0.4rem 0.85rem',
                 borderRadius: '16px',
-                border: selectedCategory === cat ? '1px solid var(--accent-cyan)' : '1px solid var(--border-subtle)',
-                background: selectedCategory === cat ? 'rgba(56, 189, 248, 0.15)' : 'rgba(0, 0, 0, 0.2)',
-                color: selectedCategory === cat ? 'var(--accent-cyan)' : 'var(--text-secondary)',
+                border: selectedCategory === cat ? '1px solid var(--accent-rose)' : '1px solid var(--border-subtle)',
+                background: selectedCategory === cat ? 'rgba(225, 29, 72, 0.22)' : 'rgba(26, 5, 14, 0.5)',
+                color: selectedCategory === cat ? '#fff1f2' : 'var(--text-secondary)',
                 fontSize: '0.8rem',
                 fontWeight: 600,
                 cursor: 'pointer',
+                transition: 'all 0.15s ease',
               }}
             >
               {cat}
@@ -164,8 +166,9 @@ export const TopicsPage: React.FC<TopicsPageProps> = ({ onSelectTopic }) => {
                     style={{
                       fontSize: '0.7rem',
                       fontWeight: 700,
-                      color: 'var(--accent-cyan)',
+                      color: 'var(--accent-gold)',
                       textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
                     }}
                   >
                     {t.category}
@@ -183,7 +186,7 @@ export const TopicsPage: React.FC<TopicsPageProps> = ({ onSelectTopic }) => {
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff', lineHeight: 1.4, marginBottom: '0.5rem' }}>
+                <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#fff1f2', lineHeight: 1.4, marginBottom: '0.5rem' }}>
                   {t.title}
                 </h3>
 
@@ -205,12 +208,13 @@ export const TopicsPage: React.FC<TopicsPageProps> = ({ onSelectTopic }) => {
                   width: '100%',
                   padding: '0.5rem',
                   borderRadius: 'var(--radius-sm)',
-                  border: '1px solid var(--border-highlight)',
-                  background: 'rgba(56, 189, 248, 0.1)',
-                  color: 'var(--accent-cyan)',
+                  border: '1px solid rgba(244, 63, 94, 0.35)',
+                  background: 'rgba(225, 29, 72, 0.15)',
+                  color: 'var(--accent-rose)',
                   fontSize: '0.8rem',
                   fontWeight: 600,
                   cursor: 'pointer',
+                  transition: 'all 0.15s ease',
                 }}
               >
                 Practice in AI GD Room <ArrowRight size={14} />
@@ -280,7 +284,7 @@ export const TopicsPage: React.FC<TopicsPageProps> = ({ onSelectTopic }) => {
                       padding: '0.65rem 0.85rem',
                       borderRadius: 'var(--radius-sm)',
                       border: '1px solid var(--border-subtle)',
-                      background: '#0f172a',
+                      background: '#1a050e',
                       color: '#fff',
                       fontSize: '0.85rem',
                       outline: 'none',
@@ -306,7 +310,7 @@ export const TopicsPage: React.FC<TopicsPageProps> = ({ onSelectTopic }) => {
                       padding: '0.65rem 0.85rem',
                       borderRadius: 'var(--radius-sm)',
                       border: '1px solid var(--border-subtle)',
-                      background: '#0f172a',
+                      background: '#1a050e',
                       color: '#fff',
                       fontSize: '0.85rem',
                       outline: 'none',
@@ -343,7 +347,8 @@ export const TopicsPage: React.FC<TopicsPageProps> = ({ onSelectTopic }) => {
                     padding: '0.65rem',
                     borderRadius: 'var(--radius-sm)',
                     border: 'none',
-                    background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+                    background: 'linear-gradient(135deg, #e11d48, #be123c)',
+                    boxShadow: '0 4px 15px rgba(225, 29, 72, 0.35)',
                     color: '#fff',
                     fontWeight: 700,
                     cursor: 'pointer',

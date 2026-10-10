@@ -133,11 +133,11 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onComplete, onSk
               width: '44px',
               height: '44px',
               borderRadius: '12px',
-              background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+              background: 'linear-gradient(135deg, #e11d48, #be123c)',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 0 20px rgba(56, 189, 248, 0.3)',
+              boxShadow: '0 0 25px rgba(225, 29, 72, 0.4)',
               marginBottom: '0.75rem',
             }}
           >
@@ -156,13 +156,13 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onComplete, onSk
           style={{
             padding: '1.25rem',
             borderRadius: 'var(--radius-md)',
-            background: 'rgba(56, 189, 248, 0.08)',
-            border: '1px solid var(--border-highlight)',
+            background: 'rgba(225, 29, 72, 0.12)',
+            border: '1px solid rgba(225, 29, 72, 0.35)',
             marginBottom: '1.5rem',
             textAlign: 'center',
           }}
         >
-          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-cyan)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-gold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             CALIBRATION PROMPT
           </span>
           <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#fff', marginTop: '0.35rem' }}>
@@ -231,11 +231,12 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onComplete, onSk
                       padding: '0.55rem 1.25rem',
                       borderRadius: 'var(--radius-sm)',
                       border: 'none',
-                      background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+                      background: 'linear-gradient(135deg, #e11d48, #be123c)',
                       color: '#fff',
                       fontWeight: 700,
                       fontSize: '0.85rem',
                       cursor: 'pointer',
+                      boxShadow: '0 0 20px rgba(225, 29, 72, 0.35)',
                     }}
                   >
                     <Play size={14} /> Start Speaking (Mic)
@@ -267,7 +268,7 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onComplete, onSk
                     fontSize: '1.1rem',
                     fontWeight: 700,
                     fontFamily: 'var(--font-mono)',
-                    color: secondsRemaining <= 5 ? 'var(--accent-rose)' : 'var(--accent-cyan)',
+                    color: secondsRemaining <= 5 ? 'var(--accent-rose)' : 'var(--accent-gold)',
                   }}
                 >
                   {secondsRemaining}s
@@ -287,7 +288,7 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onComplete, onSk
                     style={{
                       height: '100%',
                       width: `${Math.max(5, micVolume * 100)}%`,
-                      background: 'var(--accent-cyan)',
+                      background: 'linear-gradient(90deg, #e11d48, #fbbf24)',
                       transition: 'width 0.1s ease',
                     }}
                   />
@@ -381,12 +382,13 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onComplete, onSk
                   padding: '0.65rem 1.5rem',
                   borderRadius: 'var(--radius-sm)',
                   border: 'none',
-                  background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+                  background: 'linear-gradient(135deg, #e11d48, #be123c)',
                   color: '#fff',
                   fontWeight: 700,
                   fontSize: '0.9rem',
                   cursor: !transcript.trim() ? 'not-allowed' : 'pointer',
                   opacity: !transcript.trim() ? 0.6 : 1,
+                  boxShadow: '0 0 25px rgba(225, 29, 72, 0.35)',
                 }}
               >
                 {isSubmitting ? 'Evaluating...' : 'Submit Baseline & Enter Dashboard'}
@@ -416,7 +418,7 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onComplete, onSk
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginBottom: '1.5rem' }}>
               <div className="glass-panel" style={{ padding: '1rem', textAlign: 'center' }}>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Clarity</span>
-                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-cyan)' }}>{Math.round(result.clarity_score)}%</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent-gold)' }}>{Math.round(result.clarity_score)}%</div>
               </div>
               <div className="glass-panel" style={{ padding: '1rem', textAlign: 'center' }}>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Topic Relevance</span>
@@ -435,11 +437,12 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onComplete, onSk
                 padding: '0.85rem',
                 borderRadius: 'var(--radius-sm)',
                 border: 'none',
-                background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+                background: 'linear-gradient(135deg, #e11d48, #be123c)',
                 color: '#fff',
                 fontWeight: 700,
                 fontSize: '1rem',
                 cursor: 'pointer',
+                boxShadow: '0 0 25px rgba(225, 29, 72, 0.35)',
               }}
             >
               Enter Practice Dashboard

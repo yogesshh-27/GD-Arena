@@ -358,7 +358,8 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                 width: '42px',
                 height: '42px',
                 borderRadius: '12px',
-                background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+                background: 'linear-gradient(135deg, #e11d48, #be123c)',
+                boxShadow: '0 0 20px rgba(225, 29, 72, 0.4)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -367,7 +368,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               <Bot size={22} color="#fff" />
             </div>
             <div>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff' }}>Configure AI GD Room</h2>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff1f2' }}>Configure AI GD Room</h2>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
                 Customize topic, participant personalities, room duration, and pacing.
               </p>
@@ -388,7 +389,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                   padding: '0.75rem 1rem',
                   borderRadius: 'var(--radius-sm)',
                   border: '1px solid var(--border-subtle)',
-                  background: 'rgba(0, 0, 0, 0.3)',
+                  background: 'rgba(26, 5, 14, 0.6)',
                   color: '#fff',
                   fontSize: '0.95rem',
                   outline: 'none',
@@ -411,11 +412,12 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                         flex: 1,
                         padding: '0.65rem',
                         borderRadius: 'var(--radius-sm)',
-                        border: participantCount === cnt ? '1px solid var(--accent-cyan)' : '1px solid var(--border-subtle)',
-                        background: participantCount === cnt ? 'rgba(56, 189, 248, 0.15)' : 'rgba(0, 0, 0, 0.2)',
-                        color: participantCount === cnt ? 'var(--accent-cyan)' : 'var(--text-secondary)',
+                        border: participantCount === cnt ? '1px solid var(--accent-rose)' : '1px solid var(--border-subtle)',
+                        background: participantCount === cnt ? 'rgba(225, 29, 72, 0.22)' : 'rgba(26, 5, 14, 0.5)',
+                        color: participantCount === cnt ? '#fff1f2' : 'var(--text-secondary)',
                         fontWeight: 700,
                         cursor: 'pointer',
+                        transition: 'all 0.15s ease',
                       }}
                     >
                       {cnt} AI Candidates
@@ -436,7 +438,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                     padding: '0.65rem 0.85rem',
                     borderRadius: 'var(--radius-sm)',
                     border: '1px solid var(--border-subtle)',
-                    background: '#0f172a',
+                    background: '#1a050e',
                     color: '#fff',
                     fontSize: '0.9rem',
                     outline: 'none',
@@ -462,7 +464,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                     padding: '0.65rem 0.85rem',
                     borderRadius: 'var(--radius-sm)',
                     border: '1px solid var(--border-subtle)',
-                    background: '#0f172a',
+                    background: '#1a050e',
                     color: '#fff',
                     fontSize: '0.9rem',
                     outline: 'none',
@@ -487,7 +489,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                     padding: '0.65rem 0.85rem',
                     borderRadius: 'var(--radius-sm)',
                     border: '1px solid var(--border-subtle)',
-                    background: '#0f172a',
+                    background: '#1a050e',
                     color: '#fff',
                     fontSize: '0.9rem',
                     outline: 'none',
@@ -511,7 +513,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                     padding: '0.65rem 0.85rem',
                     borderRadius: 'var(--radius-sm)',
                     border: '1px solid var(--border-subtle)',
-                    background: '#0f172a',
+                    background: '#1a050e',
                     color: '#fff',
                     fontSize: '0.9rem',
                     outline: 'none',
@@ -551,7 +553,8 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                 padding: '0.85rem',
                 borderRadius: 'var(--radius-sm)',
                 border: 'none',
-                background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+                background: 'linear-gradient(135deg, #e11d48, #be123c)',
+                boxShadow: '0 4px 20px rgba(225, 29, 72, 0.35)',
                 color: '#fff',
                 fontWeight: 700,
                 fontSize: '1rem',
@@ -600,9 +603,9 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
           </p>
 
           {/* Topic Summary */}
-          <div style={{ padding: '1rem 1.25rem', borderRadius: 'var(--radius-md)', background: 'rgba(0, 0, 0, 0.25)', border: '1px solid var(--border-subtle)', marginBottom: '1.5rem' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-cyan)' }}>TOPIC:</span>
-            <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#fff', marginTop: '0.2rem' }}>"{topic}"</div>
+          <div style={{ padding: '1rem 1.25rem', borderRadius: 'var(--radius-md)', background: 'rgba(26, 5, 14, 0.6)', border: '1px solid var(--border-subtle)', marginBottom: '1.5rem' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-gold)', letterSpacing: '0.05em' }}>TOPIC:</span>
+            <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#fff1f2', marginTop: '0.2rem' }}>"{topic}"</div>
             <div style={{ display: 'flex', gap: '0.75rem', fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>
               <span>Duration: {durationSeconds / 60} mins</span> • <span>Format: {format}</span> • <span>AI Participants: {participantCount}</span>
             </div>
@@ -613,9 +616,9 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
             style={{
               padding: '0.85rem 1rem',
               borderRadius: 'var(--radius-sm)',
-              background: 'rgba(245, 158, 11, 0.08)',
-              border: '1px solid rgba(245, 158, 11, 0.25)',
-              color: 'var(--accent-amber)',
+              background: 'rgba(251, 191, 36, 0.08)',
+              border: '1px solid rgba(251, 191, 36, 0.25)',
+              color: 'var(--accent-gold)',
               fontSize: '0.825rem',
               display: 'flex',
               gap: '0.65rem',
@@ -630,10 +633,10 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
           </div>
 
           {/* Discussion Language Preference */}
-          <div style={{ marginBottom: '1.5rem', padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(0, 0, 0, 0.25)', border: '1px solid var(--border-subtle)' }}>
+          <div style={{ marginBottom: '1.5rem', padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(26, 5, 14, 0.6)', border: '1px solid var(--border-subtle)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
-              <Globe size={16} style={{ color: 'var(--accent-cyan)' }} />
-              <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#fff' }}>Preferred Discussion Language:</span>
+              <Globe size={16} style={{ color: 'var(--accent-gold)' }} />
+              <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#fff1f2' }}>Preferred Discussion Language:</span>
             </div>
             <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
               GD Arena participants and the AI Moderator understand and support English, Hindi, and Hinglish.
@@ -651,19 +654,20 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                   style={{
                     padding: '0.5rem 0.85rem',
                     borderRadius: 'var(--radius-sm)',
-                    border: speechLanguage === lang.id ? '1px solid var(--accent-cyan)' : '1px solid var(--border-subtle)',
-                    background: speechLanguage === lang.id ? 'rgba(56, 189, 248, 0.15)' : 'rgba(0,0,0,0.2)',
-                    color: speechLanguage === lang.id ? '#fff' : 'var(--text-secondary)',
+                    border: speechLanguage === lang.id ? '1px solid var(--accent-gold)' : '1px solid var(--border-subtle)',
+                    background: speechLanguage === lang.id ? 'rgba(251, 191, 36, 0.15)' : 'rgba(26, 5, 14, 0.5)',
+                    color: speechLanguage === lang.id ? '#fff1f2' : 'var(--text-secondary)',
                     fontWeight: speechLanguage === lang.id ? 700 : 500,
                     fontSize: '0.8rem',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.4rem',
+                    transition: 'all 0.15s ease',
                   }}
                 >
                   <span>{lang.label}</span>
-                  <span style={{ fontSize: '0.65rem', padding: '0.1rem 0.35rem', borderRadius: '4px', background: speechLanguage === lang.id ? 'rgba(56, 189, 248, 0.3)' : 'rgba(255,255,255,0.08)', color: speechLanguage === lang.id ? 'var(--accent-cyan)' : 'var(--text-muted)' }}>
+                  <span style={{ fontSize: '0.65rem', padding: '0.1rem 0.35rem', borderRadius: '4px', background: speechLanguage === lang.id ? 'rgba(251, 191, 36, 0.25)' : 'rgba(255,255,255,0.08)', color: speechLanguage === lang.id ? 'var(--accent-gold)' : 'var(--text-muted)' }}>
                     {lang.badge}
                   </span>
                 </button>
@@ -672,11 +676,11 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
           </div>
 
           {/* Microphone & Hardware Check */}
-          <div style={{ marginBottom: '1.5rem', padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(0, 0, 0, 0.25)', border: '1px solid var(--border-subtle)' }}>
+          <div style={{ marginBottom: '1.5rem', padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(26, 5, 14, 0.6)', border: '1px solid var(--border-subtle)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <Mic size={16} style={{ color: micVolume > 0.05 ? 'var(--accent-emerald)' : 'var(--accent-cyan)' }} />
-                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#fff' }}>Microphone Hardware Check:</span>
+                <Mic size={16} style={{ color: micVolume > 0.05 ? 'var(--accent-emerald)' : 'var(--accent-gold)' }} />
+                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#fff1f2' }}>Microphone Hardware Check:</span>
               </div>
               <span style={{ fontSize: '0.75rem', color: micVolume > 0.05 ? 'var(--accent-emerald)' : 'var(--text-muted)', fontWeight: 600 }}>
                 {micVolume > 0.05 ? '🟢 Audio Detected' : 'Listening for audio...'}
@@ -684,12 +688,12 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
             </div>
 
             {/* Volume Meter Bar */}
-            <div style={{ width: '100%', height: '8px', borderRadius: '4px', background: 'rgba(255,255,255,0.1)', overflow: 'hidden' }}>
+            <div style={{ width: '100%', height: '8px', borderRadius: '4px', background: 'rgba(255,255,255,0.08)', overflow: 'hidden' }}>
               <div
                 style={{
                   height: '100%',
                   width: `${Math.min(100, Math.max(5, micVolume * 100))}%`,
-                  background: micVolume > 0.05 ? 'linear-gradient(90deg, #10b981, #38bdf8)' : 'rgba(255,255,255,0.2)',
+                  background: micVolume > 0.05 ? 'linear-gradient(90deg, #e11d48, #fbbf24)' : 'rgba(255,255,255,0.2)',
                   transition: 'width 0.1s ease',
                 }}
               />
@@ -705,14 +709,14 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               Participating Candidates in this Room:
             </span>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.65rem' }}>
-              <div style={{ padding: '0.65rem', borderRadius: 'var(--radius-sm)', background: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.3)' }}>
-                <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--accent-indigo)' }}>Moderator</div>
+              <div style={{ padding: '0.65rem', borderRadius: 'var(--radius-sm)', background: 'rgba(225, 29, 72, 0.12)', border: '1px solid rgba(225, 29, 72, 0.3)' }}>
+                <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--accent-rose)' }}>Moderator</div>
                 <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Impartial Floor Orchestrator</div>
               </div>
               {participants.map((p) => (
-                <div key={p.id} style={{ padding: '0.65rem', borderRadius: 'var(--radius-sm)', background: 'rgba(0, 0, 0, 0.2)', border: '1px solid var(--border-subtle)' }}>
-                  <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#fff' }}>{p.name}</div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--accent-cyan)', textTransform: 'capitalize' }}>
+                <div key={p.id} style={{ padding: '0.65rem', borderRadius: 'var(--radius-sm)', background: 'rgba(26, 5, 14, 0.6)', border: '1px solid var(--border-subtle)' }}>
+                  <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#fff1f2' }}>{p.name}</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--accent-gold)', textTransform: 'capitalize' }}>
                     {p.profile.profile_type.replace('_', ' ')}
                   </div>
                 </div>
@@ -727,12 +731,12 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               padding: '0.85rem',
               borderRadius: 'var(--radius-sm)',
               border: 'none',
-              background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+              background: 'linear-gradient(135deg, #e11d48, #be123c)',
               color: '#fff',
               fontWeight: 700,
               fontSize: '1rem',
               cursor: 'pointer',
-              boxShadow: '0 0 25px rgba(56, 189, 248, 0.3)',
+              boxShadow: '0 0 25px rgba(225, 29, 72, 0.4)',
             }}
           >
             Enter & Start Discussion
@@ -749,8 +753,8 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
       <header
         style={{
           height: '65px',
-          borderBottom: '1px solid var(--border-subtle)',
-          backgroundColor: 'rgba(15, 23, 42, 0.95)',
+          borderBottom: '1px solid rgba(244, 63, 94, 0.18)',
+          backgroundColor: 'rgba(18, 3, 7, 0.95)',
           padding: '0 1.5rem',
           display: 'flex',
           alignItems: 'center',
@@ -763,15 +767,15 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               width: '10px',
               height: '10px',
               borderRadius: '50%',
-              backgroundColor: 'var(--accent-emerald)',
-              boxShadow: '0 0 10px var(--accent-emerald)',
+              backgroundColor: 'var(--accent-rose)',
+              boxShadow: '0 0 10px var(--accent-rose)',
             }}
           />
           <div>
-            <span style={{ fontSize: '0.75rem', color: 'var(--accent-cyan)', fontWeight: 700, textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '0.75rem', color: 'var(--accent-gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               LIVE GD ARENA {activeSpeakerName ? `• ${activeSpeakerName} speaking` : ''}
             </span>
-            <h2 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff', maxWidth: '500px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <h2 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff1f2', maxWidth: '500px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {topic}
             </h2>
           </div>
@@ -794,7 +798,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                 padding: '0.4rem',
                 borderRadius: 'var(--radius-sm)',
                 border: '1px solid var(--border-subtle)',
-                background: isMicMuted ? 'rgba(244, 63, 94, 0.2)' : 'rgba(0,0,0,0.3)',
+                background: isMicMuted ? 'rgba(244, 63, 94, 0.25)' : 'rgba(26, 5, 14, 0.6)',
                 color: isMicMuted ? 'var(--accent-rose)' : 'var(--text-secondary)',
                 cursor: 'pointer',
               }}
@@ -812,7 +816,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                 padding: '0.4rem',
                 borderRadius: 'var(--radius-sm)',
                 border: '1px solid var(--border-subtle)',
-                background: isAudioMuted ? 'rgba(244, 63, 94, 0.2)' : 'rgba(0,0,0,0.3)',
+                background: isAudioMuted ? 'rgba(244, 63, 94, 0.25)' : 'rgba(26, 5, 14, 0.6)',
                 color: isAudioMuted ? 'var(--accent-rose)' : 'var(--text-secondary)',
                 cursor: 'pointer',
               }}
@@ -828,8 +832,8 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               gap: '0.4rem',
               padding: '0.35rem 0.75rem',
               borderRadius: 'var(--radius-sm)',
-              background: secondsRemaining <= 90 ? 'rgba(244, 63, 94, 0.15)' : 'rgba(0, 0, 0, 0.3)',
-              border: secondsRemaining <= 90 ? '1px solid rgba(244, 63, 94, 0.4)' : '1px solid var(--border-subtle)',
+              background: secondsRemaining <= 90 ? 'rgba(244, 63, 94, 0.2)' : 'rgba(26, 5, 14, 0.6)',
+              border: secondsRemaining <= 90 ? '1px solid rgba(244, 63, 94, 0.45)' : '1px solid var(--border-subtle)',
               color: secondsRemaining <= 90 ? 'var(--accent-rose)' : 'var(--text-primary)',
               fontFamily: 'var(--font-mono)',
               fontWeight: 700,
@@ -847,8 +851,8 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               gap: '0.4rem',
               padding: '0.45rem 1rem',
               borderRadius: 'var(--radius-sm)',
-              border: '1px solid rgba(244, 63, 94, 0.3)',
-              background: 'rgba(244, 63, 94, 0.15)',
+              border: '1px solid rgba(244, 63, 94, 0.35)',
+              background: 'rgba(244, 63, 94, 0.18)',
               color: 'var(--accent-rose)',
               fontWeight: 700,
               fontSize: '0.85rem',
@@ -870,9 +874,9 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               style={{
                 padding: '0.75rem 1rem',
                 borderRadius: 'var(--radius-sm)',
-                background: 'rgba(56, 189, 248, 0.12)',
-                border: '1px solid var(--border-highlight)',
-                color: 'var(--accent-cyan)',
+                background: 'rgba(251, 191, 36, 0.12)',
+                border: '1px solid rgba(251, 191, 36, 0.35)',
+                color: 'var(--accent-gold)',
                 fontSize: '0.85rem',
                 display: 'flex',
                 alignItems: 'center',
@@ -891,7 +895,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               className={`glass-panel ${activeSpeakerId === 'moderator_001' ? 'speaking-pulse' : ''}`}
               style={{
                 padding: '1.25rem',
-                border: activeSpeakerId === 'moderator_001' ? '1px solid var(--accent-indigo)' : '1px solid var(--border-subtle)',
+                border: activeSpeakerId === 'moderator_001' ? '1px solid var(--accent-rose)' : '1px solid var(--border-subtle)',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.75rem' }}>
@@ -900,19 +904,20 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                     width: '38px',
                     height: '38px',
                     borderRadius: '10px',
-                    background: 'var(--accent-indigo)',
+                    background: 'linear-gradient(135deg, #e11d48, #be123c)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontWeight: 800,
                     color: '#fff',
+                    boxShadow: '0 0 15px rgba(225, 29, 72, 0.3)',
                   }}
                 >
                   M
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#fff' }}>Moderator</div>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--accent-indigo)', fontWeight: 600 }}>IMPARTIAL HOST</span>
+                  <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#fff1f2' }}>Moderator</div>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--accent-gold)', fontWeight: 600 }}>IMPARTIAL HOST</span>
                 </div>
               </div>
               {activeSpeakerId === 'moderator_001' && (
@@ -922,7 +927,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                   <div className="waveform-bar" />
                   <div className="waveform-bar" />
                   <div className="waveform-bar" />
-                  <span style={{ fontSize: '0.75rem', color: 'var(--accent-cyan)', marginLeft: '6px' }}>Speaking...</span>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--accent-gold)', marginLeft: '6px' }}>Speaking...</span>
                 </div>
               )}
             </div>
@@ -936,7 +941,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                   className={`glass-panel ${isSpeaking ? 'speaking-pulse' : ''}`}
                   style={{
                     padding: '1.25rem',
-                    border: isSpeaking ? '1px solid var(--accent-cyan)' : '1px solid var(--border-subtle)',
+                    border: isSpeaking ? '1px solid var(--accent-rose)' : '1px solid var(--border-subtle)',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.75rem' }}>
@@ -945,7 +950,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                         width: '38px',
                         height: '38px',
                         borderRadius: '10px',
-                        background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.7), rgba(56, 189, 248, 0.7))',
+                        background: 'linear-gradient(135deg, #be123c, #9f1239)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -956,8 +961,8 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                       {p.name[0]}
                     </div>
                     <div>
-                      <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#fff' }}>{p.name}</div>
-                      <span style={{ fontSize: '0.7rem', color: 'var(--accent-cyan)', textTransform: 'capitalize' }}>
+                      <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#fff1f2' }}>{p.name}</div>
+                      <span style={{ fontSize: '0.7rem', color: 'var(--accent-gold)', textTransform: 'capitalize' }}>
                         {p.profile.profile_type.replace('_', ' ')}
                       </span>
                     </div>
@@ -969,7 +974,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                       <div className="waveform-bar" />
                       <div className="waveform-bar" />
                       <div className="waveform-bar" />
-                      <span style={{ fontSize: '0.75rem', color: 'var(--accent-cyan)', marginLeft: '6px' }}>Speaking...</span>
+                      <span style={{ fontSize: '0.75rem', color: 'var(--accent-gold)', marginLeft: '6px' }}>Speaking...</span>
                     </div>
                   ) : (
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Listening</div>
@@ -984,7 +989,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               style={{
                 padding: '1.25rem',
                 border: '1px solid var(--border-highlight)',
-                background: 'rgba(56, 189, 248, 0.05)',
+                background: 'rgba(46, 12, 25, 0.5)',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.75rem' }}>
@@ -993,24 +998,25 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                     width: '38px',
                     height: '38px',
                     borderRadius: '10px',
-                    background: 'var(--accent-cyan)',
+                    background: 'linear-gradient(135deg, #e11d48, #fbbf24)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontWeight: 800,
-                    color: '#000',
+                    color: '#fff',
+                    boxShadow: '0 0 15px rgba(225, 29, 72, 0.35)',
                   }}
                 >
                   YOU
                 </div>
                 <div style={{ flex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                   <div>
-                    <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#fff' }}>Candidate (You)</div>
+                    <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#fff1f2' }}>Candidate (You)</div>
                     <span style={{ fontSize: '0.7rem', color: isMicMuted ? 'var(--accent-rose)' : 'var(--accent-emerald)', fontWeight: 600 }}>
                       {isMicMuted ? 'MIC MUTED' : 'MIC ACTIVE'}
                     </span>
                   </div>
-                  <span style={{ fontSize: '0.68rem', padding: '0.15rem 0.45rem', borderRadius: '4px', background: 'rgba(56, 189, 248, 0.15)', color: 'var(--accent-cyan)', fontWeight: 600 }}>
+                  <span style={{ fontSize: '0.68rem', padding: '0.15rem 0.45rem', borderRadius: '4px', background: 'rgba(251, 191, 36, 0.15)', color: 'var(--accent-gold)', fontWeight: 600 }}>
                     {speechLanguage === 'en-IN' ? 'Hinglish' : speechLanguage === 'hi-IN' ? 'Hindi' : 'English'}
                   </span>
                 </div>
@@ -1018,12 +1024,12 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
 
               {/* Real-time Voice & Audio Detection */}
               {interimSpeech ? (
-                <div style={{ padding: '0.5rem', borderRadius: 'var(--radius-sm)', background: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.35)', marginBottom: '0.5rem' }}>
+                <div style={{ padding: '0.5rem', borderRadius: 'var(--radius-sm)', background: 'rgba(225, 29, 72, 0.15)', border: '1px solid rgba(244, 63, 94, 0.35)', marginBottom: '0.5rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', marginBottom: '0.2rem' }}>
-                    <span className="speaking-pulse" style={{ display: 'inline-block', width: '7px', height: '7px', borderRadius: '50%', background: 'var(--accent-cyan)' }} />
-                    <span style={{ fontSize: '0.7rem', color: 'var(--accent-cyan)', fontWeight: 700 }}>Speaking Now:</span>
+                    <span className="speaking-pulse" style={{ display: 'inline-block', width: '7px', height: '7px', borderRadius: '50%', background: 'var(--accent-rose)' }} />
+                    <span style={{ fontSize: '0.7rem', color: 'var(--accent-gold)', fontWeight: 700 }}>Speaking Now:</span>
                   </div>
-                  <p style={{ fontSize: '0.8rem', color: '#fff', fontStyle: 'italic', margin: 0 }}>"{interimSpeech}"</p>
+                  <p style={{ fontSize: '0.8rem', color: '#fff1f2', fontStyle: 'italic', margin: 0 }}>"{interimSpeech}"</p>
                 </div>
               ) : micVolume > 0.05 ? (
                 <div className="waveform-container">
@@ -1043,14 +1049,14 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
         <div
           style={{
             width: '420px',
-            borderLeft: '1px solid var(--border-subtle)',
-            backgroundColor: 'rgba(10, 15, 29, 0.75)',
+            borderLeft: '1px solid rgba(244, 63, 94, 0.18)',
+            backgroundColor: 'rgba(18, 3, 7, 0.85)',
             display: 'flex',
             flexDirection: 'column',
           }}
         >
           <div style={{ padding: '1rem', borderBottom: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#fff' }}>Discussion Transcript</span>
+            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#fff1f2' }}>Discussion Transcript</span>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{transcript.length} turns</span>
           </div>
 
@@ -1075,12 +1081,12 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                   style={{
                     padding: '0.75rem 0.9rem',
                     borderRadius: 'var(--radius-sm)',
-                    background: isStudent ? 'rgba(56, 189, 248, 0.1)' : isMod ? 'rgba(99, 102, 241, 0.1)' : 'rgba(0, 0, 0, 0.3)',
-                    border: isStudent ? '1px solid rgba(56, 189, 248, 0.25)' : '1px solid var(--border-subtle)',
+                    background: isStudent ? 'rgba(225, 29, 72, 0.15)' : isMod ? 'rgba(190, 18, 60, 0.15)' : 'rgba(26, 5, 14, 0.6)',
+                    border: isStudent ? '1px solid rgba(244, 63, 94, 0.3)' : '1px solid var(--border-subtle)',
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem', fontSize: '0.75rem' }}>
-                    <span style={{ fontWeight: 700, color: isStudent ? 'var(--accent-cyan)' : isMod ? 'var(--accent-indigo)' : '#fff' }}>
+                    <span style={{ fontWeight: 700, color: isStudent ? 'var(--accent-rose)' : isMod ? 'var(--accent-gold)' : '#fff1f2' }}>
                       {entry.speaker_name}
                     </span>
                     <span style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>Turn {entry.sequence_number}</span>
@@ -1103,7 +1109,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                   padding: '0.5rem',
                   borderRadius: 'var(--radius-sm)',
                   border: '1px solid rgba(244, 63, 94, 0.4)',
-                  background: 'rgba(244, 63, 94, 0.15)',
+                  background: 'rgba(244, 63, 94, 0.18)',
                   color: 'var(--accent-rose)',
                   fontWeight: 700,
                   fontSize: '0.8rem',
@@ -1124,7 +1130,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                 style={{
                   padding: '0.5rem 0.75rem',
                   borderRadius: 'var(--radius-sm)',
-                  background: 'rgba(244, 63, 94, 0.15)',
+                  background: 'rgba(244, 63, 94, 0.18)',
                   border: '1px solid rgba(244, 63, 94, 0.35)',
                   color: 'var(--accent-rose)',
                   fontSize: '0.75rem',
@@ -1154,17 +1160,17 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                 style={{
                   padding: '0.45rem 0.75rem',
                   borderRadius: 'var(--radius-sm)',
-                  background: 'rgba(56, 189, 248, 0.12)',
-                  border: '1px solid rgba(56, 189, 248, 0.35)',
+                  background: 'rgba(225, 29, 72, 0.15)',
+                  border: '1px solid rgba(244, 63, 94, 0.35)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   gap: '0.5rem',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: '#fff', overflow: 'hidden' }}>
-                  <span className="speaking-pulse" style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent-cyan)', flexShrink: 0 }} />
-                  <span style={{ color: 'var(--accent-cyan)', fontWeight: 700, flexShrink: 0 }}>Hearing:</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: '#fff1f2', overflow: 'hidden' }}>
+                  <span className="speaking-pulse" style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent-rose)', flexShrink: 0 }} />
+                  <span style={{ color: 'var(--accent-gold)', fontWeight: 700, flexShrink: 0 }}>Hearing:</span>
                   <span style={{ fontStyle: 'italic', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>"{interimSpeech}"</span>
                 </div>
                 <button
@@ -1174,8 +1180,8 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                     padding: '0.2rem 0.55rem',
                     borderRadius: '4px',
                     border: 'none',
-                    background: 'var(--accent-cyan)',
-                    color: '#000',
+                    background: 'linear-gradient(135deg, #e11d48, #be123c)',
+                    color: '#fff',
                     fontWeight: 700,
                     fontSize: '0.7rem',
                     cursor: 'pointer',
@@ -1190,13 +1196,13 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
             {/* Language Selection & Mic Status Line */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <Globe size={13} style={{ color: 'var(--accent-cyan)' }} />
+                <Globe size={13} style={{ color: 'var(--accent-gold)' }} />
                 <span>Language:</span>
                 <select
                   value={speechLanguage}
                   onChange={(e) => handleLanguageChange(e.target.value as any)}
                   style={{
-                    background: 'rgba(0, 0, 0, 0.5)',
+                    background: '#1a050e',
                     border: '1px solid var(--border-subtle)',
                     borderRadius: '4px',
                     color: '#fff',
@@ -1233,9 +1239,9 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                 style={{
                   padding: '0.55rem',
                   borderRadius: 'var(--radius-sm)',
-                  border: isMicMuted ? '1px solid var(--border-subtle)' : '1px solid rgba(56, 189, 248, 0.5)',
-                  background: isMicMuted ? 'rgba(0, 0, 0, 0.3)' : 'rgba(56, 189, 248, 0.2)',
-                  color: isMicMuted ? 'var(--text-muted)' : 'var(--accent-cyan)',
+                  border: isMicMuted ? '1px solid var(--border-subtle)' : '1px solid rgba(244, 63, 94, 0.5)',
+                  background: isMicMuted ? 'rgba(26, 5, 14, 0.6)' : 'rgba(225, 29, 72, 0.25)',
+                  color: isMicMuted ? 'var(--text-muted)' : 'var(--accent-rose)',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -1258,7 +1264,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                   padding: '0.55rem 0.75rem',
                   borderRadius: 'var(--radius-sm)',
                   border: '1px solid var(--border-subtle)',
-                  background: 'rgba(0, 0, 0, 0.3)',
+                  background: 'rgba(26, 5, 14, 0.6)',
                   color: '#fff',
                   fontSize: '0.85rem',
                   outline: 'none',
@@ -1273,8 +1279,8 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                   padding: '0.55rem 0.85rem',
                   borderRadius: 'var(--radius-sm)',
                   border: 'none',
-                  background: !studentInputText.trim() && !interimSpeech.trim() ? 'rgba(255,255,255,0.1)' : 'var(--accent-cyan)',
-                  color: !studentInputText.trim() && !interimSpeech.trim() ? 'var(--text-muted)' : '#000',
+                  background: !studentInputText.trim() && !interimSpeech.trim() ? 'rgba(255,255,255,0.08)' : 'linear-gradient(135deg, #e11d48, #be123c)',
+                  color: '#fff',
                   fontWeight: 700,
                   cursor: !studentInputText.trim() && !interimSpeech.trim() ? 'not-allowed' : 'pointer',
                   display: 'flex',

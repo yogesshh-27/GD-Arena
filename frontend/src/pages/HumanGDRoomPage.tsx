@@ -7,7 +7,7 @@ import {
   Globe,
   Mic,
   MicOff,
-  Shield,
+  Volume2,
   Star,
   Send,
 } from 'lucide-react';
@@ -121,8 +121,8 @@ export const HumanGDRoomPage: React.FC = () => {
         <header
           style={{
             height: '65px',
-            borderBottom: '1px solid var(--border-subtle)',
-            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+            backgroundColor: 'rgba(18, 3, 7, 0.95)',
+            borderBottom: '1px solid rgba(244, 63, 94, 0.18)',
             padding: '0 1.5rem',
             display: 'flex',
             alignItems: 'center',
@@ -130,12 +130,12 @@ export const HumanGDRoomPage: React.FC = () => {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <Users size={20} color="var(--accent-indigo)" />
+            <Users size={20} color="var(--accent-rose)" />
             <div>
-              <span style={{ fontSize: '0.7rem', color: 'var(--accent-indigo)', fontWeight: 700 }}>
+              <span style={{ fontSize: '0.7rem', color: 'var(--accent-gold)', fontWeight: 700, letterSpacing: '0.05em' }}>
                 HUMAN GD PEER ROOM
               </span>
-              <h2 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff' }}>"{activeRoom.topic}"</h2>
+              <h2 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff1f2' }}>"{activeRoom.topic}"</h2>
             </div>
           </div>
 
@@ -148,9 +148,9 @@ export const HumanGDRoomPage: React.FC = () => {
                 gap: '0.4rem',
                 padding: '0.45rem 0.85rem',
                 borderRadius: 'var(--radius-sm)',
-                border: isMuted ? '1px solid rgba(244, 63, 94, 0.4)' : '1px solid var(--border-highlight)',
-                background: isMuted ? 'rgba(244, 63, 94, 0.15)' : 'rgba(56, 189, 248, 0.15)',
-                color: isMuted ? 'var(--accent-rose)' : 'var(--accent-cyan)',
+                border: isMuted ? '1px solid rgba(244, 63, 94, 0.45)' : '1px solid rgba(251, 191, 36, 0.4)',
+                background: isMuted ? 'rgba(244, 63, 94, 0.2)' : 'rgba(251, 191, 36, 0.15)',
+                color: isMuted ? 'var(--accent-rose)' : 'var(--accent-gold)',
                 fontWeight: 600,
                 fontSize: '0.8rem',
                 cursor: 'pointer',
@@ -165,8 +165,8 @@ export const HumanGDRoomPage: React.FC = () => {
               style={{
                 padding: '0.45rem 1rem',
                 borderRadius: 'var(--radius-sm)',
-                border: '1px solid rgba(244, 63, 94, 0.3)',
-                background: 'rgba(244, 63, 94, 0.15)',
+                border: '1px solid rgba(244, 63, 94, 0.35)',
+                background: 'rgba(244, 63, 94, 0.18)',
                 color: 'var(--accent-rose)',
                 fontWeight: 700,
                 fontSize: '0.85rem',
@@ -184,13 +184,14 @@ export const HumanGDRoomPage: React.FC = () => {
           <div style={{ flex: 1, padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
               {activeRoom.participants.map((p: any, idx: number) => (
-                <div key={idx} className="glass-panel" style={{ padding: '1.5rem', textAlign: 'center' }}>
+                <div key={idx} className="glass-panel" style={{ padding: '1.5rem', textAlign: 'center', border: '1px solid var(--border-subtle)' }}>
                   <div
                     style={{
                       width: '56px',
                       height: '56px',
                       borderRadius: '50%',
-                      background: idx === 0 ? 'var(--accent-indigo)' : 'rgba(255, 255, 255, 0.1)',
+                      background: idx === 0 ? 'linear-gradient(135deg, #e11d48, #be123c)' : 'rgba(255, 255, 255, 0.1)',
+                      boxShadow: idx === 0 ? '0 0 20px rgba(225, 29, 72, 0.4)' : 'none',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -202,8 +203,8 @@ export const HumanGDRoomPage: React.FC = () => {
                   >
                     {p.name[0]}
                   </div>
-                  <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff' }}>{p.name}</h3>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--accent-cyan)' }}>{p.role}</span>
+                  <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff1f2' }}>{p.name}</h3>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--accent-gold)' }}>{p.role}</span>
                 </div>
               ))}
             </div>
@@ -213,30 +214,32 @@ export const HumanGDRoomPage: React.FC = () => {
                 marginTop: 'auto',
                 padding: '0.75rem 1rem',
                 borderRadius: 'var(--radius-sm)',
-                background: 'rgba(255, 255, 255, 0.03)',
-                fontSize: '0.75rem',
-                color: 'var(--text-muted)',
+                background: 'rgba(26, 5, 14, 0.6)',
+                border: '1px solid var(--border-subtle)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem',
+                justifyContent: 'space-between',
               }}
             >
-              <Shield size={14} />
-              <span>Audio is encrypted and peer-to-peer. Conversations are not recorded by default.</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Volume2 size={16} color="var(--accent-gold)" />
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Audio session active • Live WebRTC peer connection</span>
+              </div>
+              <span style={{ fontSize: '0.75rem', color: 'var(--accent-emerald)', fontWeight: 600 }}>Connected</span>
             </div>
           </div>
 
-          {/* Room Chat */}
+          {/* In-Room Text Chat Panel */}
           <div
             style={{
               width: '320px',
-              borderLeft: '1px solid var(--border-subtle)',
-              backgroundColor: 'rgba(10, 15, 29, 0.75)',
+              borderLeft: '1px solid rgba(244, 63, 94, 0.18)',
+              backgroundColor: 'rgba(18, 3, 7, 0.85)',
               display: 'flex',
               flexDirection: 'column',
             }}
           >
-            <div style={{ padding: '1rem', borderBottom: '1px solid var(--border-subtle)', fontWeight: 700, fontSize: '0.85rem', color: '#fff' }}>
+            <div style={{ padding: '0.85rem 1rem', borderBottom: '1px solid var(--border-subtle)', fontWeight: 700, fontSize: '0.85rem', color: '#fff1f2' }}>
               Room Discussion Chat
             </div>
             <div style={{ flex: 1, padding: '1rem', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
@@ -247,7 +250,7 @@ export const HumanGDRoomPage: React.FC = () => {
               ) : (
                 inRoomChat.map((m, idx) => (
                   <div key={idx} style={{ fontSize: '0.8rem' }}>
-                    <span style={{ fontWeight: 700, color: 'var(--accent-indigo)' }}>{m.sender}: </span>
+                    <span style={{ fontWeight: 700, color: 'var(--accent-rose)' }}>{m.sender}: </span>
                     <span style={{ color: 'var(--text-primary)' }}>{m.text}</span>
                   </div>
                 ))
@@ -264,7 +267,7 @@ export const HumanGDRoomPage: React.FC = () => {
                   padding: '0.5rem 0.75rem',
                   borderRadius: 'var(--radius-sm)',
                   border: '1px solid var(--border-subtle)',
-                  background: 'rgba(0, 0, 0, 0.3)',
+                  background: 'rgba(26, 5, 14, 0.6)',
                   color: '#fff',
                   fontSize: '0.8rem',
                   outline: 'none',
@@ -276,7 +279,7 @@ export const HumanGDRoomPage: React.FC = () => {
                   padding: '0.5rem',
                   borderRadius: 'var(--radius-sm)',
                   border: 'none',
-                  background: 'var(--accent-indigo)',
+                  background: 'linear-gradient(135deg, #e11d48, #be123c)',
                   color: '#fff',
                   cursor: 'pointer',
                 }}
@@ -302,7 +305,7 @@ export const HumanGDRoomPage: React.FC = () => {
             }}
           >
             <div className="glass-panel" style={{ width: '100%', maxWidth: '440px', padding: '2rem' }}>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fff', marginBottom: '0.5rem' }}>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fff1f2', marginBottom: '0.5rem' }}>
                 Peer Feedback & Reflection
               </h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>
@@ -319,7 +322,7 @@ export const HumanGDRoomPage: React.FC = () => {
                       background: 'none',
                       border: 'none',
                       cursor: 'pointer',
-                      color: star <= feedbackRating ? 'var(--accent-amber)' : 'var(--text-muted)',
+                      color: star <= feedbackRating ? 'var(--accent-gold)' : 'var(--text-muted)',
                     }}
                   >
                     <Star size={28} fill={star <= feedbackRating ? 'currentColor' : 'none'} />
@@ -337,7 +340,7 @@ export const HumanGDRoomPage: React.FC = () => {
                   padding: '0.65rem',
                   borderRadius: 'var(--radius-sm)',
                   border: '1px solid var(--border-subtle)',
-                  background: 'rgba(0, 0, 0, 0.3)',
+                  background: 'rgba(26, 5, 14, 0.6)',
                   color: '#fff',
                   fontSize: '0.85rem',
                   outline: 'none',
@@ -352,7 +355,8 @@ export const HumanGDRoomPage: React.FC = () => {
                   padding: '0.75rem',
                   borderRadius: 'var(--radius-sm)',
                   border: 'none',
-                  background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+                  background: 'linear-gradient(135deg, #e11d48, #be123c)',
+                  boxShadow: '0 4px 15px rgba(225, 29, 72, 0.35)',
                   color: '#fff',
                   fontWeight: 700,
                   fontSize: '0.9rem',
@@ -374,8 +378,8 @@ export const HumanGDRoomPage: React.FC = () => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-            <Users size={24} color="var(--accent-indigo)" />
-            <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff' }}>Human GD Peer Rooms</h1>
+            <Users size={24} color="var(--accent-gold)" />
+            <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff1f2' }}>Human GD Peer Rooms</h1>
           </div>
           <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
             Practice real-time group discussions with fellow college students in public or private audio rooms.
@@ -391,7 +395,8 @@ export const HumanGDRoomPage: React.FC = () => {
             padding: '0.65rem 1.25rem',
             borderRadius: 'var(--radius-sm)',
             border: 'none',
-            background: 'linear-gradient(135deg, var(--accent-indigo), var(--accent-blue))',
+            background: 'linear-gradient(135deg, #e11d48, #be123c)',
+            boxShadow: '0 4px 15px rgba(225, 29, 72, 0.35)',
             color: '#fff',
             fontWeight: 700,
             fontSize: '0.875rem',
@@ -409,8 +414,8 @@ export const HumanGDRoomPage: React.FC = () => {
         </div>
       ) : rooms.length === 0 ? (
         <div className="glass-panel" style={{ padding: '3.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-          <Users size={32} style={{ margin: '0 auto 0.75rem', opacity: 0.5 }} />
-          <p style={{ fontSize: '1rem', color: '#fff', fontWeight: 600 }}>No public peer rooms waiting right now.</p>
+          <Users size={32} style={{ margin: '0 auto 0.75rem', opacity: 0.5, color: 'var(--accent-rose)' }} />
+          <p style={{ fontSize: '1rem', color: '#fff1f2', fontWeight: 600 }}>No public peer rooms waiting right now.</p>
           <p style={{ fontSize: '0.85rem', marginTop: '0.25rem' }}>Be the first to host a discussion room for your campus peers!</p>
           <button
             onClick={() => setShowCreateModal(true)}
@@ -418,9 +423,9 @@ export const HumanGDRoomPage: React.FC = () => {
               marginTop: '1.25rem',
               padding: '0.65rem 1.25rem',
               borderRadius: 'var(--radius-sm)',
-              border: '1px solid var(--border-highlight)',
-              background: 'rgba(99, 102, 241, 0.15)',
-              color: 'var(--accent-indigo)',
+              border: '1px solid rgba(244, 63, 94, 0.4)',
+              background: 'rgba(225, 29, 72, 0.15)',
+              color: 'var(--accent-rose)',
               fontWeight: 600,
               cursor: 'pointer',
             }}
@@ -434,7 +439,7 @@ export const HumanGDRoomPage: React.FC = () => {
             <div key={r.id} className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-indigo)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-gold)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                     {r.is_private ? <Lock size={12} /> : <Globe size={12} />} {r.is_private ? 'PRIVATE ROOM' : 'PUBLIC ROOM'}
                   </span>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -442,7 +447,7 @@ export const HumanGDRoomPage: React.FC = () => {
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#fff', marginBottom: '0.5rem' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#fff1f2', marginBottom: '0.5rem' }}>
                   "{r.topic_title}"
                 </h3>
 
@@ -463,7 +468,7 @@ export const HumanGDRoomPage: React.FC = () => {
                       padding: '0.45rem 0.65rem',
                       borderRadius: 'var(--radius-sm)',
                       border: '1px solid var(--border-subtle)',
-                      background: 'rgba(0, 0, 0, 0.3)',
+                      background: 'rgba(26, 5, 14, 0.6)',
                       color: '#fff',
                       fontSize: '0.8rem',
                       marginBottom: '0.5rem',
@@ -478,7 +483,8 @@ export const HumanGDRoomPage: React.FC = () => {
                     padding: '0.6rem',
                     borderRadius: 'var(--radius-sm)',
                     border: 'none',
-                    background: 'linear-gradient(135deg, var(--accent-indigo), var(--accent-blue))',
+                    background: 'linear-gradient(135deg, #e11d48, #be123c)',
+                    boxShadow: '0 4px 15px rgba(225, 29, 72, 0.35)',
                     color: '#fff',
                     fontWeight: 700,
                     fontSize: '0.85rem',
@@ -551,7 +557,7 @@ export const HumanGDRoomPage: React.FC = () => {
                       padding: '0.65rem 0.85rem',
                       borderRadius: 'var(--radius-sm)',
                       border: '1px solid var(--border-subtle)',
-                      background: '#0f172a',
+                      background: '#1a050e',
                       color: '#fff',
                       fontSize: '0.85rem',
                       outline: 'none',
@@ -575,7 +581,7 @@ export const HumanGDRoomPage: React.FC = () => {
                       padding: '0.65rem 0.85rem',
                       borderRadius: 'var(--radius-sm)',
                       border: '1px solid var(--border-subtle)',
-                      background: '#0f172a',
+                      background: '#1a050e',
                       color: '#fff',
                       fontSize: '0.85rem',
                       outline: 'none',
@@ -610,7 +616,7 @@ export const HumanGDRoomPage: React.FC = () => {
                       padding: '0.55rem 0.75rem',
                       borderRadius: 'var(--radius-sm)',
                       border: '1px solid var(--border-subtle)',
-                      background: 'rgba(0, 0, 0, 0.3)',
+                      background: 'rgba(26, 5, 14, 0.6)',
                       color: '#fff',
                       fontSize: '0.85rem',
                       outline: 'none',
@@ -642,7 +648,8 @@ export const HumanGDRoomPage: React.FC = () => {
                     padding: '0.65rem',
                     borderRadius: 'var(--radius-sm)',
                     border: 'none',
-                    background: 'linear-gradient(135deg, var(--accent-indigo), var(--accent-blue))',
+                    background: 'linear-gradient(135deg, #e11d48, #be123c)',
+                    boxShadow: '0 4px 15px rgba(225, 29, 72, 0.35)',
                     color: '#fff',
                     fontWeight: 700,
                     cursor: 'pointer',

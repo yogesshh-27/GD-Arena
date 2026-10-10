@@ -53,18 +53,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onTabChange, user,
             width: '38px',
             height: '38px',
             borderRadius: '10px',
-            background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-cyan))',
+            background: 'linear-gradient(135deg, #e11d48, #fbbf24)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 0 15px rgba(56, 189, 248, 0.3)',
+            boxShadow: '0 0 20px rgba(225, 29, 72, 0.35)',
           }}
         >
           <Sparkles size={20} color="#fff" />
         </div>
         <div>
           <h1 style={{ fontSize: '1.15rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#fff' }}>GD ARENA</h1>
-          <p style={{ fontSize: '0.7rem', color: 'var(--accent-cyan)', fontWeight: 600, letterSpacing: '0.05em' }}>
+          <p style={{ fontSize: '0.7rem', color: 'var(--accent-gold)', fontWeight: 700, letterSpacing: '0.06em' }}>
             CAMPUS PLACEMENT SIMULATOR
           </p>
         </div>
@@ -87,30 +87,38 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onTabChange, user,
                 padding: '0.65rem 0.85rem',
                 borderRadius: 'var(--radius-sm)',
                 border: 'none',
-                background: isActive ? 'rgba(56, 189, 248, 0.12)' : 'transparent',
-                color: isActive ? 'var(--accent-cyan)' : 'var(--text-secondary)',
-                fontWeight: isActive ? 600 : 500,
+                borderLeft: isActive ? '3px solid var(--accent-rose)' : '3px solid transparent',
+                background: isActive ? 'linear-gradient(90deg, rgba(225, 29, 72, 0.22), rgba(244, 63, 94, 0.08))' : 'transparent',
+                color: isActive ? '#fff' : 'var(--text-secondary)',
+                fontWeight: isActive ? 700 : 500,
                 fontSize: '0.875rem',
                 cursor: 'pointer',
                 textAlign: 'left',
                 transition: 'all 0.15s ease',
               }}
               onMouseEnter={(e) => {
-                if (!isActive) e.currentTarget.style.color = 'var(--text-primary)';
+                if (!isActive) {
+                  e.currentTarget.style.color = '#fff';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
+                }
               }}
               onMouseLeave={(e) => {
-                if (!isActive) e.currentTarget.style.color = 'var(--text-secondary)';
+                if (!isActive) {
+                  e.currentTarget.style.color = 'var(--text-secondary)';
+                  e.currentTarget.style.background = 'transparent';
+                }
               }}
             >
-              <Icon size={18} color={isActive ? 'var(--accent-cyan)' : 'currentColor'} />
+              <Icon size={18} color={isActive ? 'var(--accent-rose)' : 'currentColor'} />
               <span style={{ flex: 1 }}>{item.label}</span>
               {item.badge && (
                 <span
                   style={{
                     fontSize: '0.65rem',
-                    background: 'rgba(56, 189, 248, 0.2)',
-                    color: 'var(--accent-cyan)',
-                    padding: '0.15rem 0.4rem',
+                    background: 'rgba(225, 29, 72, 0.25)',
+                    color: 'var(--accent-gold)',
+                    border: '1px solid rgba(251, 191, 36, 0.3)',
+                    padding: '0.15rem 0.45rem',
                     borderRadius: '12px',
                     fontWeight: 700,
                   }}
@@ -139,7 +147,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onTabChange, user,
               width: '34px',
               height: '34px',
               borderRadius: '50%',
-              backgroundColor: 'var(--accent-indigo)',
+              backgroundColor: 'var(--accent-crimson)',
+              border: '1px solid rgba(251, 191, 36, 0.4)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

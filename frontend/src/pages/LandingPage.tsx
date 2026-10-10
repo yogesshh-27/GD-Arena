@@ -87,23 +87,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
           >
             <div
               style={{
-                width: '18px',
-                height: '18px',
-                borderRadius: '5px',
-                background: '#1e293b',
+                width: '22px',
+                height: '22px',
+                borderRadius: '6px',
+                background: 'linear-gradient(135deg, #e11d48, #fbbf24)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
             >
-              <Sparkles size={11} color="#38bdf8" />
+              <Sparkles size={13} color="#fff" />
             </div>
             <span
               style={{
-                fontSize: '13px',
+                fontSize: '14px',
                 fontWeight: 800,
                 letterSpacing: '-0.02em',
-                color: '#0f172a',
+                color: '#fff',
               }}
             >
               gd arena.
@@ -163,13 +163,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             className="hidden md:flex"
           >
             <div className="arena-node-chip">
-              <Bot size={13} color="#2563eb" /> Vikram · Dominator
+              <Bot size={13} color="#e11d48" /> Vikram · Dominator
             </div>
             <div className="arena-node-chip" style={{ marginLeft: '24px' }}>
               <Activity size={13} color="#10b981" /> Voice Activity Detection
             </div>
             <div className="arena-node-chip">
-              <Quote size={13} color="#f59e0b" /> Verbatim Quote Proof
+              <Quote size={13} color="#fbbf24" /> Verbatim Quote Proof
             </div>
           </div>
 
@@ -187,13 +187,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             className="hidden md:flex"
           >
             <div className="arena-node-chip">
-              <Bot size={13} color="#6366f1" /> Priya · Data Thinker
+              <Bot size={13} color="#f43f5e" /> Priya · Data Thinker
             </div>
             <div className="arena-node-chip" style={{ marginRight: '20px' }}>
-              <Zap size={13} color="#f43f5e" /> Sub-Second Barge-In
+              <Zap size={13} color="#fbbf24" /> Sub-Second Barge-In
             </div>
             <div className="arena-node-chip">
-              <Users size={13} color="#0284c7" /> LiveKit Human Rooms
+              <Users size={13} color="#e11d48" /> LiveKit Human Rooms
             </div>
           </div>
 
@@ -206,13 +206,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                 gap: '8px',
                 padding: '6px 14px',
                 borderRadius: '9999px',
-                background: '#fff',
-                border: '1px solid rgba(0, 0, 0, 0.1)',
-                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)',
+                background: 'rgba(26, 5, 14, 0.8)',
+                border: '1px solid rgba(244, 63, 94, 0.25)',
+                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.3)',
                 marginBottom: '1.75rem',
               }}
             >
-              <span style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>
+              <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: 500 }}>
                 Trusted by
               </span>
               <span
@@ -223,13 +223,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                   width: '16px',
                   height: '16px',
                   borderRadius: '3px',
-                  background: '#f97316',
+                  background: '#e11d48',
                   color: '#fff',
                 }}
               >
                 <CheckCircle2 size={12} />
               </span>
-              <span style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a' }}>
+              <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--accent-gold)' }}>
                 12,000+ placement candidates
               </span>
             </div>
@@ -241,7 +241,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                 fontWeight: 800,
                 letterSpacing: '-0.035em',
                 lineHeight: 1.06,
-                color: '#0f172a',
+                color: '#fff',
                 marginBottom: '1.35rem',
               }}
             >
@@ -251,9 +251,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
               <span
                 style={{
                   fontWeight: 900,
-                  color: '#1e293b',
+                  color: 'var(--accent-gold)',
                   textDecoration: 'underline',
-                  textDecorationColor: 'rgba(56, 189, 248, 0.7)',
+                  textDecorationColor: 'rgba(225, 29, 72, 0.7)',
                   textUnderlineOffset: '8px',
                 }}
               >
@@ -265,7 +265,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             <p
               style={{
                 fontSize: 'clamp(1rem, 1.8vw, 1.2rem)',
-                color: '#475569',
+                color: 'var(--text-secondary)',
                 lineHeight: 1.55,
                 maxWidth: '640px',
                 margin: '0 auto 2.25rem',
@@ -320,12 +320,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                   gap: '6px',
                   padding: '4px 12px',
                   borderRadius: '9999px',
-                  background: '#fff',
-                  border: '1px solid rgba(0, 0, 0, 0.1)',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                  background: 'rgba(26, 5, 14, 0.85)',
+                  border: '1px solid rgba(244, 63, 94, 0.25)',
+                  boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
                   fontSize: '11px',
                   fontWeight: 600,
-                  color: '#0f172a',
+                  color: 'var(--accent-gold)',
                 }}
               >
                 <span
@@ -340,7 +340,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
               </div>
 
               <div className="arena-voice-disc">
-                <Mic size={44} color="#0f172a" style={{ opacity: 0.85 }} />
+                <Mic size={44} color="#fff" style={{ opacity: 0.95 }} />
               </div>
             </div>
           </div>
@@ -380,7 +380,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                     fontSize: '11px',
                     fontWeight: 700,
                     textTransform: 'uppercase',
-                    color: '#38bdf8',
+                    color: 'var(--accent-gold)',
                     letterSpacing: '0.05em',
                   }}
                 >
@@ -390,8 +390,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                   style={{
                     padding: '2px 8px',
                     borderRadius: '4px',
-                    background: 'rgba(56, 189, 248, 0.15)',
-                    color: '#38bdf8',
+                    background: 'rgba(225, 29, 72, 0.2)',
+                    color: 'var(--accent-gold)',
                     fontSize: '11px',
                     fontWeight: 600,
                   }}
@@ -406,7 +406,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                     width: '36px',
                     height: '36px',
                     borderRadius: '10px',
-                    background: 'linear-gradient(135deg, #2563eb, #38bdf8)',
+                    background: 'linear-gradient(135deg, #e11d48, #be123c)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -546,7 +546,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
               borderRadius: '9999px',
               background: 'rgba(255, 255, 255, 0.08)',
               border: '1px solid rgba(255, 255, 255, 0.15)',
-              color: '#38bdf8',
+              color: 'var(--accent-gold)',
               fontSize: '11px',
               fontWeight: 700,
               letterSpacing: '0.05em',
@@ -583,8 +583,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                   width: '28px',
                   height: '28px',
                   borderRadius: '6px',
-                  background: 'rgba(56, 189, 248, 0.2)',
-                  color: '#38bdf8',
+                  background: 'rgba(225, 29, 72, 0.25)',
+                  color: 'var(--accent-gold)',
                 }}
               >
                 <Bot size={16} />
@@ -619,7 +619,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
               </span>
             </span>{' '}
             gives campus candidates their edge back: realistic AI rooms, live turn-taking and{' '}
-            <span style={{ color: '#64748b' }}>reports placement evaluators actually respect.</span>
+            <span style={{ color: '#fda4af' }}>reports placement evaluators actually respect.</span>
           </h2>
 
           {/* 3 Numerical Impact Stats */}
@@ -641,7 +641,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
               </div>
             </div>
             <div>
-              <div style={{ fontSize: '2.8rem', fontWeight: 800, color: '#38bdf8', letterSpacing: '-0.02em' }}>
+              <div style={{ fontSize: '2.8rem', fontWeight: 800, color: 'var(--accent-gold)', letterSpacing: '-0.02em' }}>
                 3.4×
               </div>
               <div style={{ fontSize: '13px', color: '#94a3b8', marginTop: '4px' }}>
@@ -677,7 +677,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                 borderRadius: '9999px',
                 background: 'rgba(255, 255, 255, 0.08)',
                 border: '1px solid rgba(255, 255, 255, 0.15)',
-                color: '#38bdf8',
+                color: 'var(--accent-gold)',
                 fontSize: '11px',
                 fontWeight: 700,
                 letterSpacing: '0.05em',
@@ -696,7 +696,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             >
               Every discussion dynamic, one platform
             </h3>
-            <p style={{ color: '#94a3b8', fontSize: '15px', marginTop: '0.5rem' }}>
+            <p style={{ color: '#fda4af', fontSize: '15px', marginTop: '0.5rem' }}>
               Switch seamlessly between multi-AI personality rooms and real-time student WebRTC rooms.
             </p>
           </div>
@@ -711,10 +711,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             {/* Bento 1: AI Personalities Selector */}
             <div className="arena-bento-card">
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <span style={{ fontSize: '12px', color: '#38bdf8', fontWeight: 700 }}>
+                <span style={{ fontSize: '12px', color: 'var(--accent-gold)', fontWeight: 700 }}>
                   AI PERSONALITY ENGINE
                 </span>
-                <span style={{ fontSize: '11px', color: '#94a3b8' }}>Distinct Prompts & Voices</span>
+                <span style={{ fontSize: '11px', color: '#fda4af' }}>Distinct Prompts & Voices</span>
               </div>
 
               <div style={{ display: 'flex', gap: '6px', marginBottom: '1.25rem', overflowX: 'auto', paddingBottom: '4px' }}>
@@ -726,9 +726,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                     style={{
                       padding: '6px 12px',
                       borderRadius: '8px',
-                      border: activePersonality === idx ? '1px solid #38bdf8' : '1px solid rgba(255,255,255,0.1)',
-                      background: activePersonality === idx ? 'rgba(56, 189, 248, 0.15)' : 'rgba(0,0,0,0.3)',
-                      color: activePersonality === idx ? '#38bdf8' : '#94a3b8',
+                      border: activePersonality === idx ? '1px solid var(--accent-rose)' : '1px solid rgba(255,255,255,0.1)',
+                      background: activePersonality === idx ? 'rgba(225, 29, 72, 0.25)' : 'rgba(0,0,0,0.3)',
+                      color: activePersonality === idx ? '#fff' : 'var(--text-secondary)',
                       fontSize: '12px',
                       fontWeight: 600,
                       cursor: 'pointer',
@@ -758,22 +758,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                       fontSize: '11px',
                       padding: '2px 8px',
                       borderRadius: '4px',
-                      background: 'rgba(56, 189, 248, 0.2)',
-                      color: '#38bdf8',
+                      background: 'rgba(225, 29, 72, 0.25)',
+                      color: 'var(--accent-gold)',
                     }}
                   >
                     {personalities[activePersonality].badge}
                   </span>
                 </div>
-                <p style={{ fontSize: '12px', color: '#94a3b8', lineHeight: 1.4, marginBottom: '0.75rem' }}>
+                <p style={{ fontSize: '12px', color: '#fda4af', lineHeight: 1.4, marginBottom: '0.75rem' }}>
                   {personalities[activePersonality].desc}
                 </p>
                 <div
                   style={{
                     fontSize: '12px',
                     fontStyle: 'italic',
-                    color: '#e2e8f0',
-                    borderLeft: '2px solid #38bdf8',
+                    color: '#fff1f2',
+                    borderLeft: '2px solid var(--accent-gold)',
                     paddingLeft: '8px',
                   }}
                 >
@@ -852,14 +852,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                   style={{
                     padding: '0.85rem',
                     borderRadius: '10px',
-                    background: 'rgba(56, 189, 248, 0.08)',
-                    border: '1px solid rgba(56, 189, 248, 0.2)',
+                    background: 'rgba(225, 29, 72, 0.12)',
+                    border: '1px solid rgba(225, 29, 72, 0.3)',
                   }}
                 >
-                  <div style={{ fontSize: '13px', fontWeight: 700, color: '#38bdf8', marginBottom: '2px' }}>
+                  <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--accent-gold)', marginBottom: '2px' }}>
                     1. AI Practice Room (On Demand)
                   </div>
-                  <div style={{ fontSize: '12px', color: '#94a3b8' }}>
+                  <div style={{ fontSize: '12px', color: '#fda4af' }}>
                     Available 24/7 with zero waiting time. Practice dominating, redirecting drifters, and
                     summarizing under pressure.
                   </div>
@@ -869,14 +869,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                   style={{
                     padding: '0.85rem',
                     borderRadius: '10px',
-                    background: 'rgba(99, 102, 241, 0.08)',
-                    border: '1px solid rgba(99, 102, 241, 0.2)',
+                    background: 'rgba(244, 63, 94, 0.08)',
+                    border: '1px solid rgba(244, 63, 94, 0.25)',
                   }}
                 >
-                  <div style={{ fontSize: '13px', fontWeight: 700, color: '#a5b4fc', marginBottom: '2px' }}>
+                  <div style={{ fontSize: '13px', fontWeight: 700, color: '#fff', marginBottom: '2px' }}>
                     2. Human Peer Room (LiveKit WebRTC)
                   </div>
-                  <div style={{ fontSize: '12px', color: '#94a3b8' }}>
+                  <div style={{ fontSize: '12px', color: '#fda4af' }}>
                     Multi-user low-latency audio rooms with batchmates. Creator host controls, shared
                     synced timers, and peer rubrics.
                   </div>
@@ -891,7 +891,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                     flex: 1,
                     padding: '8px',
                     borderRadius: '6px',
-                    background: '#1e293b',
+                    background: 'linear-gradient(135deg, #e11d48, #be123c)',
                     color: '#fff',
                     border: 'none',
                     fontSize: '12px',
@@ -908,9 +908,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                     flex: 1,
                     padding: '8px',
                     borderRadius: '6px',
-                    background: 'rgba(255,255,255,0.08)',
-                    color: '#e2e8f0',
-                    border: '1px solid rgba(255,255,255,0.12)',
+                    background: 'rgba(225, 29, 72, 0.15)',
+                    color: 'var(--accent-gold)',
+                    border: '1px solid rgba(225, 29, 72, 0.35)',
                     fontSize: '12px',
                     fontWeight: 600,
                     cursor: 'pointer',
@@ -938,14 +938,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
               width: '44px',
               height: '44px',
               borderRadius: '12px',
-              background: 'rgba(56, 189, 248, 0.15)',
+              background: 'rgba(225, 29, 72, 0.25)',
+              border: '1px solid rgba(244, 63, 94, 0.35)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               margin: '0 auto 1.5rem',
             }}
           >
-            <Sparkles size={22} color="#38bdf8" />
+            <Sparkles size={22} color="var(--accent-gold)" />
           </div>
 
           <h2
@@ -961,14 +962,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             <br />
             already half aced.
           </h2>
-          <p style={{ color: '#94a3b8', fontSize: '15px', marginBottom: '2.5rem' }}>
+          <p style={{ color: '#fda4af', fontSize: '15px', marginBottom: '2.5rem' }}>
             Zero setup required. Try our instant demo mode or register with your college email.
           </p>
 
           <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
             <button
               onClick={onStart}
-              className="arena-btn arena-btn--cyan"
+              className="arena-btn arena-btn--brand"
               style={{ height: '48px', padding: '0 28px', fontSize: '15px' }}
             >
               Start Free Practice
@@ -995,10 +996,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
               justifyContent: 'center',
               gap: '8px',
               fontSize: '12px',
-              color: '#94a3b8',
+              color: '#fda4af',
             }}
           >
-            <ShieldCheck size={16} color="#38bdf8" />
+            <ShieldCheck size={16} color="var(--accent-gold)" />
             <span>
               <strong>Educational Practice Disclosure:</strong> You are practising with AI-generated participants.
               Their voices and opinions are simulated for educational practice.
