@@ -216,15 +216,15 @@ button, input, select, textarea {
 }
 
 .arena-btn--brand {
-  background: #2a0815;
+  background: linear-gradient(135deg, #e11d48, #be123c);
   color: #fff1f2;
-  border: 1px solid rgba(244, 63, 94, 0.3);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 2px 6px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(244, 63, 94, 0.45);
+  box-shadow: 0 4px 18px rgba(225, 29, 72, 0.35);
 }
 .arena-btn--brand:hover {
-  background: #3e0c20;
-  border-color: rgba(244, 63, 94, 0.55);
-  box-shadow: 0 8px 24px -6px rgba(225, 29, 72, 0.4);
+  background: linear-gradient(135deg, #f43f5e, #e11d48);
+  border-color: rgba(244, 63, 94, 0.7);
+  box-shadow: 0 8px 28px rgba(244, 63, 94, 0.55);
 }
 
 .arena-btn--white {
