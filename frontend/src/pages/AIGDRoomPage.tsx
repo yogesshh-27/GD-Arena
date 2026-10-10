@@ -61,7 +61,6 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
   // Microphone & Speech State
   const [isMicMuted, setIsMicMuted] = useState(false);
   const [isAudioMuted, setIsAudioMuted] = useState(false);
-  const [speechLanguage, setSpeechLanguage] = useState<'en-IN' | 'hi-IN' | 'en-US'>('en-IN');
   const [provisionalSpeech, setProvisionalSpeech] = useState('');
   const [accumulatedTurnText, setAccumulatedTurnText] = useState('');
   const [isStudentSpeaking, setIsStudentSpeaking] = useState(false);
@@ -150,8 +149,8 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
     }, 1800);
   };
 
-  // Initialize Streaming Speech Recognizer (Provisional vs Finalized)
-  const setupSpeechRecognition = (lang: string) => {
+  // Initialize Streaming Speech Recognizer (Provisional vs Finalized, Auto Multilingual)
+  const setupSpeechRecognition = (lang: string = 'en-IN') => {
     if (recognizerRef.current) {
       recognizerRef.current.stop();
     }
@@ -208,13 +207,6 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
       }
     } catch (e: any) {
       setMicError(e.message || 'Speech recognition initialization failed');
-    }
-  };
-
-  const handleLanguageChange = (newLang: 'en-IN' | 'hi-IN' | 'en-US') => {
-    setSpeechLanguage(newLang);
-    if (recognizerRef.current) {
-      recognizerRef.current.setLanguage(newLang);
     }
   };
 
@@ -277,8 +269,8 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
       setActiveSpeakerId(openingTurn.speaker_id);
       setActiveSpeakerName(openingTurn.speaker_name);
 
-      // 2. Setup Microphone & Streaming Speech Recognizer gracefully
-      setupSpeechRecognition(speechLanguage);
+      // 2. Setup Microphone & Streaming Speech Recognizer gracefully (Auto Multilingual)
+      setupSpeechRecognition();
 
       if (!vadRef.current) {
         try {
@@ -809,47 +801,20 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
             </span>
           </div>
 
-          {/* Discussion Language Preference */}
+          {/* Automatic Multilingual Speech Support */}
           <div style={{ marginBottom: '1.5rem', padding: '1rem', borderRadius: 'var(--radius-sm)', background: 'rgba(26, 5, 14, 0.6)', border: '1px solid var(--border-subtle)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
-              <Globe size={16} style={{ color: 'var(--accent-gold)' }} />
-              <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#fff1f2' }}>Preferred Discussion Language:</span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <Globe size={16} style={{ color: 'var(--accent-gold)' }} />
+                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#fff1f2' }}>Universal Language Support:</span>
+              </div>
+              <span style={{ fontSize: '0.7rem', padding: '0.15rem 0.5rem', borderRadius: '4px', background: 'rgba(16, 185, 129, 0.15)', color: 'var(--accent-emerald)', fontWeight: 700, border: '1px solid rgba(16, 185, 129, 0.3)' }}>
+                AUTO-ACTIVE
+              </span>
             </div>
-            <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
-              GD Arena participants and the AI Moderator understand and support English, Hindi, and Hinglish.
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: 0, lineHeight: 1.5 }}>
+              No language selection needed. Speak naturally in <strong>Hinglish</strong>, <strong>Hindi</strong>, or <strong>English</strong> — GD Arena participants and the AI Moderator understand and participate in all languages automatically.
             </p>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {[
-                { id: 'en-IN', label: 'Hinglish / Indian English', badge: 'Recommended' },
-                { id: 'hi-IN', label: 'Hindi / हिन्दी', badge: 'Native' },
-                { id: 'en-US', label: 'English (US)', badge: 'Standard' },
-              ].map((lang) => (
-                <button
-                  key={lang.id}
-                  type="button"
-                  onClick={() => handleLanguageChange(lang.id as any)}
-                  style={{
-                    padding: '0.5rem 0.85rem',
-                    borderRadius: 'var(--radius-sm)',
-                    border: speechLanguage === lang.id ? '1px solid var(--accent-gold)' : '1px solid var(--border-subtle)',
-                    background: speechLanguage === lang.id ? 'rgba(251, 191, 36, 0.15)' : 'rgba(26, 5, 14, 0.5)',
-                    color: speechLanguage === lang.id ? '#fff1f2' : 'var(--text-secondary)',
-                    fontWeight: speechLanguage === lang.id ? 700 : 500,
-                    fontSize: '0.8rem',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.4rem',
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  <span>{lang.label}</span>
-                  <span style={{ fontSize: '0.65rem', padding: '0.1rem 0.35rem', borderRadius: '4px', background: speechLanguage === lang.id ? 'rgba(251, 191, 36, 0.25)' : 'rgba(255,255,255,0.08)', color: speechLanguage === lang.id ? 'var(--accent-gold)' : 'var(--text-muted)' }}>
-                    {lang.badge}
-                  </span>
-                </button>
-              ))}
-            </div>
           </div>
 
           {/* Microphone & Hardware Check */}
@@ -1194,7 +1159,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                     </span>
                   </div>
                   <span style={{ fontSize: '0.68rem', padding: '0.15rem 0.45rem', borderRadius: '4px', background: 'rgba(251, 191, 36, 0.15)', color: 'var(--accent-gold)', fontWeight: 600 }}>
-                    {speechLanguage === 'en-IN' ? 'Hinglish' : speechLanguage === 'hi-IN' ? 'Hindi' : 'English'}
+                    Auto: Hinglish • Hindi • English
                   </span>
                 </div>
               </div>
@@ -1218,7 +1183,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                   <span style={{ fontSize: '0.75rem', color: 'var(--accent-emerald)', marginLeft: '6px' }}>Voice Detected</span>
                 </div>
               ) : (
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Ready to speak ({speechLanguage === 'en-IN' ? 'Hinglish / English' : speechLanguage})</div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Ready to speak in Hinglish, Hindi, or English</div>
               )}
             </div>
           </div>
@@ -1395,29 +1360,11 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               </div>
             )}
 
-            {/* Language Selection & Mic Status Line */}
+            {/* Auto Multilingual & Mic Status Line */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <Globe size={13} style={{ color: 'var(--accent-gold)' }} />
-                <span>Language:</span>
-                <select
-                  value={speechLanguage}
-                  onChange={(e) => handleLanguageChange(e.target.value as any)}
-                  style={{
-                    background: '#1a050e',
-                    border: '1px solid var(--border-subtle)',
-                    borderRadius: '4px',
-                    color: '#fff',
-                    fontSize: '0.72rem',
-                    padding: '0.15rem 0.35rem',
-                    cursor: 'pointer',
-                    outline: 'none',
-                  }}
-                >
-                  <option value="en-IN">Hinglish / Indian English (en-IN)</option>
-                  <option value="hi-IN">Hindi / हिन्दी (hi-IN)</option>
-                  <option value="en-US">English (US)</option>
-                </select>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: 'var(--accent-gold)' }}>
+                <Globe size={13} />
+                <span style={{ fontSize: '0.72rem', fontWeight: 600 }}>Auto-Language: English • Hindi • Hinglish</span>
               </div>
               <span style={{ fontSize: '0.7rem', color: isMicMuted ? 'var(--accent-rose)' : 'var(--accent-emerald)', fontWeight: 600 }}>
                 {isMicMuted ? '🔇 Mic Muted' : '🎙️ Mic Active'}
@@ -1434,7 +1381,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
                   if (nextMuted && recognizerRef.current) {
                     recognizerRef.current.stop();
                   } else if (!nextMuted) {
-                    setupSpeechRecognition(speechLanguage);
+                    setupSpeechRecognition();
                   }
                 }}
                 title={isMicMuted ? 'Turn Microphone On' : 'Turn Microphone Off'}
