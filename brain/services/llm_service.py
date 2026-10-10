@@ -307,34 +307,52 @@ class GroqLLMService(BaseLLMService):
                 "Authorization": f"Bearer {self.api_key}",
                 "Content-Type": "application/json",
             }
-            # Model resolution fallback
-            model_name = self.model if ("llama" in self.model or "mixtral" in self.model or "gemma" in self.model) else "llama-3.3-70b-versatile"
+            # Model resolution
+            model_name = self.model or "qwen/qwen3.8-27b"
             payload = {
                 "model": model_name,
                 "messages": [
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt},
                 ],
-                "response_format": {"type": "json_object"},
                 "temperature": 0.7,
                 "max_tokens": 300,
             }
 
             async with httpx.AsyncClient(timeout=config.llm_timeout_seconds) as client:
                 res = await client.post(self.api_url, headers=headers, json=payload)
+                if res.status_code != 200:
+                    logger.warning("Groq API response error (%s): %s", res.status_code, res.text)
                 res.raise_for_status()
                 data = res.json()
                 raw_content = data["choices"][0]["message"]["content"]
-                parsed = json.loads(raw_content)
+                
+                clean_text = raw_content.strip()
+                if clean_text.startswith("```"):
+                    lines = clean_text.splitlines()
+                    if lines[0].startswith("```"):
+                        lines = lines[1:]
+                    if lines and lines[-1].startswith("```"):
+                        lines = lines[:-1]
+                    clean_text = "\n".join(lines).strip()
 
-                content = parsed.get("content", "").strip()
+                try:
+                    parsed = json.loads(clean_text)
+                    content = parsed.get("content", "").strip() or clean_text
+                    intent = parsed.get("intent", "statement")
+                    target = parsed.get("target_speaker_name")
+                except Exception:
+                    content = clean_text
+                    intent = "statement"
+                    target = None
+
                 words = len(content.split())
                 return ParticipantResponse(
                     participant_id=participant_id,
                     speaker_name=profile.name,
                     content=content,
-                    intent=parsed.get("intent", "statement"),
-                    target_speaker_name=parsed.get("target_speaker_name"),
+                    intent=intent,
+                    target_speaker_name=target,
                     requires_speech=True,
                     estimated_duration_seconds=max(2.0, words * (60.0 / 140.0)),
                 )
@@ -369,7 +387,7 @@ class GroqLLMService(BaseLLMService):
                 "Authorization": f"Bearer {self.api_key}",
                 "Content-Type": "application/json",
             }
-            model_name = self.model if ("llama" in self.model or "mixtral" in self.model or "gemma" in self.model) else "llama-3.3-70b-versatile"
+            model_name = self.model or "qwen/qwen3.8-27b"
             payload = {
                 "model": model_name,
                 "messages": [
