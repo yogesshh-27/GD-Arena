@@ -245,6 +245,159 @@ class DemoLLMService(BaseLLMService):
         }
 
 
+class GroqLLMService(BaseLLMService):
+    """
+    Real-Time Groq API integration using fast LPU inference.
+    Uses models such as llama-3.3-70b-versatile or llama-3.1-8b-instant.
+    Produces sub-second spoken replies for group discussions.
+    Falls back gracefully to DemoLLMService if key is absent or network fails.
+    """
+
+    def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None) -> None:
+        self.api_key = api_key or config.groq_api_key
+        self.model = model or config.llm_model
+        self.fallback = DemoLLMService()
+        self.api_url = "https://api.groq.com/openai/v1/chat/completions"
+
+    async def generate_participant_contribution(
+        self,
+        participant_id: str,
+        profile: ParticipantProfile,
+        topic: str,
+        recent_transcript: List[TranscriptEntry],
+        discussion_summary: str,
+    ) -> ParticipantResponse:
+        if not self.api_key:
+            return await self.fallback.generate_participant_contribution(
+                participant_id, profile, topic, recent_transcript, discussion_summary
+            )
+
+        try:
+            import httpx
+
+            recent_context = "\n".join([f"{t.speaker_name}: {t.text}" for t in recent_transcript[-6:]])
+            system_prompt = (
+                f"You are {profile.name}, participating in a campus recruitment Group Discussion.\n"
+                f"Personality Archetype: {profile.profile_type.value}\n"
+                f"Persona Description: {profile.description}\n"
+                f"Communication Style: {profile.communication_style}\n"
+                f"Special Instructions: {profile.prompt_instructions}\n"
+                f"Discussion Topic: {topic}\n"
+                f"Current Discussion Summary: {discussion_summary}\n\n"
+                "GUIDELINES:\n"
+                "1. Speak naturally in-character for 25 to 55 words.\n"
+                "2. Understand English, Hindi, and Hinglish. You may reply in English or natural conversational Hinglish.\n"
+                "3. Directly address what previous speakers said by name where appropriate.\n"
+                "4. You MUST respond with ONLY a valid JSON object matching this structure:\n"
+                "{\n"
+                f'  "participant_id": "{participant_id}",\n'
+                '  "content": "Your spoken contribution here",\n'
+                '  "intent": "counterargument|elaboration|question|agreement|closing",\n'
+                '  "target_speaker_name": "Name of speaker or null",\n'
+                '  "requires_speech": true\n'
+                "}"
+            )
+
+            user_prompt = (
+                f"Here are the most recent transcript turns:\n{recent_context}\n\n"
+                "Now give your in-character spoken contribution as valid JSON."
+            )
+
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "Content-Type": "application/json",
+            }
+            # Model resolution fallback
+            model_name = self.model if ("llama" in self.model or "mixtral" in self.model or "gemma" in self.model) else "llama-3.3-70b-versatile"
+            payload = {
+                "model": model_name,
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                "response_format": {"type": "json_object"},
+                "temperature": 0.7,
+                "max_tokens": 300,
+            }
+
+            async with httpx.AsyncClient(timeout=config.llm_timeout_seconds) as client:
+                res = await client.post(self.api_url, headers=headers, json=payload)
+                res.raise_for_status()
+                data = res.json()
+                raw_content = data["choices"][0]["message"]["content"]
+                parsed = json.loads(raw_content)
+
+                content = parsed.get("content", "").strip()
+                words = len(content.split())
+                return ParticipantResponse(
+                    participant_id=participant_id,
+                    speaker_name=profile.name,
+                    content=content,
+                    intent=parsed.get("intent", "statement"),
+                    target_speaker_name=parsed.get("target_speaker_name"),
+                    requires_speech=True,
+                    estimated_duration_seconds=max(2.0, words * (60.0 / 140.0)),
+                )
+        except Exception as e:
+            logger.warning("Groq generation error (%s: %s), falling back to demo service", type(e).__name__, e)
+            return await self.fallback.generate_participant_contribution(
+                participant_id, profile, topic, recent_transcript, discussion_summary
+            )
+
+    async def generate_moderator_statement(
+        self,
+        topic: str,
+        action: str,
+        context_notes: str,
+    ) -> str:
+        if not self.api_key:
+            return await self.fallback.generate_moderator_statement(topic, action, context_notes)
+
+        try:
+            import httpx
+
+            system_prompt = (
+                "You are the official AI Moderator for GD Arena campus recruitment discussions.\n"
+                "Understand English, Hindi, and Hinglish. Be professional, impartial, and concise (under 35 words unless formal opening or conclusion).\n"
+                f"Topic: {topic}\n"
+                f"Action Required: {action}\n"
+                f"Context Notes: {context_notes}\n"
+                "Output ONLY your spoken moderator words."
+            )
+
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "Content-Type": "application/json",
+            }
+            model_name = self.model if ("llama" in self.model or "mixtral" in self.model or "gemma" in self.model) else "llama-3.3-70b-versatile"
+            payload = {
+                "model": model_name,
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": f"Generate the moderator {action} statement."}
+                ],
+                "temperature": 0.5,
+                "max_tokens": 150,
+            }
+
+            async with httpx.AsyncClient(timeout=config.llm_timeout_seconds) as client:
+                res = await client.post(self.api_url, headers=headers, json=payload)
+                res.raise_for_status()
+                data = res.json()
+                return data["choices"][0]["message"]["content"].strip()
+        except Exception as e:
+            logger.warning("Groq moderator generation failed (%s), using fallback", e)
+            return await self.fallback.generate_moderator_statement(topic, action, context_notes)
+
+    async def generate_feedback_report(
+        self,
+        student_name: str,
+        topic: str,
+        transcript_entries: List[TranscriptEntry],
+    ) -> Dict[str, Any]:
+        return await self.fallback.generate_feedback_report(student_name, topic, transcript_entries)
+
+
 class GeminiLLMService(BaseLLMService):
     """
     Production Google Gemini API integration.
@@ -269,7 +422,6 @@ class GeminiLLMService(BaseLLMService):
             )
 
         try:
-            # We can use google.genai client if installed and key present
             from google import genai
             from google.genai import types
 
@@ -285,7 +437,6 @@ class GeminiLLMService(BaseLLMService):
                 "'participant_id', 'content', 'intent', 'target_speaker_name', 'requires_speech'."
             )
 
-            # Run in executor to prevent blocking
             loop = asyncio.get_running_loop()
             response = await loop.run_in_executor(
                 None,
@@ -320,7 +471,6 @@ class GeminiLLMService(BaseLLMService):
         action: str,
         context_notes: str,
     ) -> str:
-        # Use fallback for consistent high-speed moderator statements or real LLM
         return await self.fallback.generate_moderator_statement(topic, action, context_notes)
 
     async def generate_feedback_report(
@@ -329,12 +479,25 @@ class GeminiLLMService(BaseLLMService):
         topic: str,
         transcript_entries: List[TranscriptEntry],
     ) -> Dict[str, Any]:
-        # Demo fallback guarantees verbatim quote alignment and immediate response
         return await self.fallback.generate_feedback_report(student_name, topic, transcript_entries)
 
 
 def get_llm_service() -> BaseLLMService:
     """Factory returning configured LLM provider service."""
-    if config.demo_mode or not config.gemini_api_key:
-        return DemoLLMService()
-    return GeminiLLMService()
+    # Priority 1: Groq API (real-time low latency)
+    if config.groq_api_key or config.llm_provider.lower() == "groq":
+        if config.groq_api_key:
+            return GroqLLMService()
+        if config.demo_mode:
+            return DemoLLMService()
+        return GroqLLMService()
+
+    # Priority 2: Gemini API
+    if config.gemini_api_key or config.llm_provider.lower() == "gemini":
+        if config.gemini_api_key:
+            return GeminiLLMService()
+        if config.demo_mode:
+            return DemoLLMService()
+        return GeminiLLMService()
+
+    return DemoLLMService()

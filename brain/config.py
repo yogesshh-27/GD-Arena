@@ -22,8 +22,9 @@ class BrainConfig(BaseSettings):
     environment: str = Field(default="development", description="Environment: development, test, production")
 
     # LLM Settings
-    llm_provider: str = Field(default="gemini", description="Provider: gemini, openai, or mock")
-    llm_model: str = Field(default="gemini-2.0-flash", description="Model name")
+    llm_provider: str = Field(default="groq", description="Provider: groq, gemini, openai, or mock")
+    llm_model: str = Field(default="llama-3.3-70b-versatile", description="Model name (e.g. llama-3.3-70b-versatile, llama-3.1-8b-instant, gemini-2.0-flash)")
+    groq_api_key: Optional[str] = Field(default=None, description="Groq API key for real-time low-latency inference")
     gemini_api_key: Optional[str] = Field(default=None, description="Google Gemini API key")
     openai_api_key: Optional[str] = Field(default=None, description="OpenAI API key if configured")
     llm_timeout_seconds: float = Field(default=15.0, description="Timeout for LLM generation")
