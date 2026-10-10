@@ -178,6 +178,7 @@ export const App: React.FC = () => {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span
+              className="animate-beacon"
               style={{
                 width: '6px',
                 height: '6px',

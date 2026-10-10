@@ -95,18 +95,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onTabChange, user,
                 fontSize: '0.875rem',
                 cursor: 'pointer',
                 textAlign: 'left',
-                transition: 'all 0.15s ease',
+                transition: 'all 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
               }}
               onMouseEnter={(e) => {
                 if (!isActive) {
                   e.currentTarget.style.color = '#fff';
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                  e.currentTarget.style.transform = 'translateX(4px)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isActive) {
                   e.currentTarget.style.color = 'var(--text-secondary)';
                   e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.transform = 'translateX(0)';
                 }
               }}
             >

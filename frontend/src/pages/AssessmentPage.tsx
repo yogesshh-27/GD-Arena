@@ -120,7 +120,7 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onComplete, onSk
       }}
     >
       <div
-        className="glass-panel"
+        className="glass-panel animate-scale-in"
         style={{
           width: '100%',
           maxWidth: '680px',

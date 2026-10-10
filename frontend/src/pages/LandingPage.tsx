@@ -109,6 +109,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
               gd arena.
             </span>
             <span
+              className="animate-beacon"
               style={{
                 display: 'inline-block',
                 width: '6px',
@@ -162,13 +163,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             }}
             className="hidden md:flex"
           >
-            <div className="arena-node-chip">
+            <div className="arena-node-chip animate-float-1">
               <Bot size={13} color="#233a2d" /> Vikram · Dominator
             </div>
-            <div className="arena-node-chip" style={{ marginLeft: '24px' }}>
+            <div className="arena-node-chip animate-float-2" style={{ marginLeft: '24px' }}>
               <Activity size={13} color="#10b981" /> Voice Activity Detection
             </div>
-            <div className="arena-node-chip">
+            <div className="arena-node-chip animate-float-3">
               <Quote size={13} color="#d97706" /> Verbatim Quote Proof
             </div>
           </div>
@@ -186,13 +187,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             }}
             className="hidden md:flex"
           >
-            <div className="arena-node-chip">
+            <div className="arena-node-chip animate-float-2">
               <Bot size={13} color="#233a2d" /> Priya · Data Thinker
             </div>
-            <div className="arena-node-chip" style={{ marginRight: '20px' }}>
+            <div className="arena-node-chip animate-float-1" style={{ marginRight: '20px' }}>
               <Zap size={13} color="#d97706" /> Sub-Second Barge-In
             </div>
-            <div className="arena-node-chip">
+            <div className="arena-node-chip animate-float-3">
               <Users size={13} color="#233a2d" /> LiveKit Human Rooms
             </div>
           </div>
@@ -200,6 +201,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
           <div style={{ maxWidth: '820px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
             {/* Top Pill Status */}
             <div
+              className="animate-fade-in-up"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -236,6 +238,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
 
             {/* Main Editorial Headline */}
             <h1
+              className="animate-fade-in-up-1"
               style={{
                 fontSize: 'clamp(2.4rem, 6vw, 4.5rem)',
                 fontWeight: 800,
@@ -260,6 +263,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
 
             {/* Subheading */}
             <p
+              className="animate-fade-in-up-2"
               style={{
                 fontSize: 'clamp(1rem, 1.8vw, 1.2rem)',
                 color: '#5a6860',
@@ -275,6 +279,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
 
             {/* Action Buttons */}
             <div
+              className="animate-fade-in-up-3"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -302,6 +307,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
 
             {/* 3D Voice Disc Centerpiece */}
             <div
+              className="animate-fade-in-up-4"
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -326,6 +332,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                 }}
               >
                 <span
+                  className="animate-beacon"
                   style={{
                     width: '6px',
                     height: '6px',
@@ -355,6 +362,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
           >
             {/* Card 1: Live Discussion Stream */}
             <div
+              className="card-interactive"
               style={{
                 background: '#132219',
                 borderRadius: '16px',
@@ -449,6 +457,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
 
             {/* Card 2: Evidence-Backed Report Card */}
             <div
+              className="card-interactive"
               style={{
                 background: '#132219',
                 borderRadius: '16px',
@@ -796,7 +805,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
 
               <div style={{ marginBottom: '1.25rem' }}>
                 <div style={{ fontSize: '2.4rem', fontWeight: 800, color: '#fff' }}>
-                  12 Days <Flame size={24} color="#f97316" style={{ display: 'inline', verticalAlign: 'middle' }} />
+                  12 Days <Flame size={24} color="#f97316" className="animate-flame" style={{ display: 'inline', verticalAlign: 'middle' }} />
                 </div>
                 <div style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>
                   A day counts after a completed GD session. Never lose your interview momentum.

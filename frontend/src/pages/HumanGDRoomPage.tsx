@@ -184,7 +184,7 @@ export const HumanGDRoomPage: React.FC = () => {
           <div style={{ flex: 1, padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
               {activeRoom.participants.map((p: any, idx: number) => (
-                <div key={idx} className="glass-panel" style={{ padding: '1.5rem', textAlign: 'center', border: '1px solid var(--border-subtle)' }}>
+                <div key={idx} className="glass-panel card-interactive" style={{ padding: '1.5rem', textAlign: 'center', border: '1px solid var(--border-subtle)' }}>
                   <div
                     style={{
                       width: '56px',
@@ -305,7 +305,7 @@ export const HumanGDRoomPage: React.FC = () => {
               padding: '1rem',
             }}
           >
-            <div className="glass-panel" style={{ width: '100%', maxWidth: '440px', padding: '2rem' }}>
+            <div className="glass-panel animate-scale-in" style={{ width: '100%', maxWidth: '440px', padding: '2rem' }}>
               <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fff1f2', marginBottom: '0.5rem' }}>
                 Peer Feedback & Reflection
               </h3>
@@ -375,7 +375,7 @@ export const HumanGDRoomPage: React.FC = () => {
 
   // RENDER: Lobby View
   return (
-    <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <div className="page-transition-enter" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
@@ -414,7 +414,7 @@ export const HumanGDRoomPage: React.FC = () => {
           Loading active peer rooms...
         </div>
       ) : rooms.length === 0 ? (
-        <div className="glass-panel" style={{ padding: '3.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+        <div className="glass-panel card-interactive" style={{ padding: '3.5rem', textAlign: 'center', color: 'var(--text-muted)' }}>
           <Users size={32} style={{ margin: '0 auto 0.75rem', opacity: 0.5, color: 'var(--accent-rose)' }} />
           <p style={{ fontSize: '1rem', color: '#fff1f2', fontWeight: 600 }}>No public peer rooms waiting right now.</p>
           <p style={{ fontSize: '0.85rem', marginTop: '0.25rem' }}>Be the first to host a discussion room for your campus peers!</p>
@@ -437,7 +437,7 @@ export const HumanGDRoomPage: React.FC = () => {
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem' }}>
           {rooms.map((r) => (
-            <div key={r.id} className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div key={r.id} className="glass-panel card-interactive" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                   <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-gold)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
@@ -514,7 +514,7 @@ export const HumanGDRoomPage: React.FC = () => {
             padding: '1rem',
           }}
         >
-          <div className="glass-panel" style={{ width: '100%', maxWidth: '500px', padding: '2rem' }}>
+          <div className="glass-panel animate-scale-in" style={{ width: '100%', maxWidth: '500px', padding: '2rem' }}>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff', marginBottom: '0.5rem' }}>
               Host a Peer Discussion Room
             </h2>

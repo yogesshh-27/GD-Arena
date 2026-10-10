@@ -17,7 +17,7 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
   const { metrics, feedback, overall_score, overall_summary, topic, duration_seconds } = report;
 
   return (
-    <div style={{ padding: '2.5rem', maxWidth: '1080px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <div className="page-transition-enter" style={{ padding: '2.5rem', maxWidth: '1080px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       {/* Top Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <button
@@ -45,14 +45,27 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
             border: '1px solid rgba(16, 185, 129, 0.3)',
             fontSize: '0.8rem',
             fontWeight: 700,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
           }}
         >
+          <span
+            className="animate-beacon"
+            style={{
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              background: '#10b981',
+              display: 'inline-block',
+            }}
+          />
           EVIDENCE VERIFIED REPORT
         </span>
       </div>
 
       {/* Main Score & Summary Header */}
-      <div className="glass-panel" style={{ padding: '2.5rem' }}>
+      <div className="glass-panel card-interactive" style={{ padding: '2.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem', marginBottom: '1.5rem' }}>
           <div>
             <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--accent-gold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -90,7 +103,7 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
       </div>
 
       {/* Participation Analytics */}
-      <div className="glass-panel" style={{ padding: '2rem' }}>
+      <div className="glass-panel card-interactive" style={{ padding: '2rem' }}>
         <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fff1f2', marginBottom: '1.25rem' }}>
           Participation & Speaking Balance Analytics
         </h2>
@@ -149,7 +162,7 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
       </div>
 
       {/* EVIDENCE-BASED FEEDBACK (Non-negotiable core) */}
-      <div className="glass-panel" style={{ padding: '2rem' }}>
+      <div className="glass-panel card-interactive" style={{ padding: '2rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
           <Quote size={22} color="var(--accent-gold)" />
           <div>
@@ -230,7 +243,7 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
       </div>
 
       {/* What You Could Have Said */}
-      <div className="glass-panel" style={{ padding: '2rem' }}>
+      <div className="glass-panel card-interactive" style={{ padding: '2rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
           <Lightbulb size={20} color="var(--accent-gold)" />
           <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fff1f2' }}>"What You Could Have Said" — Missed Opportunities</h2>

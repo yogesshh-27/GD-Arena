@@ -79,11 +79,11 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   const { profile, streak, performance, recent_activity, recommended_topics } = data;
 
   return (
-    <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <div className="page-transition-enter" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       {/* Top Banner: Profile & Streaks */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1.5rem' }}>
         {/* Profile Card */}
-        <div className="glass-panel" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="glass-panel card-interactive" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
               <div
@@ -158,11 +158,11 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         </div>
 
         {/* Streak & Consistency Card */}
-        <div className="glass-panel" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="glass-panel card-interactive" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Flame size={22} color="var(--accent-gold)" />
+                <Flame size={22} color="var(--accent-gold)" className="animate-flame" />
                 <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#fff' }}>Daily Practice Streak</h3>
               </div>
               <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Asia/Kolkata</span>
@@ -214,7 +214,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
         {/* Quick Enter AI GD */}
         <div
-          className="glass-panel-glow"
+          className="glass-panel-glow card-interactive"
           style={{
             padding: '1.75rem',
             background: 'rgba(20, 35, 27, 0.95)',
@@ -273,7 +273,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
 
         {/* Quick Enter Human Room */}
         <div
-          className="glass-panel"
+          className="glass-panel card-interactive"
           style={{
             padding: '1.75rem',
             background: 'rgba(18, 32, 24, 0.85)',
@@ -315,7 +315,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
       </div>
 
       {/* Performance Overview Cards */}
-      <div className="glass-panel" style={{ padding: '1.75rem' }}>
+      <div className="glass-panel card-interactive" style={{ padding: '1.75rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <TrendingUp size={20} color="var(--accent-gold)" />
@@ -369,7 +369,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
       {/* Recommended Topics & Recent Activity */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
         {/* Recommended Topics */}
-        <div className="glass-panel" style={{ padding: '1.75rem' }}>
+        <div className="glass-panel card-interactive" style={{ padding: '1.75rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <BookOpen size={18} color="var(--accent-gold)" />
@@ -396,6 +396,15 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   justifyContent: 'space-between',
                   alignItems: 'center',
                   gap: '0.75rem',
+                  transition: 'transform 0.2s ease, border-color 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateX(4px)';
+                  e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateX(0)';
+                  e.currentTarget.style.borderColor = 'var(--border-subtle)';
                 }}
               >
                 <div>
@@ -426,7 +435,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         </div>
 
         {/* Recent Activity */}
-        <div className="glass-panel" style={{ padding: '1.75rem' }}>
+        <div className="glass-panel card-interactive" style={{ padding: '1.75rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Clock size={18} color="var(--accent-gold)" />

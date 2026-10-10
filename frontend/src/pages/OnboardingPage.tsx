@@ -95,7 +95,7 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
       }}
     >
       <div
-        className="glass-panel"
+        className="glass-panel animate-scale-in"
         style={{
           width: '100%',
           maxWidth: '560px',

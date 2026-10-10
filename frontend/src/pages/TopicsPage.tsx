@@ -57,7 +57,7 @@ export const TopicsPage: React.FC<TopicsPageProps> = ({ onSelectTopic }) => {
   };
 
   return (
-    <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <div className="page-transition-enter" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       {/* Header & Search */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
@@ -151,7 +151,7 @@ export const TopicsPage: React.FC<TopicsPageProps> = ({ onSelectTopic }) => {
           {topics.map((t) => (
             <div
               key={t.id}
-              className="glass-panel"
+              className="glass-panel card-interactive"
               style={{
                 padding: '1.25rem',
                 display: 'flex',
@@ -239,7 +239,7 @@ export const TopicsPage: React.FC<TopicsPageProps> = ({ onSelectTopic }) => {
             padding: '1rem',
           }}
         >
-          <div className="glass-panel" style={{ width: '100%', maxWidth: '500px', padding: '2rem' }}>
+          <div className="glass-panel animate-scale-in" style={{ width: '100%', maxWidth: '500px', padding: '2rem' }}>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff', marginBottom: '0.5rem' }}>
               Create Custom Discussion Topic
             </h2>

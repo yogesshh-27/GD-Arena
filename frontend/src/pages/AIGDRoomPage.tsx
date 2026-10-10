@@ -502,7 +502,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
   // RENDER: Phase 1 - Room Configuration
   if (phase === 'setup') {
     return (
-      <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
+      <div className="page-transition-enter" style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
         <button
           onClick={onExit}
           style={{
@@ -520,7 +520,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
           <ArrowLeft size={16} /> Return to Dashboard
         </button>
 
-        <div className="glass-panel" style={{ padding: '2.5rem' }}>
+        <div className="glass-panel card-interactive" style={{ padding: '2.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
             <div
               style={{
@@ -745,7 +745,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
   // RENDER: Phase 2 - Pre-Discussion Screen
   if (phase === 'pre_discussion') {
     return (
-      <div style={{ padding: '2rem', maxWidth: '760px', margin: '0 auto' }}>
+      <div className="page-transition-enter" style={{ padding: '2rem', maxWidth: '760px', margin: '0 auto' }}>
         <button
           onClick={() => setPhase('setup')}
           style={{
@@ -763,7 +763,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
           <ArrowLeft size={16} /> Back to Configuration
         </button>
 
-        <div className="glass-panel" style={{ padding: '2.5rem' }}>
+        <div className="glass-panel card-interactive" style={{ padding: '2.5rem' }}>
           <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fff', marginBottom: '0.5rem' }}>
             Pre-Discussion Room & Audio Check
           </h2>
@@ -905,12 +905,13 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div
+            className="animate-beacon"
             style={{
               width: '10px',
               height: '10px',
               borderRadius: '50%',
-              backgroundColor: 'var(--accent-rose)',
-              boxShadow: '0 0 10px var(--accent-rose)',
+              backgroundColor: '#10b981',
+              boxShadow: '0 0 10px #10b981',
             }}
           />
           <div>
@@ -1034,7 +1035,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
             {/* Moderator Card */}
             <div
-              className={`glass-panel ${activeSpeakerId === 'moderator_001' ? 'speaking-pulse' : ''}`}
+              className={`glass-panel card-interactive ${activeSpeakerId === 'moderator_001' ? 'speaking-pulse' : ''}`}
               style={{
                 padding: '1.25rem',
                 border: activeSpeakerId === 'moderator_001' ? '1px solid var(--accent-rose)' : '1px solid var(--border-subtle)',
@@ -1080,7 +1081,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               return (
                 <div
                   key={p.id}
-                  className={`glass-panel ${isSpeaking ? 'speaking-pulse' : ''}`}
+                  className={`glass-panel card-interactive ${isSpeaking ? 'speaking-pulse' : ''}`}
                   style={{
                     padding: '1.25rem',
                     border: isSpeaking ? '1px solid var(--accent-rose)' : '1px solid var(--border-subtle)',
@@ -1127,7 +1128,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
 
             {/* Student Candidate Card ("You") */}
             <div
-              className={`glass-panel ${activeSpeakerId === 'student' ? 'speaking-pulse' : ''}`}
+              className={`glass-panel card-interactive ${activeSpeakerId === 'student' ? 'speaking-pulse' : ''}`}
               style={{
                 padding: '1.25rem',
                 border: '1px solid var(--border-highlight)',
@@ -1222,6 +1223,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
               return (
                 <div
                   key={entry.entry_id}
+                  className="animate-fade-in-up"
                   style={{
                     padding: '0.75rem 0.9rem',
                     borderRadius: 'var(--radius-sm)',

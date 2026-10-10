@@ -103,10 +103,37 @@ button, input, select, textarea {
   box-shadow: var(--shadow-glow);
 }
 
-/* Animations */
+/* Keyframe Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 15px rgba(244, 63, 94, 0.25); }
-  50% { box-shadow: 0 0 30px rgba(244, 63, 94, 0.6); }
+  0%, 100% { box-shadow: 0 0 15px rgba(35, 58, 45, 0.3); }
+  50% { box-shadow: 0 0 35px rgba(16, 185, 129, 0.5); }
 }
 
 @keyframes waveBar {
@@ -115,17 +142,118 @@ button, input, select, textarea {
 }
 
 @keyframes floatGentle {
-  0%, 100% { transform: translateY(0px) rotateX(12deg); }
-  50% { transform: translateY(-8px) rotateX(16deg); }
+  0%, 100% {
+    transform: perspective(800px) rotateX(14deg) translateY(0px);
+  }
+  50% {
+    transform: perspective(800px) rotateX(10deg) translateY(-8px);
+  }
 }
 
-@keyframes pulseDiscGlow {
-  0%, 100% { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(244, 63, 94, 0.35); }
-  50% { box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8), 0 0 65px rgba(225, 29, 72, 0.6); }
+@keyframes floatSlight {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes beaconPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+@keyframes flameFlicker {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 6px rgba(249, 115, 22, 0.4));
+  }
+  50% {
+    transform: scale(1.15) rotate(-4deg);
+    filter: drop-shadow(0 0 12px rgba(249, 115, 22, 0.75));
+  }
+}
+
+@keyframes speakingPulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6), 0 0 15px rgba(16, 185, 129, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0), 0 0 30px rgba(16, 185, 129, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0), 0 0 15px rgba(16, 185, 129, 0.3);
+  }
+}
+
+/* Staggered & Entrance Utility Classes */
+.animate-fade-in {
+  animation: fadeIn 0.45s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-up-1 {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.08s backwards;
+}
+
+.animate-fade-in-up-2 {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.16s backwards;
+}
+
+.animate-fade-in-up-3 {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.24s backwards;
+}
+
+.animate-fade-in-up-4 {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.32s backwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-beacon {
+  animation: beaconPulse 2s infinite ease-out;
+}
+
+.animate-flame {
+  animation: flameFlicker 2.5s infinite ease-in-out;
+}
+
+.animate-float-1 {
+  animation: floatSlight 4s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: floatSlight 4.5s ease-in-out 1.2s infinite;
+}
+
+.animate-float-3 {
+  animation: floatSlight 5s ease-in-out 2.4s infinite;
+}
+
+.page-transition-enter {
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .speaking-pulse {
-  animation: pulseGlow 2s infinite ease-in-out;
+  animation: speakingPulseRing 1.8s infinite ease-in-out;
+}
+
+.card-interactive {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+.card-interactive:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.55), 0 0 25px rgba(16, 185, 129, 0.08);
 }
 
 .waveform-container {
@@ -137,7 +265,7 @@ button, input, select, textarea {
 
 .waveform-bar {
   width: 4px;
-  background: linear-gradient(180deg, var(--accent-rose), var(--accent-gold));
+  background: #10b981;
   border-radius: 2px;
   animation: waveBar 1.2s ease-in-out infinite;
 }

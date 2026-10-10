@@ -68,7 +68,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccess, onCancel, initial
       }}
     >
       <div
-        className="glass-panel"
+        className="glass-panel animate-scale-in"
         style={{
           width: '100%',
           maxWidth: '440px',
