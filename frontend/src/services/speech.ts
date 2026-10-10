@@ -7,6 +7,7 @@
 export function playSpokenAudio(
   text: string,
   voiceName?: string,
+  profileType?: string,
   onStart?: () => void,
   onEnd?: () => void
 ): void {
@@ -14,23 +15,50 @@ export function playSpokenAudio(
     if (onStart) onStart();
     setTimeout(() => {
       if (onEnd) onEnd();
-    }, Math.max(1500, (text.split(' ').length / 140) * 60 * 1000));
+    }, Math.max(1200, (text.split(' ').length / 160) * 60 * 1000));
     return;
   }
 
-  // Cancel any ongoing utterance
+  // Cancel any ongoing utterance immediately (barge-in protection)
   window.speechSynthesis.cancel();
 
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = 1.0;
-  utterance.pitch = 1.0;
+  
+  // Archetype-distinct voice character modulation
+  if (profileType === 'DOMINATOR') {
+    utterance.pitch = 0.85;
+    utterance.rate = 1.12;
+  } else if (profileType === 'DATA_DRIVEN') {
+    utterance.pitch = 1.15;
+    utterance.rate = 1.05;
+  } else if (profileType === 'QUIET_CONTRIBUTOR') {
+    utterance.pitch = 0.95;
+    utterance.rate = 0.92;
+  } else if (profileType === 'CREATIVE') {
+    utterance.pitch = 1.25;
+    utterance.rate = 1.08;
+  } else if (profileType === 'OFF_TOPIC') {
+    utterance.pitch = 1.05;
+    utterance.rate = 1.0;
+  } else {
+    // Moderator / Default
+    utterance.pitch = 1.0;
+    utterance.rate = 1.0;
+  }
 
-  // Pick suitable voice if available
+  // Pick suitable browser voice
   const voices = window.speechSynthesis.getVoices();
   if (voices.length > 0) {
     if (voiceName) {
       const match = voices.find((v) => v.name.toLowerCase().includes(voiceName.toLowerCase()));
-      if (match) utterance.voice = match;
+      if (match) {
+        utterance.voice = match;
+      }
+    }
+    // If no direct name match, cycle through voices for acoustic variety
+    if (!utterance.voice && voices.length > 1) {
+      const hash = (profileType || 'MODERATOR').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+      utterance.voice = voices[hash % voices.length];
     }
   }
 

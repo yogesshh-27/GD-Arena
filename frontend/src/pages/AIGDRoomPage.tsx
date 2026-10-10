@@ -141,6 +141,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
         playSpokenAudio(
           openingTurn.text,
           'en-US-AriaNeural',
+          'MODERATOR',
           () => setActiveSpeakerId(openingTurn.speaker_id),
           () => {
             setActiveSpeakerId(null);
@@ -151,7 +152,7 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
         setTimeout(() => {
           setActiveSpeakerId(null);
           scheduleNextTurn(sessionId);
-        }, 3000);
+        }, 1500);
       }
 
       // Start Server-Synced Clock
@@ -184,28 +185,36 @@ export const AIGDRoomPage: React.FC<AIGDRoomPageProps> = ({
         setActiveSpeakerId(entry.speaker_id);
         setActiveSpeakerName(entry.speaker_name);
 
+        const speakerParticipant = participants.find((p) => p.id === entry.speaker_id);
+        const profileType = speakerParticipant?.profile?.profile_type;
+
         if (!isAudioMuted) {
           playSpokenAudio(
             entry.text,
             nextRes.audio?.voice_name,
+            profileType,
             () => setActiveSpeakerId(entry.speaker_id),
             () => {
               setActiveSpeakerId(null);
-              // Slight natural pause before requesting next turn
+              // Brisk, conversational pause (800ms)
               setTimeout(() => {
                 scheduleNextTurn(sId);
-              }, 1800);
+              }, 800);
             }
           );
         } else {
           setTimeout(() => {
             setActiveSpeakerId(null);
             scheduleNextTurn(sId);
-          }, 4000);
+          }, 2000);
         }
       }
     } catch (err) {
-      console.error('Next turn generation error:', err);
+      console.error('Next turn generation error, recovering gracefully:', err);
+      // Network / provider glitch resilience: auto-retry after brief pause
+      setTimeout(() => {
+        scheduleNextTurn(sId);
+      }, 2500);
     }
   };
 
