@@ -133,11 +133,12 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onComplete, onSk
               width: '44px',
               height: '44px',
               borderRadius: '12px',
-              background: 'linear-gradient(135deg, #e11d48, #be123c)',
+              background: '#233a2d',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 0 25px rgba(225, 29, 72, 0.4)',
+              boxShadow: '0 0 20px rgba(35, 58, 45, 0.4)',
               marginBottom: '0.75rem',
             }}
           >
@@ -156,13 +157,13 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onComplete, onSk
           style={{
             padding: '1.25rem',
             borderRadius: 'var(--radius-md)',
-            background: 'rgba(225, 29, 72, 0.12)',
-            border: '1px solid rgba(225, 29, 72, 0.35)',
+            background: 'rgba(35, 58, 45, 0.25)',
+            border: '1px solid rgba(35, 58, 45, 0.6)',
             marginBottom: '1.5rem',
             textAlign: 'center',
           }}
         >
-          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-gold)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-emerald)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             CALIBRATION PROMPT
           </span>
           <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#fff', marginTop: '0.35rem' }}>
@@ -288,7 +289,7 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onComplete, onSk
                     style={{
                       height: '100%',
                       width: `${Math.max(5, micVolume * 100)}%`,
-                      background: 'linear-gradient(90deg, #e11d48, #fbbf24)',
+                      background: '#10b981',
                       transition: 'width 0.1s ease',
                     }}
                   />
@@ -381,14 +382,14 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onComplete, onSk
                 style={{
                   padding: '0.65rem 1.5rem',
                   borderRadius: 'var(--radius-sm)',
-                  border: 'none',
-                  background: 'linear-gradient(135deg, #e11d48, #be123c)',
+                  border: '1px solid #1a2c22',
+                  background: '#233a2d',
                   color: '#fff',
                   fontWeight: 700,
                   fontSize: '0.9rem',
                   cursor: !transcript.trim() ? 'not-allowed' : 'pointer',
                   opacity: !transcript.trim() ? 0.6 : 1,
-                  boxShadow: '0 0 25px rgba(225, 29, 72, 0.35)',
+                  boxShadow: '0 4px 15px rgba(35, 58, 45, 0.4)',
                 }}
               >
                 {isSubmitting ? 'Evaluating...' : 'Submit Baseline & Enter Dashboard'}

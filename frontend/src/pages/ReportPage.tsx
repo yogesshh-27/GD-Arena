@@ -70,13 +70,13 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
               textAlign: 'center',
               padding: '1.25rem 2rem',
               borderRadius: 'var(--radius-md)',
-              background: 'linear-gradient(135deg, rgba(225, 29, 72, 0.25), rgba(251, 191, 36, 0.15))',
-              border: '1px solid rgba(244, 63, 94, 0.35)',
-              boxShadow: '0 8px 30px rgba(225, 29, 72, 0.2)',
+              background: '#132219',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.5)',
             }}
           >
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)' }}>OVERALL SCORE</span>
-            <div style={{ fontSize: '2.75rem', fontWeight: 800, color: 'var(--accent-gold)', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)' }}>OVERALL SCORE</span>
+            <div style={{ fontSize: '2.75rem', fontWeight: 800, color: '#10b981', fontFamily: 'var(--font-mono)' }}>
               {overall_score.toFixed(1)}
               <span style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>/5.0</span>
             </div>
@@ -257,9 +257,9 @@ export const ReportPage: React.FC<ReportPageProps> = ({ report, onBackToDashboar
           style={{
             padding: '0.85rem 2.5rem',
             borderRadius: 'var(--radius-sm)',
-            border: 'none',
-            background: 'linear-gradient(135deg, #e11d48, #be123c)',
-            boxShadow: '0 4px 20px rgba(225, 29, 72, 0.35)',
+            border: '1px solid #1a2c22',
+            background: '#233a2d',
+            boxShadow: '0 4px 15px rgba(35, 58, 45, 0.4)',
             color: '#fff',
             fontWeight: 700,
             fontSize: '1rem',

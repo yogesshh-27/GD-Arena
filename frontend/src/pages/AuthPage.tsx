@@ -102,11 +102,12 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccess, onCancel, initial
               width: '46px',
               height: '46px',
               borderRadius: '12px',
-              background: 'linear-gradient(135deg, #e11d48, #fbbf24)',
+              background: '#233a2d',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 0 25px rgba(225, 29, 72, 0.4)',
+              boxShadow: '0 0 20px rgba(35, 58, 45, 0.4)',
               marginBottom: '0.75rem',
             }}
           >
@@ -260,13 +261,13 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccess, onCancel, initial
               marginTop: '0.5rem',
               padding: '0.75rem',
               borderRadius: 'var(--radius-sm)',
-              border: 'none',
-              background: 'linear-gradient(135deg, #e11d48, #be123c)',
+              border: '1px solid #1a2c22',
+              background: '#233a2d',
               color: '#fff',
               fontWeight: 700,
               fontSize: '0.95rem',
               cursor: loading ? 'not-allowed' : 'pointer',
-              boxShadow: '0 0 25px rgba(225, 29, 72, 0.35)',
+              boxShadow: '0 4px 15px rgba(35, 58, 45, 0.4)',
             }}
           >
             {loading ? 'Please wait...' : mode === 'login' ? 'Sign In' : mode === 'signup' ? 'Create Account' : 'Set New Password'}

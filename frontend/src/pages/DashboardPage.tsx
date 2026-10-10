@@ -91,14 +91,15 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   width: '54px',
                   height: '54px',
                   borderRadius: '16px',
-                  background: 'linear-gradient(135deg, #e11d48, #fbbf24)',
+                  background: '#233a2d',
+                  border: '1px solid rgba(16, 185, 129, 0.4)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: '1.35rem',
                   fontWeight: 800,
                   color: '#fff',
-                  boxShadow: '0 0 25px rgba(225, 29, 72, 0.4)',
+                  boxShadow: '0 0 20px rgba(35, 58, 45, 0.5)',
                 }}
               >
                 {profile.full_name ? profile.full_name[0].toUpperCase() : 'U'}
@@ -117,9 +118,9 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   fontSize: '0.75rem',
                   padding: '0.2rem 0.65rem',
                   borderRadius: '12px',
-                  background: 'rgba(225, 29, 72, 0.15)',
-                  color: 'var(--accent-gold)',
-                  border: '1px solid rgba(251, 191, 36, 0.3)',
+                  background: 'rgba(16, 185, 129, 0.12)',
+                  color: 'var(--accent-emerald)',
+                  border: '1px solid rgba(16, 185, 129, 0.25)',
                   fontWeight: 700,
                 }}
               >
@@ -148,7 +149,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 background: 'rgba(0, 0, 0, 0.3)',
                 padding: '0.75rem 0.9rem',
                 borderRadius: 'var(--radius-sm)',
-                borderLeft: '3px solid var(--accent-rose)',
+                borderLeft: '3px solid var(--accent-emerald)',
               }}
             >
               <strong>Baseline Assessment:</strong> {profile.baseline_summary}
@@ -194,7 +195,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                         width: '100%',
                         height: `${heightPercent}%`,
                         borderRadius: '4px',
-                        background: hasSession ? 'linear-gradient(180deg, var(--accent-rose), #be123c)' : 'rgba(255, 255, 255, 0.08)',
+                        background: hasSession ? '#10b981' : 'rgba(255, 255, 255, 0.08)',
                         transition: 'all 0.2s ease',
                       }}
                     />
@@ -216,8 +217,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           className="glass-panel-glow"
           style={{
             padding: '1.75rem',
-            background: 'linear-gradient(135deg, rgba(38, 10, 20, 0.88), rgba(52, 14, 28, 0.78))',
-            border: '1px solid rgba(225, 29, 72, 0.35)',
+            background: 'rgba(20, 35, 27, 0.95)',
+            border: '1px solid rgba(35, 58, 45, 0.6)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -226,7 +227,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         >
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-              <Bot size={22} color="var(--accent-gold)" />
+              <Bot size={22} color="var(--accent-emerald)" />
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>Enter AI GD Room</h3>
             </div>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: '1.25rem', maxWidth: '380px' }}>
@@ -240,13 +241,13 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 gap: '0.5rem',
                 padding: '0.65rem 1.5rem',
                 borderRadius: 'var(--radius-sm)',
-                border: 'none',
-                background: 'linear-gradient(135deg, #e11d48, #be123c)',
+                border: '1px solid #1a2c22',
+                background: '#233a2d',
                 color: '#fff',
                 fontWeight: 700,
                 fontSize: '0.9rem',
                 cursor: 'pointer',
-                boxShadow: '0 0 25px rgba(225, 29, 72, 0.4)',
+                boxShadow: '0 4px 18px rgba(35, 58, 45, 0.4)',
               }}
             >
               Start AI Discussion <ArrowRight size={16} />
@@ -258,14 +259,14 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 width: '70px',
                 height: '70px',
                 borderRadius: '20px',
-                background: 'rgba(225, 29, 72, 0.15)',
+                background: 'rgba(35, 58, 45, 0.3)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                border: '1px solid rgba(244, 63, 94, 0.4)',
+                border: '1px solid rgba(16, 185, 129, 0.3)',
               }}
             >
-              <Sparkles size={32} color="var(--accent-gold)" />
+              <Sparkles size={32} color="var(--accent-emerald)" />
             </div>
           </div>
         </div>
@@ -275,7 +276,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           className="glass-panel"
           style={{
             padding: '1.75rem',
-            background: 'linear-gradient(135deg, rgba(30, 8, 16, 0.88), rgba(42, 12, 24, 0.78))',
+            background: 'rgba(18, 32, 24, 0.85)',
             border: '1px solid var(--border-subtle)',
             display: 'flex',
             alignItems: 'center',
@@ -285,7 +286,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         >
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-              <Users size={22} color="var(--accent-gold)" />
+              <Users size={22} color="var(--accent-emerald)" />
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff' }}>Enter Human GD Room</h3>
             </div>
             <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: '1.25rem', maxWidth: '380px' }}>
@@ -299,9 +300,9 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 gap: '0.5rem',
                 padding: '0.65rem 1.5rem',
                 borderRadius: 'var(--radius-sm)',
-                border: '1px solid rgba(225, 29, 72, 0.4)',
-                background: 'rgba(225, 29, 72, 0.15)',
-                color: 'var(--accent-gold)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                background: 'rgba(35, 58, 45, 0.4)',
+                color: 'var(--accent-emerald)',
                 fontWeight: 700,
                 fontSize: '0.9rem',
                 cursor: 'pointer',

@@ -67,9 +67,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             justifyContent: 'space-between',
             alignItems: 'center',
             padding: '16px 24px',
-            background: 'rgba(18, 3, 7, 0.85)',
+            background: 'rgba(237, 233, 223, 0.88)',
             backdropFilter: 'blur(16px)',
-            borderBottom: '1px solid rgba(244, 63, 94, 0.18)',
+            borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
           }}
         >
           {/* Brand Logo Pill */}
@@ -80,9 +80,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
               gap: '8px',
               padding: '6px 14px',
               borderRadius: '9999px',
-              background: 'rgba(30, 8, 16, 0.85)',
-              border: '1px solid rgba(244, 63, 94, 0.3)',
-              boxShadow: '0 2px 10px rgba(0, 0, 0, 0.4)',
+              background: '#ffffff',
+              border: '1px solid #dcd8cc',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.06)',
             }}
           >
             <div
@@ -90,7 +90,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                 width: '22px',
                 height: '22px',
                 borderRadius: '6px',
-                background: 'linear-gradient(135deg, #e11d48, #fbbf24)',
+                background: '#233a2d',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -103,7 +103,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                 fontSize: '14px',
                 fontWeight: 800,
                 letterSpacing: '-0.02em',
-                color: '#fff',
+                color: '#121e17',
               }}
             >
               gd arena.
@@ -124,17 +124,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <button
               onClick={onDemoLogin}
-              className="arena-btn arena-btn--white"
-              style={{ height: '36px', padding: '0 14px', fontSize: '13px' }}
-            >
-              1-Click Demo
-            </button>
-            <button
-              onClick={onStart}
               className="arena-btn arena-btn--brand"
               style={{ height: '36px', padding: '0 16px', fontSize: '13px' }}
             >
-              Sign in / Register
+              Log in
+            </button>
+            <button
+              onClick={onStart}
+              className="arena-btn arena-btn--white"
+              style={{ height: '36px', padding: '0 16px', fontSize: '13px' }}
+            >
+              Sign up
             </button>
           </div>
         </header>
@@ -163,13 +163,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             className="hidden md:flex"
           >
             <div className="arena-node-chip">
-              <Bot size={13} color="#e11d48" /> Vikram · Dominator
+              <Bot size={13} color="#233a2d" /> Vikram · Dominator
             </div>
             <div className="arena-node-chip" style={{ marginLeft: '24px' }}>
               <Activity size={13} color="#10b981" /> Voice Activity Detection
             </div>
             <div className="arena-node-chip">
-              <Quote size={13} color="#fbbf24" /> Verbatim Quote Proof
+              <Quote size={13} color="#d97706" /> Verbatim Quote Proof
             </div>
           </div>
 
@@ -187,13 +187,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             className="hidden md:flex"
           >
             <div className="arena-node-chip">
-              <Bot size={13} color="#f43f5e" /> Priya · Data Thinker
+              <Bot size={13} color="#233a2d" /> Priya · Data Thinker
             </div>
             <div className="arena-node-chip" style={{ marginRight: '20px' }}>
-              <Zap size={13} color="#fbbf24" /> Sub-Second Barge-In
+              <Zap size={13} color="#d97706" /> Sub-Second Barge-In
             </div>
             <div className="arena-node-chip">
-              <Users size={13} color="#e11d48" /> LiveKit Human Rooms
+              <Users size={13} color="#233a2d" /> LiveKit Human Rooms
             </div>
           </div>
 
@@ -206,13 +206,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                 gap: '8px',
                 padding: '6px 14px',
                 borderRadius: '9999px',
-                background: 'rgba(26, 5, 14, 0.8)',
-                border: '1px solid rgba(244, 63, 94, 0.25)',
-                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.3)',
+                background: '#e2ded4',
+                border: '1px solid #d0cbc0',
+                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.05)',
                 marginBottom: '1.75rem',
               }}
             >
-              <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: 500 }}>
+              <span style={{ fontSize: '12px', color: '#5a6860', fontWeight: 500 }}>
                 Trusted by
               </span>
               <span
@@ -223,13 +223,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                   width: '16px',
                   height: '16px',
                   borderRadius: '3px',
-                  background: '#e11d48',
+                  background: '#f97316',
                   color: '#fff',
                 }}
               >
                 <CheckCircle2 size={12} />
               </span>
-              <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--accent-gold)' }}>
+              <span style={{ fontSize: '12px', fontWeight: 700, color: '#121e17' }}>
                 12,000+ placement candidates
               </span>
             </div>
@@ -241,7 +241,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                 fontWeight: 800,
                 letterSpacing: '-0.035em',
                 lineHeight: 1.06,
-                color: '#fff',
+                color: '#121e17',
                 marginBottom: '1.35rem',
               }}
             >
@@ -251,10 +251,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
               <span
                 style={{
                   fontWeight: 900,
-                  color: 'var(--accent-gold)',
-                  textDecoration: 'underline',
-                  textDecorationColor: 'rgba(225, 29, 72, 0.7)',
-                  textUnderlineOffset: '8px',
+                  color: '#121e17',
                 }}
               >
                 afternoon
@@ -265,7 +262,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             <p
               style={{
                 fontSize: 'clamp(1rem, 1.8vw, 1.2rem)',
-                color: 'var(--text-secondary)',
+                color: '#5a6860',
                 lineHeight: 1.55,
                 maxWidth: '640px',
                 margin: '0 auto 2.25rem',
@@ -320,12 +317,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                   gap: '6px',
                   padding: '4px 12px',
                   borderRadius: '9999px',
-                  background: 'rgba(26, 5, 14, 0.85)',
-                  border: '1px solid rgba(244, 63, 94, 0.25)',
-                  boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
+                  background: '#e2ded4',
+                  border: '1px solid #d0cbc0',
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
                   fontSize: '11px',
                   fontWeight: 600,
-                  color: 'var(--accent-gold)',
+                  color: '#18261e',
                 }}
               >
                 <span
@@ -340,7 +337,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
               </div>
 
               <div className="arena-voice-disc">
-                <Mic size={44} color="#fff" style={{ opacity: 0.95 }} />
+                <Mic size={44} color="#233a2d" style={{ opacity: 0.95 }} />
               </div>
             </div>
           </div>
@@ -359,12 +356,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             {/* Card 1: Live Discussion Stream */}
             <div
               style={{
-                background: 'rgba(30, 8, 16, 0.88)',
+                background: '#132219',
                 borderRadius: '16px',
                 padding: '1.5rem',
                 color: '#fff',
-                boxShadow: '0 12px 30px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(225, 29, 72, 0.15)',
-                border: '1px solid rgba(244, 63, 94, 0.22)',
+                boxShadow: '0 12px 30px -10px rgba(0, 0, 0, 0.5)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
               }}
             >
               <div
@@ -380,7 +377,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                     fontSize: '11px',
                     fontWeight: 700,
                     textTransform: 'uppercase',
-                    color: 'var(--accent-gold)',
+                    color: '#879b8f',
                     letterSpacing: '0.05em',
                   }}
                 >
@@ -390,8 +387,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                   style={{
                     padding: '2px 8px',
                     borderRadius: '4px',
-                    background: 'rgba(225, 29, 72, 0.2)',
-                    color: 'var(--accent-gold)',
+                    background: '#1c2d22',
+                    color: '#10b981',
                     fontSize: '11px',
                     fontWeight: 600,
                   }}
@@ -406,22 +403,24 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                     width: '36px',
                     height: '36px',
                     borderRadius: '10px',
-                    background: 'linear-gradient(135deg, #e11d48, #be123c)',
+                    background: '#233a2d',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontWeight: 800,
+                    color: '#fff',
                   }}
                 >
                   V
                 </div>
                 <div>
-                  <div style={{ fontSize: '13px', fontWeight: 700, color: '#fff1f2' }}>Vikram Malhotra</div>
-                  <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>The Dominator · High Urgency</div>
+                  <div style={{ fontSize: '13px', fontWeight: 700, color: '#fff' }}>Vikram Malhotra</div>
+                  <div style={{ fontSize: '11px', color: '#879b8f' }}>The Dominator · High Urgency</div>
                 </div>
               </div>
 
-              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '1rem' }}>
+              <p style={{ fontSize: '13px', color: '#cbd5e1', lineHeight: 1.5, marginBottom: '1rem' }}>
                 "If Indian IT firms don't mandate practical skills over GPA, we will face an acute
                 employability bottleneck within two placement seasons."
               </p>
@@ -432,17 +431,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   paddingTop: '0.75rem',
-                  borderTop: '1px solid rgba(244, 63, 94, 0.15)',
+                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
                 }}
               >
                 <div className="waveform-container">
-                  <div className="waveform-bar" />
-                  <div className="waveform-bar" />
-                  <div className="waveform-bar" />
-                  <div className="waveform-bar" />
-                  <div className="waveform-bar" />
+                  <div className="waveform-bar" style={{ background: '#10b981' }} />
+                  <div className="waveform-bar" style={{ background: '#10b981' }} />
+                  <div className="waveform-bar" style={{ background: '#10b981' }} />
+                  <div className="waveform-bar" style={{ background: '#10b981' }} />
+                  <div className="waveform-bar" style={{ background: '#10b981' }} />
                 </div>
-                <span style={{ fontSize: '11px', color: '#f43f5e', fontWeight: 600 }}>
+                <span style={{ fontSize: '11px', color: '#10b981', fontWeight: 600 }}>
                   ⚡ Barge-In Available (Stop AI immediately)
                 </span>
               </div>
@@ -451,12 +450,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
             {/* Card 2: Evidence-Backed Report Card */}
             <div
               style={{
-                background: 'rgba(30, 8, 16, 0.88)',
+                background: '#132219',
                 borderRadius: '16px',
                 padding: '1.5rem',
                 color: '#fff',
-                boxShadow: '0 12px 30px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(225, 29, 72, 0.15)',
-                border: '1px solid rgba(244, 63, 94, 0.22)',
+                boxShadow: '0 12px 30px -10px rgba(0, 0, 0, 0.5)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
               }}
             >
               <div
@@ -472,7 +471,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                     fontSize: '11px',
                     fontWeight: 700,
                     textTransform: 'uppercase',
-                    color: 'var(--accent-emerald)',
+                    color: '#879b8f',
                     letterSpacing: '0.05em',
                   }}
                 >
@@ -483,7 +482,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                     padding: '2px 8px',
                     borderRadius: '4px',
                     background: 'rgba(16, 185, 129, 0.15)',
-                    color: 'var(--accent-emerald)',
+                    color: '#10b981',
                     fontSize: '11px',
                     fontWeight: 600,
                   }}
@@ -493,9 +492,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
               </div>
 
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                <span style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--accent-gold)' }}>88</span>
-                <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>/ 100 Overall Score</span>
-                <span style={{ marginLeft: 'auto', fontSize: '12px', color: 'var(--accent-emerald)', fontWeight: 600 }}>
+                <span style={{ fontSize: '2.2rem', fontWeight: 800, color: '#fff' }}>88</span>
+                <span style={{ fontSize: '14px', color: '#879b8f' }}>/ 100 Overall Score</span>
+                <span style={{ marginLeft: 'auto', fontSize: '12px', color: '#10b981', fontWeight: 600 }}>
                   ▲ +14% vs baseline
                 </span>
               </div>
@@ -506,18 +505,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart, onDemoLogin }
                   borderRadius: '8px',
                   padding: '0.75rem',
                   marginBottom: '0.75rem',
-                  border: '1px solid rgba(244, 63, 94, 0.15)',
+                  border: '1px solid rgba(255,255,255,0.06)',
                 }}
               >
-                <div style={{ fontSize: '11px', color: 'var(--accent-gold)', fontWeight: 700, marginBottom: '2px' }}>
+                <div style={{ fontSize: '11px', color: '#f59e0b', fontWeight: 700, marginBottom: '2px' }}>
                   EXACT TRANSCRIPT QUOTE (Turn 3):
                 </div>
-                <div style={{ fontSize: '12px', fontStyle: 'italic', color: '#fff1f2' }}>
+                <div style={{ fontSize: '12px', fontStyle: 'italic', color: '#e2e8f0' }}>
                   "Building on Priya's point, companies test problem-solving, not rote syntax."
                 </div>
               </div>
 
-              <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
+              <p style={{ fontSize: '12px', color: '#879b8f', lineHeight: 1.4 }}>
                 <strong>Assessment:</strong> Outstanding conversational synthesis. Acknowledged previous
                 speaker by name and pivoted to placement evaluation criteria.
               </p>

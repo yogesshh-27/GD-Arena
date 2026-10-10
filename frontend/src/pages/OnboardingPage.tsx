@@ -110,24 +110,25 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
                 width: '28px',
                 height: '28px',
                 borderRadius: '50%',
-                background: step >= 1 ? 'linear-gradient(135deg, #e11d48, #be123c)' : 'var(--border-subtle)',
+                background: step >= 1 ? '#233a2d' : 'var(--border-subtle)',
+                border: step >= 1 ? '1px solid rgba(16, 185, 129, 0.4)' : 'none',
                 color: '#fff',
                 fontWeight: 700,
                 fontSize: '0.8rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: step >= 1 ? '0 0 10px rgba(225, 29, 72, 0.4)' : 'none',
+                boxShadow: step >= 1 ? '0 0 10px rgba(35, 58, 45, 0.5)' : 'none',
               }}
             >
               1
             </div>
-            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: step === 1 ? '#fff1f2' : 'var(--text-muted)' }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: step === 1 ? '#fff' : 'var(--text-muted)' }}>
               Academics
             </span>
           </div>
 
-          <div style={{ flex: 1, height: '2px', background: step === 2 ? 'var(--accent-rose)' : 'var(--border-subtle)', margin: '0 1rem' }} />
+          <div style={{ flex: 1, height: '2px', background: step === 2 ? 'var(--accent-emerald)' : 'var(--border-subtle)', margin: '0 1rem' }} />
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <div
@@ -135,19 +136,20 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
                 width: '28px',
                 height: '28px',
                 borderRadius: '50%',
-                background: step === 2 ? 'linear-gradient(135deg, #e11d48, #be123c)' : 'rgba(255, 255, 255, 0.1)',
+                background: step === 2 ? '#233a2d' : 'rgba(255, 255, 255, 0.1)',
+                border: step === 2 ? '1px solid rgba(16, 185, 129, 0.4)' : 'none',
                 color: step === 2 ? '#fff' : 'var(--text-muted)',
                 fontWeight: 700,
                 fontSize: '0.8rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: step === 2 ? '0 0 10px rgba(225, 29, 72, 0.4)' : 'none',
+                boxShadow: step === 2 ? '0 0 10px rgba(35, 58, 45, 0.5)' : 'none',
               }}
             >
               2
             </div>
-            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: step === 2 ? '#fff1f2' : 'var(--text-muted)' }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: step === 2 ? '#fff' : 'var(--text-muted)' }}>
               Communication
             </span>
           </div>
@@ -291,9 +293,9 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
                   marginTop: '1rem',
                   padding: '0.75rem',
                   borderRadius: 'var(--radius-sm)',
-                  border: 'none',
-                  background: 'linear-gradient(135deg, #e11d48, #be123c)',
-                  boxShadow: '0 4px 15px rgba(225, 29, 72, 0.35)',
+                  border: '1px solid #1a2c22',
+                  background: '#233a2d',
+                  boxShadow: '0 4px 15px rgba(35, 58, 45, 0.4)',
                   color: '#fff',
                   fontWeight: 700,
                   fontSize: '0.95rem',
@@ -412,9 +414,9 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) =>
                     flex: 1,
                     padding: '0.75rem',
                     borderRadius: 'var(--radius-sm)',
-                    border: 'none',
-                    background: 'linear-gradient(135deg, #e11d48, #be123c)',
-                    boxShadow: '0 4px 15px rgba(225, 29, 72, 0.35)',
+                    border: '1px solid #1a2c22',
+                    background: '#233a2d',
+                    boxShadow: '0 4px 15px rgba(35, 58, 45, 0.4)',
                     color: '#fff',
                     fontWeight: 700,
                     fontSize: '0.95rem',

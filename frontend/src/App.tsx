@@ -167,7 +167,7 @@ export const App: React.FC = () => {
         <div
           style={{
             padding: '0.45rem 1.5rem',
-            background: 'rgba(225, 29, 72, 0.08)',
+            background: 'rgba(35, 58, 45, 0.25)',
             borderBottom: '1px solid var(--border-subtle)',
             display: 'flex',
             alignItems: 'center',
@@ -188,7 +188,7 @@ export const App: React.FC = () => {
               }}
             />
             <span>
-              <strong style={{ color: 'var(--accent-gold)' }}>GD ARENA INTELLIGENCE ENGINE:</strong> Real-time voice turn-taking & barge-in active.
+              <strong style={{ color: 'var(--accent-emerald)' }}>GD ARENA INTELLIGENCE ENGINE:</strong> Real-time voice turn-taking & barge-in active.
             </span>
           </div>
           <span style={{ color: 'var(--text-secondary)', fontSize: '0.72rem' }}>
@@ -245,12 +245,12 @@ export const App: React.FC = () => {
               style={{
                 padding: '0.75rem 1.75rem',
                 borderRadius: 'var(--radius-sm)',
-                border: 'none',
-                background: 'linear-gradient(135deg, #e11d48, #be123c)',
+                border: '1px solid #1a2c22',
+                background: '#233a2d',
                 color: '#fff',
                 fontWeight: 700,
                 cursor: 'pointer',
-                boxShadow: '0 0 25px rgba(225, 29, 72, 0.35)',
+                boxShadow: '0 4px 15px rgba(35, 58, 45, 0.4)',
               }}
             >
               Start an AI Discussion to Generate Report

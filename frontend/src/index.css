@@ -4,36 +4,38 @@
   --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* 21st.dev Maroon Fintech Palette */
-  --bg-primary: #120307;
-  --bg-secondary: #1a050e;
-  --bg-card: rgba(30, 8, 16, 0.82);
-  --bg-card-hover: rgba(46, 12, 25, 0.92);
-  --bg-glass: rgba(26, 6, 14, 0.7);
-  --border-subtle: rgba(244, 63, 94, 0.16);
-  --border-highlight: rgba(244, 63, 94, 0.42);
+  /* 21st.dev Ledgerly Fintech Editorial & Forest Pine Palette */
+  --bg-primary: #0e1812;
+  --bg-secondary: #132219;
+  --bg-card: rgba(20, 35, 27, 0.88);
+  --bg-card-hover: rgba(27, 47, 36, 0.95);
+  --bg-glass: rgba(17, 30, 23, 0.75);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-highlight: rgba(35, 58, 45, 0.45);
 
-  --text-primary: #fff1f2;
-  --text-secondary: #fecdd3;
-  --text-muted: #fda4af;
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #879b8f;
 
-  --accent-rose: #f43f5e;
-  --accent-crimson: #e11d48;
-  --accent-ruby: #be123c;
-  --accent-gold: #fbbf24;
-  --accent-champagne: #fef08a;
-  --accent-cyan: #fbbf24;
-  --accent-blue: #e11d48;
-  --accent-indigo: #be123c;
+  --accent-forest: #233a2d;
+  --accent-pine: #1b2f24;
   --accent-emerald: #10b981;
+  --accent-gold: #d97706;
   --accent-amber: #f59e0b;
+  --accent-rose: #e11d48;
+  --accent-crimson: #233a2d;
+  --accent-ruby: #1b2f24;
+  --accent-champagne: #ede9df;
+  --accent-cyan: #10b981;
+  --accent-blue: #233a2d;
+  --accent-indigo: #1b2f24;
 
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 18px;
   --radius-xl: 24px;
 
-  --shadow-glow: 0 0 30px -5px rgba(244, 63, 94, 0.25);
+  --shadow-glow: 0 0 30px -5px rgba(35, 58, 45, 0.35);
   --shadow-card: 0 12px 36px -10px rgba(0, 0, 0, 0.6);
 }
 
@@ -52,9 +54,9 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(225, 29, 72, 0.16) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(159, 18, 57, 0.2) 0px, transparent 55%),
-    radial-gradient(at 50% 35%, rgba(244, 63, 94, 0.08) 0px, transparent 65%);
+    radial-gradient(at 0% 0%, rgba(35, 58, 45, 0.25) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(19, 34, 25, 0.35) 0px, transparent 55%),
+    radial-gradient(at 50% 35%, rgba(16, 185, 129, 0.06) 0px, transparent 65%);
   background-attachment: fixed;
 }
 
@@ -146,16 +148,16 @@ button, input, select, textarea {
 
 /* 21ST.DEV Editorial Architecture & 3D Tokens */
 :root {
-  --arena-frame: #120307;
-  --arena-paper: #1a050e;
-  --arena-ink: #fff1f2;
-  --arena-muted: #fda4af;
-  --arena-brand: #e11d48;
-  --arena-night: #120307;
-  --arena-card: rgba(30, 8, 16, 0.85);
-  --arena-cream: #f43f5e;
-  --arena-glow: #f43f5e;
-  --arena-gold: #fbbf24;
+  --arena-frame: #18261e;
+  --arena-paper: #ede9df;
+  --arena-ink: #121e17;
+  --arena-muted: #5a6860;
+  --arena-brand: #233a2d;
+  --arena-night: #111d16;
+  --arena-card: #15241c;
+  --arena-cream: #ede9df;
+  --arena-glow: #10b981;
+  --arena-gold: #d97706;
 }
 
 .arena-root-frame {
@@ -170,7 +172,7 @@ button, input, select, textarea {
   color: var(--arena-ink);
   overflow: hidden;
   position: relative;
-  box-shadow: 0 20px 40px -15px rgba(0,0,0,0.7);
+  box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
 }
 
 .arena-dark-section {
@@ -190,8 +192,8 @@ button, input, select, textarea {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  background: rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #e2ded4;
+  border: 1px solid #d0cbc0;
   color: var(--arena-ink);
 }
 
@@ -216,51 +218,51 @@ button, input, select, textarea {
 }
 
 .arena-btn--brand {
-  background: linear-gradient(135deg, #e11d48, #be123c);
-  color: #fff1f2;
-  border: 1px solid rgba(244, 63, 94, 0.45);
-  box-shadow: 0 4px 18px rgba(225, 29, 72, 0.35);
+  background: #233a2d;
+  color: #ffffff;
+  border: 1px solid #1a2c22;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 .arena-btn--brand:hover {
-  background: linear-gradient(135deg, #f43f5e, #e11d48);
-  border-color: rgba(244, 63, 94, 0.7);
-  box-shadow: 0 8px 28px rgba(244, 63, 94, 0.55);
+  background: #2c4938;
+  box-shadow: 0 6px 18px rgba(35, 58, 45, 0.35);
 }
 
 .arena-btn--white {
-  background: #fff1f2;
-  color: #120307;
-  border: 1px solid rgba(244, 63, 94, 0.2);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+  color: #121e17;
+  border: 1px solid #d5d0c3;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 .arena-btn--white:hover {
-  background: #ffe4e6;
-  box-shadow: 0 8px 20px -6px rgba(225, 29, 72, 0.3);
+  background: #f8f6f0;
+  border-color: #c4beaf;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .arena-btn--cyan {
-  background: linear-gradient(135deg, #e11d48, #be123c);
+  background: #233a2d;
   color: #fff;
-  box-shadow: 0 4px 15px rgba(225, 29, 72, 0.35);
+  box-shadow: 0 4px 15px rgba(35, 58, 45, 0.35);
 }
 .arena-btn--cyan:hover {
-  background: linear-gradient(135deg, #f43f5e, #e11d48);
-  box-shadow: 0 8px 25px rgba(244, 63, 94, 0.5);
+  background: #2c4938;
 }
 
-/* 3D Voice Disc */
+/* 3D Voice Disc Centerpiece - Champagne Satin Pebble */
 .arena-voice-disc {
   width: 140px;
   height: 140px;
   border-radius: 40px;
-  background: radial-gradient(circle at 35% 35%, #fef08a, #be123c 80%);
-  border: 1px solid rgba(254, 240, 138, 0.6);
+  background: radial-gradient(circle at 35% 35%, #fff6e5, #debfa0 70%, #9e7f5d 100%);
+  border: 1px solid rgba(222, 191, 160, 0.75);
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   transform: perspective(800px) rotateX(14deg);
-  animation: pulseDiscGlow 3s ease-in-out infinite, floatGentle 5s ease-in-out infinite;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.35), 0 0 25px rgba(222, 191, 160, 0.25);
+  animation: floatGentle 5s ease-in-out infinite;
 }
 
 /* Interactive Candidate Node Pill */
@@ -269,10 +271,10 @@ button, input, select, textarea {
   border-radius: 8px;
   font-size: 11px;
   font-weight: 700;
-  background: rgba(30, 8, 16, 0.9);
-  border: 1px solid rgba(244, 63, 94, 0.25);
-  color: #fff1f2;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  background: #e3ded3;
+  border: 1px solid #cac5b8;
+  color: #18261e;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -280,23 +282,23 @@ button, input, select, textarea {
 }
 .arena-node-chip:hover {
   transform: translateY(-2px);
-  border-color: rgba(244, 63, 94, 0.5);
-  box-shadow: 0 6px 14px rgba(225, 29, 72, 0.25);
+  border-color: #b0aba0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Bento Card Style */
 .arena-bento-card {
-  background: rgba(30, 8, 16, 0.85);
+  background: #15241c;
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(244, 63, 94, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 18px;
   padding: 1.75rem;
   transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .arena-bento-card:hover {
-  border-color: rgba(244, 63, 94, 0.45);
+  border-color: rgba(255, 255, 255, 0.18);
   transform: translateY(-3px);
-  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6), 0 0 25px rgba(244, 63, 94, 0.2);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.1);
 }
 
 /* Responsive adjustments */
