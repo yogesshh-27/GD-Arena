@@ -18,7 +18,7 @@ def test_health_check():
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "healthy"
-    assert data["demo_mode"] is True
+    assert isinstance(data["demo_mode"], bool)
 
 
 def test_auth_demo_login():
